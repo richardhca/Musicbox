@@ -72,15 +72,15 @@ a:hover {
 }
 
 #sidebar {
-	width: 145px;
+	width: 20%;
 	min-height: 75%;
 	background: #222222;
 }
 #togglebutton {
 	display: block;
 	position: relative;
-	width: 15px;
-	height: 15px;
+	width: 7px;
+	min-height: 75%;
 	float: right;
 	background: #666666;
 }
