@@ -13,23 +13,30 @@ a:hover {
 /* Component Styles */
 
 .navbar {
+	position: relative;
 	padding: 1rem 0;
-	background: rgba(0,0,0, .25);
+	background: rgba(0,0,0,0.5);
 }
 .lead {
 	margin-bottom: 2.5rem;
 }
 .main {
 	color: #fff;
-	min-height: calc(100vh - 34px);
 }
 .foot {
+	width: 85%;
 	font-size: .85rem;
-	padding: .5rem 0;
 	color: rgba(255,255,255, .6);
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* Modifier Styles */
+
+.navbar-nav .container {
+	display: flex;
+	width: 80%;
+}
 
 .nav-items .nav-link {
 	margin: 0 1rem;
@@ -37,11 +44,13 @@ a:hover {
 .navbar-brand {
 	margin: 0;
 }
+
 .navbar .nav-link,
 .navbar .btn {
 	text-transform: uppercase;
 	font-size: .95rem;
-	margin: 0.25em;
+	margin-left: 0.1em;
+	margin-right: 0.1em;
 }
 .list-group {
 	color: initial;
@@ -50,6 +59,50 @@ a:hover {
 	font-size: .88rem;
 	vertical-align: top;
 	margin: 3px 0 0 4px;
+}
+
+#panecontent {
+	display: flex;
+	position: relative;
+	width: 85%;
+	min-height: 85%;
+	margin-left: auto;
+	margin-right: auto;
+	background: silver;
+}
+
+#sidebar {
+	width: 145px;
+	min-height: 75%;
+	background: #222222;
+}
+#togglebutton {
+	display: block;
+	position: relative;
+	width: 15px;
+	height: 15px;
+	float: right;
+	background: #666666;
+}
+
+#screen {
+	flex: 1;
+	min-height: 85%;
+	margin-left: 1px;
+	overflow: hidden;
+	background: -webkit-linear-gradient(left, silver , #333333);
+	background: -o-linear-gradient(right, silver, #333333);
+	background: -moz-linear-gradient(right, silver, #333333);
+	background: linear-gradient(to right, silver, #333333);
+}
+
+#player {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 4em;
+	bottom: 0;
+	background: rgba(51, 51, 51, 0.75);
 }
 
 /* Button Styles */
@@ -68,10 +121,10 @@ a:hover {
 }
 .btn-light {
 	color: rgba(255,255,255, .75);
-	background: rgba(255,255,255, .12);
+	background: rgba(255,255,255,0.12);
 }
 .btn-light:hover {
-	background: rgba(255,255,255, .2);	
+	background: rgba(255,255,255,0.2);	
 }
 .active,
 .btn {
@@ -93,7 +146,7 @@ a:hover {
 .avatar {
 	width: 35px;
 	margin-right: 18px;
-	border: solid 2px rgba(255,255,255, .75);
+	border: solid 2px rgba(255,255,255,0.75);
 }
 
 .options {
@@ -106,7 +159,7 @@ a:hover {
 	font-size: 1.25rem;
 	cursor: pointer;
 	margin-left: 1rem;
-	color: rgba(0,0,0, .35);
+	color: rgba(0,0,0,0.35);
 }
 .options .material-icons:hover {
 	color: initial;
@@ -118,43 +171,41 @@ a:hover {
 
 /* Media Queries */
 
-@media (min-width: 0) and (max-width: 47em) {
+@media (min-width: 0) and (max-width: 767px) {
 	.navbar {
 		background: #1d2a33;
 	}
-	.nav-items .nav-item {
-		float: none;
+	
+	.navbar-nav .container {
+		position: relative;
+		width: auto;
 	}
-	.nav-items .nav-link  {
-		padding: .65rem 0;
-		display: block;
+	.navbar-brand {
+		position: absolute;
+		left: 0;
+		margin-left: 40px;
 	}
-	.nav-items {
-		padding: 1rem 0;
-		clear: left;
+	.nav-items.clearfix {
+		position: inline-block;
+		margin-left: auto;
+		margin-right: auto;
 	}
-	.navbar .btn {
-		margin-left: 1rem;
-	}
-	.main {
-		padding-top: 6rem;
+	.navbar-btn {
+		position: absolute;
+		right: 0;
 	}
 }
 
-@media (min-width: 48em) { 
+@media (min-width: 768px) {
 	.navbar {
 		min-height: 70px;
 	}
 	.navbar-nav .container {
 		display: -webkit-flex;
-		display: flex;
 	}
 	.nav-items {
 		margin-right: auto;
 		margin-left: auto;
-	}
-	.main {
-		padding-top: 8rem;
 	}
 }
 
