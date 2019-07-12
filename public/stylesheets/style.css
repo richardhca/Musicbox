@@ -94,12 +94,13 @@ a:hover {
 	margin: 3px 0 0 4px;
 }
 
-#panecontent {
+#panecontent { /* windows minimum size: 680x480 */
 	display: flex;
 	position: relative;
 	width: 85%;
-	min-width: 320px; /* minimum mobile width */
-	min-height: 85%;
+	height: 85%;
+	min-width: 640px;
+	min-height: 480px;
 	margin-left: auto;
 	margin-right: auto;
 	background: silver;
@@ -206,15 +207,16 @@ a:hover {
 }
 
 .list-group {
-	width: 90%;
+	width: 125px;
 	margin: auto;
 }
 a.list-group-item {
 	color: #fff;
 	font-size: 14pt;
-	padding: 10px;
+	padding: 5px;
 	white-space: nowrap;
 	cursor: pointer;
+	border: none;
 	background: #222222;
 }
 a.list-group-item:hover {
