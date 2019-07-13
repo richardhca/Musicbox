@@ -11,8 +11,9 @@ const app = express();
 
 
 // mongodb connection
-mongoose.connect(
-    'mongodb+srv://arlenx:qwertyu8@cluster0-0dxo8.azure.mongodb.net/musicbox?retryWrites=true&w=majority');
+const mongoDB = 'mongodb+srv://arlenx:qwertyu8@cluster0-0dxo8.azure.mongodb.net/musicbox?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, {useNewUrlParser: true});
+mongoose.set('useCreateIndex', true);
 const db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));

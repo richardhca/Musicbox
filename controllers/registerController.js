@@ -72,6 +72,7 @@ exports.register_post = [
         // Create new user
         User.create(newUserData, function (mongooseError, user) {
             if (mongooseError) {
+                console.log(mongooseError);
                 // If one of the unique fields already exists.
                 if (mongooseError.code === 11000) {
                     var errors;
