@@ -96,7 +96,7 @@ exports.register_post = [
             }
             else {
                 // If all goes well.
-                req.session.userId = user._id;
+                req.session.user_id = user._id;
                 req.session.isLoggedIn = true;
                 req.session.userConfirmed = user.confirmed;
                 res.redirect('/');
