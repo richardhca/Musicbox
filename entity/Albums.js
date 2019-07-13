@@ -4,30 +4,29 @@ module.exports = new EntitySchema({
   name: "Albums",
   columns: {
     album_id: {
-      type: Number,
+      type: "integer",
       primary: true,
       generated: "increment"
     },
     title: {
-      type: String,
-      length: 255,
+      type: "character varying",
       nullable: false
     },
     published_on: {
-      type: Date,
+      type: "date",
       nullable: true
     },
     language: {
-      type: String,
+      type: "character varying",
       length: 30,
       nullable: true
     },
     genres: {
-      type: String,
+      type: "character varying",
       nullable: true
     },
     cover: {
-      type: String,
+      type: "character varying",
       length: 255,
       nullable: true
     },

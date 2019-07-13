@@ -5,18 +5,16 @@ module.exports = new EntitySchema({
   name: "Playlist_to_music",
   columns: {
     id: {
-      type: Number,
+      type: "integer",
       primary: true,
       generated: "increment"
     },
     playlist_id: {
-      type: String,
-      unique: true,
-      length: 255,
+      type: "character varying",
       nullable: false
     },
     music_id: {
-      type: Number
+      type: "integer"
     },
     rank: {
       type: "double precision"

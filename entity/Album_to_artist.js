@@ -4,16 +4,16 @@ module.exports = new EntitySchema({
   name: "Album_to_artist",
   columns: {
     id: {
-      type: Number,
+      type: "integer",
       primary: true,
       generated: "increment"
     },
     album_id: {
-      type: Number,
+      type: "integer",
       nullable: false
     },
     artist_id: {
-      type: Number,
+      type: "integer",
       nullable: false
     },
   }

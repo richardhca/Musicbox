@@ -5,47 +5,47 @@ module.exports = new EntitySchema({
   name: "Users",
   columns: {
     id: {
-      type: String,
+      type: "character varying",
       primary: true,
       generated: "uuid"
     },
     email: {
-      type: String,
+      type: "character varying",
       unique: true,
       length: 255,
       nullable: false,
     },
     password: {
-      type: String,
+      type: "character varying",
       nullable: false
     },
     username: {
-      type: String,
+      type: "character varying",
       unique: true,
       nullable: false,
       length: 35
     },
     first_name: {
-      type: String,
+      type: "character varying",
       length: 35,
       nullable: true
     },
     last_name: {
-      type: String,
+      type: "character varying",
       length: 35,
       nullable: true
     },
     date_of_birth: {
-      type: Date,
+      type: "date",
       nullable: false
     },
     user_type: {
-      type: String,
+      type: "character varying",
       enum: ['user', 'admin'],
       default: 'user'
     },
     confirmed: {
-      type: Boolean,
+      type: "boolean",
       default: false
     },
   }

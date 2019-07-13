@@ -4,48 +4,49 @@ module.exports = new EntitySchema({
   name: "Musics",
   columns: {
     id: {
-      type: Number,
+      type: "integer",
       primary: true,
       generated: "increment"
     },
     title: {
-      type: String,
-      unique: true,
-      length: 255,
+      type: "character varying",
       nullable: false
     },
     artist_id: {
-      type: Number
+      type: "integer",
+      nullable: false
     },
     album_id: {
-      type: Number
+      type: "integer",
+      nullable: false
     },
     published_on: {
-      type: Date
+      type: "date",
+      nullable: true
     },
     language: {
-      type: String,
+      type: "character varying",
       length: 35,
       nullable: true
     },
     uploaded_on: {
-      type: Date,
+      type: "timestamp",
       nullable: false
     },
     owner_id: {
-      type: String,
+      type: "character varying",
       nullable: false
     },
     is_public: {
-      type: Boolean,
+      type: "boolean",
       default: false
     },
     genres: {
-      type: String,
+      type: "character varying",
       nullable: true
     },
     lyrics: {
-      type: String,
+      type: "character varying",
       nullable: true
     },
   }

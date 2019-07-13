@@ -4,23 +4,20 @@ module.exports = new EntitySchema({
   name: "Playlists",
   columns: {
     playlist_id: {
-      type: String,
+      type: "character varying",
       primary: true,
       generated: "uuid"
     },
     owner_id: {
-      type: String,
-      unique: true,
-      length: 255,
+      type: "character varying",
       nullable: false
     },
     name: {
-      type: String,
-      length: 255,
+      type: "character varying",
       nullable: false
     },
     is_public: {
-      type: Boolean,
+      type: "boolean",
       default: false
     },
   }

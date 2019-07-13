@@ -4,38 +4,38 @@ module.exports = new EntitySchema({
   name: "Artists",
   columns: {
     artist_id: {
-      type: Number,
+      type: "integer",
       primary: true,
       generated: "increment"
     },
     artist_name: {
-      type: String,
+      type: "character varying",
       length: 70,
       nullable: false
     },
     country_origin: {
-      type: String,
+      type: "character varying",
       length: 35,
       nullable: true
-
     },
     established_on: {
-      type: Date
+      type: "date",
+      nullable: true
     },
     disbanded_on: {
-      type: Date
+      type: "date",
+      nullable: true
     },
     is_group: {
-      type: Boolean,
+      type: "boolean",
       default: false
     },
     company: {
-      type: String,
-      length: 255,
+      type: "character varying",
       nullable: true
     },
     introduction: {
-      type: String,
+      type: "character varying",
       length: 255,
       nullable: true
     }
