@@ -12,6 +12,13 @@ const createConnection = async function () {
     logging: false,
     entities: [
       require("./entity/Users"),
+      require("./entity/Albums"),
+      require("./entity/Album_to_artist"),
+      require("./entity/Artists"),
+      require("./entity/Musics"),
+      require("./entity/Playlists"),
+      require("./entity/Playlist_to_music"),
+
     ]
   }).then(async function (connection) {
     const db = connection.options.database;
