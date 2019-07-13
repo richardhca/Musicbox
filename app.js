@@ -6,29 +6,28 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 
-
-const indexRouter = require('./routes/index');
-const userRouter = require('./routes/user');
-const registerRoute = require('./routes/register');
-const loginRoute = require('./routes/login');
-const logoutRoute = require('./routes/logout');
-
 // Init app
 const app = express();
 
 
 // mongodb connection
-mongoose.connect("mongodb://localhost:27017/musicbox");
+mongoose.connect(
+    'mongodb+srv://arlenx:qwertyu8@cluster0-0dxo8.azure.mongodb.net/musicbox?retryWrites=true&w=majority');
 const db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
 
 // use express-session
 app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: false,
-}));
+                    secret: 'secret',
+                    resave: true,
+                    saveUninitialized: false,
+                }
+        )
+);
+
+const userMiddleware = require('./middlewares/sessionMiddleware');
+app.use(userMiddleware.isLoggedIn);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,33 +38,40 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function (req, res, next) {
-  // Available for all view templates
-  res.locals.isLoggedIn = req.session && req.session.userId;
-  next();
-});
+// app.use(function (req, res, next) {
+//     // Available for all view templates
+//     res.locals.isLoggedIn = req.session && req.session.userId;
+//     next();
+// });
+
+const indexRouter = require('./routes/index');
+// const userRouter = require('./routes/user');
+const registerRoute = require('./routes/register');
+const loginRoute = require('./routes/login');
+const logoutRoute = require('./routes/logout');
+
 
 app.use('/', indexRouter);
-app.use('/user', userRouter);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
+// app.use('/user', userRouter);
 
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

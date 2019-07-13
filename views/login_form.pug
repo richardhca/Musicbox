@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    each s in script
+        script(src=s)
     // - custom css (see in public/stylesheets/styly.css
         .login-form-col
         .btn-style
@@ -33,6 +35,12 @@ block content
                                 label.form-check-label.text-white(for='password_checkbox') Show Password
                         .col-sm-7.p-0
                             button.btn.btn-outline-primary.btn-block.btn-style(type='submit') LOG IN
+
+                if errors
+                    ul.mt-2
+                        for error in errors
+                            li.text-danger!= error.msg
+                    
                 hr.mt-5.mr-5
                 h5.text-white.text-center.font-weight-bold.mb-4 Don't have an account?
 

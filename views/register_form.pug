@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    each s in script
+        script(src=s)
     // - custom css (see in public/stylesheets/styly.css
             .one_line_form
             .login-form-col
@@ -31,13 +33,32 @@ block content
                             required, name='date_of_birth'
                             value=(undefined === user ? '' : user.date_of_birth))
                     .form-group
-                        input#pw.form-control(type='password' required name='password'
+                        input#password.form-control(type='password' required name='password'
                             placeholder="Password (8 characters minimum)"
                             maxlength=35 minlength=8)
                     .form-group
-                        input#pw2.form-control(type='password'
+                        input#password_comfirm.form-control(type='password'
                             required, name='confirmPassword'
                             placeholder="Confirm Password")
 
-                    button.btn.btn-outline-primary.btn-block.btn-style(type='submit') SIGN UP
+                    .row.justify-content-center.align-items-center.m-0.login-form-col
+                        .col-sm-5.p-0
+                            .form-check-inline
+                                input#password_checkbox.form-check-input(type='checkbox'
+                                    onclick="show_hidden_password()")
+                                label.form-check-label.text-white(for='password_checkbox') Show Password
+                        .col-sm-7.p-0
+                            button.btn.btn-outline-primary.btn-block.btn-style(type='submit') SIGN UP
+
+                if errors
+                    ul.mt-2
+                        for error in errors
+                            li.text-danger!= error.msg
+
+                hr.mt-3.mb-3
+
+                p.d-inline.mr-1.text-white Already have an account?
+                a.d-inline.text-primary(href="/login") Log in
+
+
 
