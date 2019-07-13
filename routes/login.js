@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+const connection = require('typeorm').getConnection();
+const bcrypt = require('bcrypt');
 var middleware = require('../middleware/index');
-const {body, validationResult} = require('express-validator/check');
-const {sanitizeBody} = require('express-validator/filter');
+const {body, validationResult} = require('express-validator');
+const {sanitizeBody} = require('express-validator');
 
 router.get('/', [
   // Redirect to home page if already logged in.
@@ -30,8 +31,8 @@ router.post('/', [
   sanitizeBody('password').escape(),
 
   // Handle request.
-  function (req, res, next) {
-    const errors = validationResult(req);
+  async function (req, res, next) {
+    var errors = validationResult(req);
 
     // If form fields have validation errors.
     if (!errors.isEmpty()) {
@@ -39,15 +40,27 @@ router.post('/', [
     }
 
     // Authenticate user and create session if successful.
-    User.authenticate(req.body.username, req.body.password, function (errors, user) {
-      if (errors) {
-        return res.render('login', {title: 'Login', errors: errors});
-      } else {
-        req.session.userId = user._id;
+    const usersRepo = connection.getRepository('Users');
+    const username = req.body.username; // username can be email or username here, since users can login w/ both
+    var where = {};
+    if (username.includes('@')) {
+      where = {email: username};
+    } else {
+      where = {username: username};
+    }
+    const user = await usersRepo.findOne({where: where});
+
+    if (user) {
+      const correctPassword = await bcrypt.compare(req.body.password, user.password);
+      if (correctPassword) {
+        // If correct, assign session and redirect to home page.
+        req.session.userId = user.id;
         req.session.userConfirmed = user.confirmed;
         return res.redirect('/');
       }
-    });
+    }
+
+    return res.render('login', {title: 'Login', errors: [{msg: 'Incorrect username or password.'}]});
   }
 ]);
 

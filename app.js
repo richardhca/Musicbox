@@ -3,9 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose');
 const session = require('express-session');
-
+// Create database connection by running this script
+require('./create-connection');
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
@@ -16,12 +16,6 @@ const logoutRoute = require('./routes/logout');
 // Init app
 const app = express();
 
-
-// mongodb connection
-mongoose.connect("mongodb://localhost:27017/musicbox");
-const db = mongoose.connection;
-// mongo error
-db.on('error', console.error.bind(console, 'connection error:'));
 
 // use express-session
 app.use(session({

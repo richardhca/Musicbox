@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
-const {body, validationResult} = require('express-validator/check');
-const {sanitizeBody} = require('express-validator/filter');
+const {body, validationResult} = require('express-validator');
+const {sanitizeBody} = require('express-validator');
 var middleware = require('../middleware/index');
+const connection = require('typeorm').getConnection();
+const bcrypt = require('bcrypt');
 
 
 router.get('/', [
@@ -61,7 +62,7 @@ router.post('/', [
     var newUserData = {
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, 10),
       date_of_birth: req.body.date_of_birth,
     };
 
@@ -70,29 +71,30 @@ router.post('/', [
       return res.render('register', {title: 'Register', user: newUserData, errors: errors.array()});
     }
 
-    // Create new user
-    User.create(newUserData, function (mongooseError, user) {
-      if (mongooseError) {
+    const userRepository = connection.getRepository("Users");
+    userRepository.save(newUserData)
+      .then(function (user) {
+        // If all goes well.
+        req.session.userId = user.id;
+        req.session.userConfirmed = user.confirmed;
+        res.redirect('/');
+      })
+      .catch(function (error) {
         // If one of the unique fields already exists.
-        if (mongooseError.code === 11000) {
-          if (mongooseError.errmsg.includes('email')) {
+        // Error code "23505" means duplicate unique key constraint was violated.
+        if (error.code === "23505") {
+          if (error.detail.includes('email')) {
             errMessage = `Email address "${req.body.email}" is already taken.`;
           } else {
             errMessage = `Username "${req.body.username}" is already taken.`;
           }
           return res.render('register', {title: 'Register', user: newUserData, errors: [{msg: errMessage}]});
         }
-        // Other database errors are handled here.
+        // Other database errors are just handled by the error handler middleware in app.js
         var err = new Error();
         err.status = 503;
         return next(err);
-      } else {
-        // If all goes well.
-        req.session.userId = user._id;
-        req.session.userConfirmed = user.confirmed;
-        res.redirect('/');
-      }
-    });
+      });
   }
 ]);
 
