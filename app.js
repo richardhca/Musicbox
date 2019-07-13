@@ -16,7 +16,6 @@ const logoutRoute = require('./routes/logout');
 // Init app
 const app = express();
 
-
 // mongodb connection
 mongoose.connect("mongodb://localhost:27017/musicbox");
 const db = mongoose.connection;
@@ -39,6 +38,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/aplayer', express.static(path.join(__dirname, 'node_modules/aplayer/dist')));
+
 app.use(function (req, res, next) {
   // Available for all view templates
   res.locals.isLoggedIn = req.session && req.session.userId;
