@@ -11,7 +11,6 @@ const createConnection = async function () {
     synchronize: true,
     logging: false,
     entities: [
-      require("./entity/Post"),
       require("./entity/Users"),
     ]
   }).then(async function (connection) {
