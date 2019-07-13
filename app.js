@@ -47,8 +47,8 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/register', registerRoute);
 app.use('/login', loginRoute);
+app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
 
 

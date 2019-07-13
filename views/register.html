@@ -1,0 +1,55 @@
+<!DOCTYPE html(lang='en')>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>MusicBox</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
+  <body>
+    <!--include navbar-->
+    <!-- - custom css (see in public/stylesheets/styly.css
+    .one_line_form
+    .login-form-col
+    .btn-style
+    .icn-style
+    .icn-text-style
+    -->
+    <div class="container-fluid h-100 p-0">
+      <div class="row justify-content-center align-items-center p-0 mt-3"><i class="material-icons mr-2 icn-style">library_music</i>
+        <p class="text-white m-0 icn-text-style">MusicBox</p>
+      </div>
+      <hr/>
+      <div class="row justify-content-center align-items-center p-0 mx-auto login-form-col">
+        <div class="col mx-auto p-0">
+          <h5 class="text-white text-center font-weight-bold mb-4">Sign up with your username.</h5>
+          <form method="post" action="">
+            <div class="form-group">
+              <input class="form-control" id="username" type="text" required="required" name="username" maxlength="25" minlength="3" placeholder="Username" value=""/>
+            </div>
+            <div class="form-group">
+              <input class="form-control" id="email" type="email" required="required" name="email" placeholder="Email" value=""/>
+            </div>
+            <div class="form-group">
+              <label class="text-white" for="date_of_birth">Date of birth:</label>
+              <input class="form-control" id="date_of_birth" type="date" required="required" name="date_of_birth" value=""/>
+            </div>
+            <div class="form-group">
+              <input class="form-control" id="pw" type="password" required="required" name="password" placeholder="Password (8 characters minimum)" maxlength="35" minlength="8"/>
+            </div>
+            <div class="form-group">
+              <input class="form-control" id="pw2" type="password" required="required" name="confirmPassword" placeholder="Confirm Password"/>
+            </div>
+            <button class="btn btn-outline-primary btn-block btn-style" type="submit">SIGN UP</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')-->
+    <!--script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js', integrity='sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7', crossorigin='anonymous')-->
+  </body>
+</head>

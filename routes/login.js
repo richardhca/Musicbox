@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../models/user');
-var middleware = require('../middleware/index');
+const express = require('express');
+const router = express.Router();
+const User = require('../models/user');
+const middleware = require('../middleware/index');
 const {body, validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
 
@@ -11,7 +11,7 @@ router.get('/', [
 
   // Handle request.
   function (req, res, next) {
-    res.render('login', {title: 'Login'});
+    res.render('login_form', {title: 'Login'});
   }
 ]);
 

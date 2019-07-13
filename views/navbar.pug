@@ -1,17 +1,17 @@
 nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
-	button.navbar-toggler.hidden-md-up.pull-xs-right(type='button', data-toggle='collapse', data-target='#navbar') &#x2630;
-	#navbar.navbar-nav.collapse.navbar-toggleable-sm
-		.container
-			a.navbar-brand(href='/')
-				i.icn-logo.material-icons library_music
-				| MusicBox
-			.nav-items.clearfix
-				a.nav-item.nav-link(href='/user/library') Library
-				if isLoggedIn
-					a.nav-item.nav-link(href='/user/profile') Profile
-			.navbar-btn
-				if !isLoggedIn
-					a#loginbtn.btn.btn-info Login
-					a#signupbtn.btn.btn-secondary Sign Up
-				else
-					a.btn.btn-danger.pull-md-right(href='/logout') Logout
+    button.navbar-toggler.hidden-md-up.pull-xs-right(type='button', data-toggle='collapse', data-target='#navbar') &#x2630;
+    #navbar.navbar-nav.collapse.navbar-toggleable-sm
+        .container
+            a.navbar-brand(href='/')
+                i.icn-logo.material-icons library_music
+                | MusicBox
+            .nav-items.clearfix
+                a.nav-item.nav-link(href='/user/library') Library
+                if isLoggedIn
+                    a.nav-item.nav-link(href='/user/profile') Profile
+            if !isLoggedIn
+                a.btn.btn-info.pull-md-right(href='/login') Login
+                a.btn.btn-secondary.pull-md-right(href='/register') Sign Up
+            else
+                a.btn.btn-danger.pull-md-right(href='/logout') Logout
+

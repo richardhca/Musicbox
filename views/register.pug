@@ -1,27 +1,43 @@
-#register-form
-	h1 Sign Up
-	hr
-	if errors
-		ul
-			for error in errors
-				li.alert.alert-danger!= error.msg
-	
-	// register form
-	form(method='POST' action='/register')
-		div.form-group
-			label(for='username') Username:
-			input#name.form-control(type='text', required, name='username', maxlength=25, minlength=3, value=(undefined === user ? '' : user.username))
-		div.form-group
-			label(for='email') Email:
-			input#email.form-control(type='email', required, name='email', value=(undefined === user ? '' : user.email))
-		div.form-group
-			label(for='date_of_birth') Date of birth:
-			input#date_of_birth.form-control(type='date', required, name='date_of_birth', value=(undefined === user ? '' : user.date_of_birth))
-		div.form-group
-			label(for='pw') Password (8 characters minimum):
-			input#pw.form-control(type='password', required, name='password', maxlength=35, minlength=8)
-		div.form-group
-			label(for='pw2') Confirm Password:
-			input#pw2.form-control(type='password', required, name='confirmPassword')
-		button.btn.btn-primary(type='submit') Sign up
+extends layout
+
+block content
+    // - custom css (see in public/stylesheets/styly.css
+            .one_line_form
+            .login-form-col
+            .btn-style
+            .icn-style
+            .icn-text-style
+    .container-fluid.h-100.p-0
+        .row.justify-content-center.align-items-center.p-0.mt-3
+            i.material-icons.mr-2.icn-style library_music
+            p.text-white.m-0.icn-text-style MusicBox
+        hr
+        .row.justify-content-center.align-items-center.p-0.mx-auto.login-form-col
+            .col.mx-auto.p-0
+                h5.text-white.text-center.font-weight-bold.mb-4 Sign up with your username.
+                form(method='post', action='')
+                    .form-group
+                        input#username.form-control(type='text'
+                            required name='username' maxlength=25 minlength=3
+                            placeholder="Username"
+                            value=(undefined === user ? '' : user.username))
+                    .form-group
+                        input#email.form-control(type='email' required name='email'
+                            placeholder="Email"
+                            value=(undefined === user ? '' : user.email))
+                    .form-group
+                        label.text-white(for='date_of_birth') Date of birth:
+                        input#date_of_birth.form-control(type='date'
+                            required, name='date_of_birth'
+                            value=(undefined === user ? '' : user.date_of_birth))
+                    .form-group
+                        input#pw.form-control(type='password' required name='password'
+                            placeholder="Password (8 characters minimum)"
+                            maxlength=35 minlength=8)
+                    .form-group
+                        input#pw2.form-control(type='password'
+                            required, name='confirmPassword'
+                            placeholder="Confirm Password")
+
+                    button.btn.btn-outline-primary.btn-block.btn-style(type='submit') SIGN UP
 
