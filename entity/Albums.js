@@ -27,7 +27,7 @@ module.exports = new EntitySchema({
     },
     cover: {
       type: "character varying",
-      length: 255,
+      length: 4096,
       nullable: true
     },
   }

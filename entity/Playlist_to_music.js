@@ -14,10 +14,13 @@ module.exports = new EntitySchema({
       nullable: false
     },
     music_id: {
-      type: "integer"
+      type: "integer",
+      nullable: false
+
     },
     rank: {
-      type: "double precision"
+      type: "double precision",
+      nullable: false
     }
   }
 });

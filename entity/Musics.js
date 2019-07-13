@@ -49,5 +49,10 @@ module.exports = new EntitySchema({
       type: "character varying",
       nullable: true
     },
+    file_location: {
+      type: "character varying",
+      length: 4096,
+      nullable: false
+    },
   }
 });

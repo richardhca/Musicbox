@@ -13,7 +13,7 @@ module.exports = new EntitySchema({
       length: 70,
       nullable: false
     },
-    country_origin: {
+    country_of_origin: {
       type: "character varying",
       length: 35,
       nullable: true
@@ -36,7 +36,6 @@ module.exports = new EntitySchema({
     },
     introduction: {
       type: "character varying",
-      length: 255,
       nullable: true
     }
   }
