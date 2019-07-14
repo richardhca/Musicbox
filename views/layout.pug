@@ -5,18 +5,13 @@ head
   meta(http-equiv='x-ua-compatible', content='ie=edge')
   title MusicBox
   link(rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+  link(rel='stylesheet', href='/aplayer/Aplayer.min.css')
+  link(rel='stylesheet', href='/stylesheets/style.css')
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
   script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
-  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-  link(rel='stylesheet', href='/stylesheets/style.css')
+  script(src='/aplayer/Aplayer.min.js')
 
   body
-    //include navbar
-    isLoggedIn
-    block content
-
-    //script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
-    //script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js', integrity='sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7', crossorigin='anonymous')
-
-
+      block content

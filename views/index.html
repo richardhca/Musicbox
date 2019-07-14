@@ -5,16 +5,38 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge"/>
   <title>MusicBox</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="stylesheet" href="/aplayer/Aplayer.min.css"/>
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link rel="stylesheet" href="/stylesheets/style.css"/>
+  <script src="/aplayer/Aplayer.min.js"></script>
   <body>
-    <!--include navbar-->
-    <isLoggedIn></isLoggedIn>
-    <div class="list-group"><a class="list-group-item" href="#"><i class="material-icons">home</i> Home</a><a class="list-group-item" href="#"><i class="material-icons">search</i> Search</a><a class="list-group-item" href="#"><i class="material-icons">star</i> Favorite</a><a class="list-group-item" href="#"><i class="material-icons">queue_music</i> Playlist</a><a class="list-group-item" href="/logout">Logout</a></div>
-    <!--script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')-->
-    <!--script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js', integrity='sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7', crossorigin='anonymous')-->
+    <div class="main">
+      <div id="panecontent">
+        <div id="sidebar">
+          <div class="userinfo">
+            <div class="icn-avatar"><img src="/icons/avatars/sparta.jpg" width="100%" height="100%"/></div>
+            <div class="username" style="width: 100%;">
+              <p style="white-space: nowrap;">Leonardo II</p>
+            </div>
+          </div>
+          <hr/>
+          <div class="list-group"><a class="list-group-item" href="#"><i class="material-icons">home</i> Home</a><a class="list-group-item" href="#"><i class="material-icons">search</i> Search</a><a class="list-group-item" href="#"><i class="material-icons">star</i> Favorite</a><a class="list-group-item" href="#"><i class="material-icons">queue_music</i> Playlist</a><a class="list-group-item" href="/logout">Logout</a></div>
+        </div>
+        <div id="togglebutton"></div>
+        <div id="screen"></div>
+        <div id="player">
+          <div id="aplayer"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/javascripts/dynamicstyle.js"></script>
+    <script type="text/javascript" src="/javascripts/aplayer.js">
+      <div class="foot">
+        <p>© Group 15 - CMPT470 Summmer 2019</p>
+      </div>
+    </script>
   </body>
 </head>
