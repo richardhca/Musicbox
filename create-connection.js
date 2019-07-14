@@ -7,7 +7,7 @@ const createConnection = async function () {
     port: 5432,
     username: "postgres",
     password: "password",
-    database: "test-db",
+    database: "musicbox-db",
     synchronize: true,
     logging: false,
     entities: [
