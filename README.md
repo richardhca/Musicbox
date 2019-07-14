@@ -21,11 +21,12 @@ mongoose.connect("mongodb://localhost:27017/musicbox");
 test branch
 
 Docker:
-    Build:
-    docker build -t yiminz/musicbox
-    Check images list:
-    docker images
-    It should be in the docker images list if build successfully.
-    Run the image:
-    docker run yiminz/musicbox
-    Go to http://localhost:8080
+
+Build:
+docker build -t yiminz/musicbox
+Check images list:
+docker images
+It should be in the docker images list if build successfully.
+Run the image:
+docker run yiminz/musicbox
+Go to http://localhost:8080
