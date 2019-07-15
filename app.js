@@ -17,17 +17,13 @@ const db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
 
+
 // use express-session
 app.use(session({
                     secret: 'secret',
                     resave: true,
                     saveUninitialized: false,
-                }
-        )
-);
-
-const userMiddleware = require('./middlewares/sessionMiddleware');
-app.use(userMiddleware.isLoggedIn);
+                }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,12 +36,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/aplayer',
         express.static(path.join(__dirname, 'node_modules/aplayer/dist')));
-
-// app.use(function (req, res, next) {
-//     // Available for all view templates
-//     res.locals.isLoggedIn = req.session && req.session.userId;
-//     next();
-// });
+app.use('/fontawesome', express.static(
+    path.join(__dirname + '/node_modules/@fortawesome/fontawesome-free/')));
 
 const indexRouter = require('./routes/index');
 // const userRouter = require('./routes/user');
@@ -54,7 +46,6 @@ const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 const songRoute = require('./routes/song');
 const albumRoute = require('./routes/album');
-
 
 app.use('/', indexRouter);
 app.use('/login', loginRoute);
