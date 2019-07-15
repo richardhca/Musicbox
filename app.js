@@ -9,7 +9,6 @@ const session = require('express-session');
 // Init app
 const app = express();
 
-
 // mongodb connection
 const mongoDB = 'mongodb+srv://arlenx:qwertyu8@cluster0-0dxo8.azure.mongodb.net/musicbox?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser: true});
