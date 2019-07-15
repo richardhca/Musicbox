@@ -17,14 +17,14 @@ module.exports = new EntitySchema({
     playlist_id: {
       target: "Playlists",
       type: "many-to-one",
-      joinTable: "playlists",
+      joinTable: true,
       joinColumn: {name: "playlist_id", referencedColumnName: "playlist_id"},
       cascade: true
     },
     music_id: {
       target: "Musics",
       type: "many-to-one",
-      joinTable: "musics",
+      joinTable: true,
       joinColumn: {name: "music_id", referencedColumnName: "music_id"},
       cascade: true
     },

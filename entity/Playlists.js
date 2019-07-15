@@ -25,7 +25,7 @@ module.exports = new EntitySchema({
     owner_id: {
       target: "Users",
       type: "many-to-one",
-      joinTable: "users",
+      joinTable: true,
       joinColumn: {name: "owner_id", referencedColumnName: "id"},
       cascade: true,
       onUpdate: "CASCADE",

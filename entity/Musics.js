@@ -51,7 +51,7 @@ module.exports = new EntitySchema({
     artist_id: {
       target: "Artists",
       type: "many-to-one",
-      joinTable: "artists",
+      joinTable: true,
       joinColumn: {name: "artist_id", referencedColumnName: "artist_id"},
       cascade: true,
       onUpdate: "CASCADE",
@@ -60,7 +60,7 @@ module.exports = new EntitySchema({
     album_id: {
       target: "Albums",
       type: "many-to-one",
-      joinTable: "albums",
+      joinTable: true,
       joinColumn: {name: "album_id", referencedColumnName: "album_id"},
       cascade: true,
       onUpdate: "CASCADE",
@@ -69,7 +69,7 @@ module.exports = new EntitySchema({
     owner_id: {
       target: "Users",
       type: "many-to-one",
-      joinTable: "users",
+      joinTable: true,
       joinColumn: {name: "owner_id", referencedColumnName: "id"},
       cascade: true,
       onUpdate: "CASCADE",
