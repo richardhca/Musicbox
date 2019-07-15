@@ -1,27 +1,70 @@
 extends layout
 
 block content
-    div.main
-        div#panecontent
-            div#sidebar
-                div.userinfo
-                    div.icn-avatar
-                        img(src='/icons/avatars/sparta.jpg' width='100%' height='100%')
-                    div.username(style='width: 100%;')
-                        p(style='white-space: nowrap;') Leonardo II
-                hr
-                .list-group
-                    a.list-group-item(href='#') #[i.material-icons home] Home
-                    a.list-group-item(href='#') #[i.material-icons search] Search
-                    a.list-group-item(href='#') #[i.material-icons star] Favorite
-                    a.list-group-item(href='#') #[i.material-icons queue_music] Playlist
-                    a.list-group-item(href='/logout') Logout
-            div#togglebutton
-            div#screen
-            div#player
-                div#aplayer
-    script(type='text/javascript' src='/javascripts/dynamicstyle.js')
-    script(type='text/javascript' src='/javascripts/aplayer.js')
-     div.foot
-        p © Group 15 - CMPT470 Summmer 2019
+    .container-fluid.p-0.main-area
+        .d-flex.flex-row.h-100
+            .d-flex.flex-nowrap
+                #sidebar.list-group.collapse.show.width(role="tablist")
+                    #sidebaricon.list-group-item.d-inline-block
+                        i.fas.fa-headphones-alt.d-none.d-lg-inline
+                        span.d-none.d-lg-inline.d-md-none.text-white MusicBox
+                        span.d-md-inline.d-lg-none.text-white.text-addrev MB
+
+                    a.list-group-item.d-inline-block.mt-3
+                        i.fas.fa-music.d-inline
+                        span.d-none.d-lg-inline.text-white Song
+
+                    a.list-group-item.d-inline-blockid
+                        i.fas.fa-compact-disc.d-inline
+                        span.d-none.d-lg-inline.text-white Album
+
+                    a.list-group-item.d-inline-block
+                        i.fas.fa-search.d-inline
+                        span.d-none.d-lg-inline.text-white Search
+
+                    a.list-group-item.d-inline-block.mt-auto.mb-2
+                        hr
+                        i.fas.fa-user-circle.d-inline
+                        span.d-none.d-lg-inline.text-white Profile
+
+            .d-flex.flex-column.flex-grow-1(id="tool-bar")
+                .d-flex.p-4
+                    a(href="#" data-target="#sidebar" data-toggle="collapse")
+                        i.fas.fa-bars.tool-bar-icon.mr-3
+                    i.fas.fa-plus.tool-bar-icon.mr-3
+                    i.fas.fa-trash-alt.tool-bar-icon
+                .d-flex.p-4.flex-wrap
+
+                    // - for (var x = 0; x < 8; x++)
+                    // .card(style="width: 10rem; height: 10rem").m-4
+                    //     img.card-img-top(src='...')
+                    //     .card-body
+                    //         .card-title.text-white Album
+
+    .container-fluid.music-player-area
+        p This is music player area.
+
+    //div.main
+    //    div#panecontent
+    //        div#sidebar
+    //            div.userinfo
+    //                div.icn-avatar
+    //                    img(src='/icons/avatars/sparta.jpg' width='100%' height='100%')
+    //                div.username(style='width: 100%;')
+    //                    p(style='white-space: nowrap;') Leonardo II
+    //            hr
+    //            .list-group
+    //                a.list-group-item(href='#') #[i.material-icons home] Home
+    //                a.list-group-item(href='#') #[i.material-icons search] Search
+    //                a.list-group-item(href='#') #[i.material-icons star] Favorite
+    //                a.list-group-item(href='#') #[i.material-icons queue_music] Playlist
+    //                a.list-group-item(href='/logout') Logout
+    //        div#togglebutton
+    //        div#screen
+    //        div#player
+    //            div#aplayer
+    //script(type='text/javascript' src='/javascripts/dynamicstyle.js')
+    //script(type='text/javascript' src='/javascripts/aplayer.js')
+    // div.foot
+    //    p © Group 15 - CMPT470 Summmer 2019
 
