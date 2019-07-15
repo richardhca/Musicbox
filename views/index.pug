@@ -10,11 +10,11 @@ block content
                         span.d-none.d-lg-inline.d-md-none.text-white MusicBox
                         span.d-md-inline.d-lg-none.text-white.text-addrev MB
 
-                    a.list-group-item.d-inline-block.mt-3
+                    a.list-group-item.d-inline-block.mt-3(href="/song" id="song_button")
                         i.fas.fa-music.d-inline
                         span.d-none.d-lg-inline.text-white Song
 
-                    a.list-group-item.d-inline-blockid
+                    a.list-group-item.d-inline-blockid(href="/album" id="album_button")
                         i.fas.fa-compact-disc.d-inline
                         span.d-none.d-lg-inline.text-white Album
 
@@ -28,21 +28,32 @@ block content
                         span.d-none.d-lg-inline.text-white Profile
 
             .d-flex.flex-column.flex-grow-1(id="tool-bar")
+                //nav.navbar.navbar-expand.navbar-dark.bg-dark
+                //    ul.navbar-nav
+                //        li.nav-item
+                //            a(href="#" data-target="#sidebar" data-toggle="collapse")
+                //                i.fas.fa-bars.tool-bar-icon.mr-3
+                //        li.nav-item
+                //            i.fas.fa-plus.tool-bar-icon.mr-3
+                //        li.nav-item
+                //            i.fas.fa-trash-alt.tool-bar-icon
                 .d-flex.p-4
                     a(href="#" data-target="#sidebar" data-toggle="collapse")
                         i.fas.fa-bars.tool-bar-icon.mr-3
                     i.fas.fa-plus.tool-bar-icon.mr-3
                     i.fas.fa-trash-alt.tool-bar-icon
-                .d-flex.p-4.flex-wrap
-
-                    // - for (var x = 0; x < 8; x++)
-                    // .card(style="width: 10rem; height: 10rem").m-4
-                    //     img.card-img-top(src='...')
-                    //     .card-body
-                    //         .card-title.text-white Album
+                #content-area.d-flex.p-4.flex-wrap
+                    h1.text-white(id="test")
+                    //block content_area
+                // - for (var x = 0; x < 8; x++)
+                // .card(style="width: 10rem; height: 10rem").m-4
+                //     img.card-img-top(src='...')
+                //     .card-body
+                //         .card-title.text-white Album
 
     .container-fluid.music-player-area
-        p This is music player area.
+        audio(controls)
+            source(src="/music/test.mp3" type="audio/mpeg")
 
     //div.main
     //    div#panecontent
