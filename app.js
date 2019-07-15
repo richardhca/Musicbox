@@ -8,6 +8,17 @@ const session = require('express-session');
 // Create database connection by running this script
 require('./create-connection');
 
+<<<<<<< HEAD
+=======
+const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
+const registerRoute = require('./routes/register');
+const loginRoute = require('./routes/login');
+const logoutRoute = require('./routes/logout');
+const uploadRoute = require('./routes/upload');
+
+
+>>>>>>> Undo
 // Init app
 const app = express();
 
@@ -45,6 +56,7 @@ app.use('/logout', logoutRoute);
 app.use('/track', trackRoute);
 app.use('/playlist', playlistRoute);
 // app.use('/user', userRouter);
+app.use('/upload', uploadRoute);
 
 
 // catch 404 and forward to error handler
