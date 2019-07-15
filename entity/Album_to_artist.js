@@ -1,4 +1,8 @@
+var {Album} = require("./Albums");
+var {Artist} = require("./Artists");
 var {EntitySchema} = require("typeorm");
+var {TableForeignKey} = require("typeorm");
+var {createForeignKey} = require("typeorm");
 
 module.exports = new EntitySchema({
   name: "Album_to_artist",
@@ -8,13 +12,21 @@ module.exports = new EntitySchema({
       primary: true,
       generated: "increment"
     },
+  },
+  relations: {
     album_id: {
-      type: "integer",
-      nullable: false
+      target: "Albums",
+      type: "many-to-one",
+      joinTable: "albums",
+      joinColumn: {name: "album_id", referencedColumnName: "album_id"},
+      cascade: true
     },
     artist_id: {
-      type: "integer",
-      nullable: false
+      target: "Artists",
+      type: "many-to-one",
+      joinTable: "artists",
+      joinColumn: {name: "artist_id", referencedColumnName: "artist_id"},
+      cascade: true
     },
-  }
+  },
 });
