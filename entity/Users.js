@@ -5,7 +5,7 @@ module.exports = new EntitySchema({
   name: "Users",
   columns: {
     id: {
-      type: "character varying",
+      type: "uuid",
       primary: true,
       generated: "uuid"
     },

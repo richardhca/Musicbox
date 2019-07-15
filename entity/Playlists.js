@@ -4,13 +4,9 @@ module.exports = new EntitySchema({
   name: "Playlists",
   columns: {
     playlist_id: {
-      type: "character varying",
+      type: "uuid",
       primary: true,
       generated: "uuid"
-    },
-    owner_id: {
-      type: "character varying",
-      nullable: false
     },
     name: {
       type: "character varying",
@@ -19,6 +15,21 @@ module.exports = new EntitySchema({
     is_public: {
       type: "boolean",
       default: false
+    },
+    created_on: {
+      type: "timestamp",
+      nullable: true
+    }
+  },
+  relations: {
+    owner_id: {
+      target: "Users",
+      type: "many-to-one",
+      joinTable: "users",
+      joinColumn: {name: "owner_id", referencedColumnName: "id"},
+      cascade: true,
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
     },
   }
 });

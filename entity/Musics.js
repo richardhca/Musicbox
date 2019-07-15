@@ -3,21 +3,13 @@ var {EntitySchema} = require("typeorm");
 module.exports = new EntitySchema({
   name: "Musics",
   columns: {
-    id: {
+    music_id: {
       type: "integer",
       primary: true,
       generated: "increment"
     },
     title: {
       type: "character varying",
-      nullable: false
-    },
-    artist_id: {
-      type: "integer",
-      nullable: false
-    },
-    album_id: {
-      type: "integer",
       nullable: false
     },
     published_on: {
@@ -53,6 +45,35 @@ module.exports = new EntitySchema({
       type: "character varying",
       length: 4096,
       nullable: false
+    },
+  },
+  relations: {
+    artist_id: {
+      target: "Artists",
+      type: "many-to-one",
+      joinTable: "artists",
+      joinColumn: {name: "artist_id", referencedColumnName: "artist_id"},
+      cascade: true,
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
+    },
+    album_id: {
+      target: "Albums",
+      type: "many-to-one",
+      joinTable: "albums",
+      joinColumn: {name: "album_id", referencedColumnName: "album_id"},
+      cascade: true,
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
+    },
+    owner_id: {
+      target: "Users",
+      type: "many-to-one",
+      joinTable: "users",
+      joinColumn: {name: "owner_id", referencedColumnName: "id"},
+      cascade: true,
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
     },
   }
 });
