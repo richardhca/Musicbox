@@ -3,20 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose');
 const session = require('express-session');
+
+// Create database connection by running this script
+require('./create-connection');
 
 // Init app
 const app = express();
-
-// mongodb connection
-const mongoDB = 'mongodb+srv://arlenx:qwertyu8@cluster0-0dxo8.azure.mongodb.net/musicbox?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, {useNewUrlParser: true});
-mongoose.set('useCreateIndex', true);
-const db = mongoose.connection;
-// mongo error
-db.on('error', console.error.bind(console, 'connection error:'));
-
 
 // use express-session
 app.use(session({

@@ -1,11 +1,11 @@
 exports.isLoggedIn = function (req, res, next) {
-    res.locals.isLoggedIn = req.session.user_id && req.session.isLoggedIn;
+    res.locals.isLoggedIn = req.session.userId && req.session.isLoggedIn;
     // console.log(res.locals.isLoggedIn);
     next();
 };
 
 exports.requiredLogin = function (req, res, next) {
-    if (req.session.user_id && req.session.isLoggedIn) {
+    if (req.session.userId && req.session.isLoggedIn) {
         console.log('Already login');
         const original_url = req.originalUrl;
         if (original_url === '/login' || original_url === '/register') {

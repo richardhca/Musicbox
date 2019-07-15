@@ -1,13 +1,10 @@
-const User = require('../models/user');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
-
+const connection = require('typeorm').getConnection();
+const bcrypt = require('bcrypt');
 
 exports.login_get = function (req, res, next) {
-    res.render('login_form',
-               {
-                   script: ['javascripts/show_and_hidden_password.js']
-               });
+    res.render('login_form');
 };
 
 
@@ -24,34 +21,36 @@ exports.login_post = [
     sanitizeBody('password').escape(),
 
     // Handle request.
-    function (req, res, next) {
+    async function (req, res, next) {
         const errors = validationResult(req);
 
         // If form fields have validation errors.
         if (!errors.isEmpty()) {
-            return res.render('login_form',
-                              {
-                                  script: ['javascripts/show_and_hidden_password.js'],
-                                  errors: errors.array()
-                              });
+            return res.render('login_form', {errors: errors.array()});
         }
 
         // Authenticate user and create session if successful.
-        User.authenticate(req.body.username, req.body.password,
-                          function (errors, user) {
+        const usersRepo = connection.getRepository('Users');
+        const username = req.body.username; // username can be email or username here, since users can login w/ both
+        var where = {};
+        if (username.includes('@')) {
+            where = {email: username};
+        } else {
+            where = {username: username};
+        }
+        const user = await usersRepo.findOne({where: where});
 
-                              if (errors) {
-                                  return res.render('login_form', {
-                                      script: ['javascripts/show_and_hidden_password.js'],
-                                      errors: errors
-                                  });
-                              }
-                              else {
-                                  req.session.user_id = user._id;
-                                  req.session.isLoggedIn = true;
-                                  req.session.userConfirmed = user.confirmed;
-                                  return res.redirect('/');
-                              }
-                          });
+        if (user) {
+            const correctPassword = await bcrypt.compare(req.body.password, user.password);
+            if (correctPassword) {
+                // If correct, assign session and redirect to home page.
+                req.session.userId = user.id;
+                req.session.isLoggedIn = true;
+                req.session.userConfirmed = user.confirmed;
+                return res.redirect('/');
+            }
+        }
+
+        return res.render('login_form', {errors: [{msg: 'Incorrect username or password.'}]});
     }
 ];
