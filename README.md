@@ -26,5 +26,3 @@ https://github.com/typeorm/typeorm/blob/master/docs/usage-with-javascript.md
 
 2- Available column options:
 https://github.com/typeorm/typeorm/blob/master/src/entity-schema/EntitySchemaColumnOptions.ts
-
-

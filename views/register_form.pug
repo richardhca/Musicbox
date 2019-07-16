@@ -1,0 +1,62 @@
+extends layout_register_login
+
+block content
+    // - custom css (see in public/stylesheets/styly.css
+            .one_line_form
+            .login-form-col
+            .btn-style
+            .icn-style
+            .icn-text-style
+    .container-fluid.h-100.p-0
+        .row.justify-content-center.align-items-center.p-0.mt-3
+            i.material-icons.mr-2.icn-style library_music
+            p.text-white.m-0.icn-text-style MusicBox
+        hr
+        .row.justify-content-center.align-items-center.p-0.mx-auto.login-form-col
+            .col.mx-auto.p-0
+                h5.text-white.text-center.font-weight-bold.mb-4 Sign up with your username.
+                form(method='post', action='')
+                    .form-group
+                        input#username.form-control(type='text'
+                            required name='username' maxlength=25 minlength=3
+                            placeholder="Username"
+                            value=(undefined === user ? '' : user.username))
+                    .form-group
+                        input#email.form-control(type='email' required name='email'
+                            placeholder="Email"
+                            value=(undefined === user ? '' : user.email))
+                    .form-group
+                        label.text-white(for='date_of_birth') Date of birth:
+                        input#date_of_birth.form-control(type='date'
+                            required, name='date_of_birth'
+                            value=(undefined === user ? '' : user.date_of_birth))
+                    .form-group
+                        input#password.form-control(type='password' required name='password'
+                            placeholder="Password (8 characters minimum)"
+                            maxlength=35 minlength=8)
+                    .form-group
+                        input#password_comfirm.form-control(type='password'
+                            required, name='confirmPassword'
+                            placeholder="Confirm Password")
+
+                    .row.justify-content-center.align-items-center.m-0.login-form-col
+                        .col-sm-5.p-0
+                            .form-check-inline
+                                input#password_checkbox.form-check-input(type='checkbox'
+                                    onclick="show_hidden_password()")
+                                label.form-check-label.text-white(for='password_checkbox') Show Password
+                        .col-sm-7.p-0
+                            button.btn.btn-outline-primary.btn-block.btn-style(type='submit') SIGN UP
+
+                if errors
+                    ul.mt-2
+                        for error in errors
+                            li.text-danger!= error.msg
+
+                hr.mt-3.mb-3
+
+                p.d-inline.mr-1.text-white Already have an account?
+                a.d-inline.text-primary(href="/login") Log in
+
+
+
