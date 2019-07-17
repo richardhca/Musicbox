@@ -7,8 +7,15 @@
 /* Login and sign up page */
 
 body {
+    opacity: 1;
+    transition: 1s opacity;
     background: black;
     background-size: cover;
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: none;
 }
 
 .icn-style {
@@ -37,12 +44,12 @@ hr {
 
 /* main page */
 
-.main-area {
-    height: 95%;
-}
-
 .music-player-area {
-    height: 5%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 90px;
     background-color: grey;
 }
 
@@ -74,10 +81,6 @@ a.list-group-item {
     background: #242424;
 }
 
-.tool-bar-area {
-    background: #242424 !important;
-}
-
 .tool-bar-icon {
     color: white;
     font-size: 18pt;
@@ -104,3 +107,17 @@ a.list-group-item {
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
 }
+
+#tool-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#content-area {
+    position: fixed;
+    right: 0;
+    overflow: auto;
+}
+
+
