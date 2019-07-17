@@ -331,7 +331,8 @@
 }
 
 .aplayer .aplayer-info .aplayer-music .aplayer-title {
-	font-size: 14px
+	font-size: 14px;
+	color: #fff
 }
 
 .aplayer .aplayer-info .aplayer-music .aplayer-author {
@@ -592,6 +593,7 @@
 	line-height: 32px;
 	padding: 0 15px;
 	font-size: 12px;
+	color: #fff;
 	border-top: 1px solid #999999;
 	cursor: pointer;
 	transition: all .2s ease;
@@ -608,7 +610,7 @@
 }
 
 .aplayer .aplayer-list ol li.aplayer-list-light {
-	background: #999999
+	background: #777
 }
 
 .aplayer .aplayer-list ol li.aplayer-list-light .aplayer-list-cur {
@@ -626,13 +628,13 @@
 }
 
 .aplayer .aplayer-list ol li .aplayer-list-index {
-	color: #666;
+	color: #fff;
 	margin-right: 12px;
 	cursor: pointer
 }
 
 .aplayer .aplayer-list ol li .aplayer-list-author {
-	color: #666;
+	color: #ccc;
 	float: right;
 	cursor: pointer
 }

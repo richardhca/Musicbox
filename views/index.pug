@@ -25,7 +25,7 @@ block content
                     a.list-group-item.d-inline-block(href="/logout")
                         span.d-none.d-lg-inline.text-white Logout
 
-                    a.list-group-item.d-inline-block.mt-auto.mb-2
+                    a#userprofile.list-group-item.d-inline-block.mt-auto
                         hr
                         i.fas.fa-user-circle.d-inline
                         span.d-none.d-lg-inline.text-white Profile
@@ -54,10 +54,9 @@ block content
                 //     .card-body
                 //         .card-title.text-white Album
 
-    .container-fluid.music-player-area
-        audio(controls)
-            source(src="/music/test.mp3" type="audio/mpeg")
-
+            .position-absolute.music-player-area
+                div#aplayer        
+    script(type='text/javascript' src='/javascripts/aplayer.js')
     //div.main
     //    div#panecontent
     //        div#sidebar

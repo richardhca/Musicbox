@@ -27,8 +27,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/aplayer',
-        express.static(path.join(__dirname, 'node_modules/aplayer/dist')));
 app.use('/fontawesome', express.static(
     path.join(__dirname + '/node_modules/@fortawesome/fontawesome-free/')));
 
