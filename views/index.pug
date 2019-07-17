@@ -49,13 +49,13 @@ block content
                     i.fas.fa-trash-alt.tool-bar-icon
 
                 // content area
-                #content-area.d-flex.p-4.flex-wrap
-                    h1.text-white(id="test")
-                    - for (var x = 0; x <10; x++)
+                .d-flex.p-4.flex-wrap
+                    //h1.text-white(id="test")
+                    - for (var x = 0; x <20; x++)
                         .card(style="width: 10rem; height: 10rem").m-4
-                            img.card-img-top(src='...')
+                            img.card-img-top(src="...")
                             .card-body
-                                .card-title.text-white Album
+                                .card-title.text-danger Alumb
 
     // music player
     #music-player.container-fluid.p-0.music-player-area

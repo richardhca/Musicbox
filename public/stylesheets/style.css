@@ -44,10 +44,6 @@ hr {
 
 /* main page */
 
-.main-area {
-
-}
-
 .music-player-area {
     position: fixed;
     left: 0;
@@ -111,3 +107,17 @@ a.list-group-item {
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
 }
+
+#tool-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#content-area {
+    position: fixed;
+    right: 0;
+    overflow: auto;
+}
+
+
