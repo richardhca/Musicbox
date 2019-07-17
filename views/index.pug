@@ -32,32 +32,18 @@ block content
                         span.d-none.d-lg-inline.text-white Profile
 
             .d-flex.flex-column.flex-grow-1
-                //nav.navbar.navbar-expand.navbar-dark.bg-dark
-                //    ul.navbar-nav
-                //        li.nav-item
-                //            a(href="#" data-target="#sidebar" data-toggle="collapse")
-                //                i.fas.fa-bars.tool-bar-icon.mr-3
-                //        li.nav-item
-                //            i.fas.fa-plus.tool-bar-icon.mr-3
-                //        li.nav-item
-                //            i.fas.fa-trash-alt.tool-bar-icon
-                // tool bar
-                #tool-bar.d-flex.p-4
-                    a(href="#" data-target="#sidebar" data-toggle="collapse")
-                        i.fas.fa-bars.tool-bar-icon.mr-3
-                    i.fas.fa-plus.tool-bar-icon.mr-3
-                    i.fas.fa-trash-alt.tool-bar-icon
+                block content-area
 
-                // content area
-                #content-area.d-flex.p-4.flex-wrap.align-content-start
-                    //h1.text-white(id="test")
-                    - for (var x = 0; x <100; x++)
-                        .card(style="width: 10rem; height: 10rem").m-4
-                            img.card-img-top(src="image/test.png")
-                            .card-body
-                                .card-title.text-white Alumb
+
+
+                    //h1.text-white(id='test')
+                    // - for (var x = 0; x <100; x++)
+                    //     .card(style="width: 10rem; height: 10rem").m-4
+                    //         img.card-img-top(src="image/test.png")
+                    //         .card-body
+                    //             .card-title.text-white Alumb
 
     // music player
     #music-player.container-fluid.p-0.music-player-area
-        //audio(controls)
-        //    source(src="/music/test.mp3" type="audio/mpeg")
+        audio(controls)
+            source(src="/music/test.mp3" type="audio/mpeg")

@@ -1,0 +1,12 @@
+extends index
+
+block content-area
+    #tool-bar.d-flex.p-4
+        a(href="#" data-target="#sidebar" data-toggle="collapse")
+            i.fas.fa-bars.tool-bar-icon.mr-3
+        i.fas.fa-plus.tool-bar-icon.mr-3(id="add_song_icon")
+        i.fas.fa-trash-alt.tool-bar-icon
+
+    // content area
+    #content-area.d-flex.p-4.flex-wrap.align-content-start
+        h1.text-white This is song page!
