@@ -31,6 +31,8 @@ block content
                         span.d-none.d-lg-inline.text-white Profile
 
             .d-flex.flex-column.flex-grow-1(id="tool-bar")
+                form#uploadForm(method='post' enctype='multipart/form-data' style='display: none;')
+                    input#uploadinput(type='file' name='music' accept='audio/*')
                 //nav.navbar.navbar-expand.navbar-dark.bg-dark
                 //    ul.navbar-nav
                 //        li.nav-item
@@ -43,7 +45,7 @@ block content
                 .d-flex.p-4
                     a(href="#" data-target="#sidebar" data-toggle="collapse")
                         i.fas.fa-bars.tool-bar-icon.mr-3
-                    i.fas.fa-plus.tool-bar-icon.mr-3
+                    i.fas.fa-plus.tool-bar-icon.mr-3(onclick="document.getElementById('uploadinput').click();" style='cursor: pointer;')
                     i.fas.fa-trash-alt.tool-bar-icon
                 #content-area.d-flex.p-4.flex-wrap
                     h1.text-white(id="test")
@@ -55,7 +57,8 @@ block content
                 //         .card-title.text-white Album
 
             .position-absolute.music-player-area
-                div#aplayer        
+                div#aplayer
+    script(type='text/javascript' src='/javascripts/autosubmitform.js')
     script(type='text/javascript' src='/javascripts/aplayer.js')
     //div.main
     //    div#panecontent
