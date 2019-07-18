@@ -13,4 +13,7 @@ function resizeDiv() {
     const main_area_height = vph - music_player_area_height;
     $('.main-area').css({'height': main_area_height});
     $('#sidebar').css({'height': main_area_height});
+
+    // change height
+
 }

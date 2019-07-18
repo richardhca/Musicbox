@@ -24,8 +24,10 @@ $(document).ready(function () {
                        console.log(result);
                        window.history.pushState(null, null, '/track/');
                        // console.log($(result).filter('div').find('*'));
-                       $('#tool-bar').html($(result).filter('div').find('*'));
-                       $('#content-area').html($(result).filter('h1'));
+                       $('#tool-bar')
+                           .html($(result).filter('#track_tool_bar'));
+                       $('#content-area')
+                           .html($(result).filter('#track_detail'));
                    },
                    error: function (e) {
                        console.log('error: ', e);

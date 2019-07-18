@@ -9,7 +9,7 @@ const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
 // for test
 router.get('/', function (req, res, next) {
-    res.render('index');
+    res.redirect('/track');
 });
 
 module.exports = router;

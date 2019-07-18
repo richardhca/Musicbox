@@ -22,8 +22,10 @@ $(document).ready(function () {
                        console.log(window.location.href);
                        console.log(result);
                        window.history.pushState(null, null, '/playlist/');
-                       $('#tool-bar').html($(result).filter('div').find('*'));
-                       $('#content-area').html($(result).filter('h1'));
+                       $('#tool-bar').html(
+                           $(result).filter('#playlist_tool_bar'));
+                       $('#content-area').html(
+                           $(result).filter('#playlist_detail'));
                    },
                    error: function (e) {
                        console.log('error: ', e);
