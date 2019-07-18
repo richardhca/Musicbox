@@ -21,7 +21,7 @@
     <script src="/jqueries/loadAlbumContent.js"></script>
   </head>
   <body class="fade-out">
-    <div class="container-fluid p-0 main-area">
+    <div class="container-fluid p-0">
       <div class="d-flex flex-row">
         <!-- sidebar-->
         <div class="d-flex flex-nowrap">
@@ -31,7 +31,8 @@
           </div>
         </div>
         <div class="d-flex flex-column flex-grow-1">
-          <div class="d-flex p-4" id="tool-bar"><a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fas fa-bars tool-bar-icon mr-3"></i></a><i class="fas fa-plus tool-bar-icon mr-3" href="/create" id="add_icon"></i><i class="fas fa-trash-alt tool-bar-icon"></i></div>
+          <!-- tool area-->
+          <div class="d-flex p-4" id="tool-bar"><a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fas fa-bars tool-bar-icon mr-3"></i></a><i class="fas fa-plus tool-bar-icon mr-3" id="add_song_icon"></i><i class="fas fa-trash-alt tool-bar-icon"></i></div>
           <!-- content area-->
           <div class="d-flex p-4 flex-wrap align-content-start" id="content-area">
             <!--h1.text-white(id='test')-->

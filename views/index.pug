@@ -1,7 +1,7 @@
 extends layout_index
 
 block content
-    .container-fluid.p-0.main-area
+    .container-fluid.p-0
         .d-flex.flex-row
             // sidebar
             .d-flex.flex-nowrap
@@ -32,7 +32,16 @@ block content
                         span.d-none.d-lg-inline.text-white Profile
 
             .d-flex.flex-column.flex-grow-1
-                block content-area
+                // tool area
+                #tool-bar.d-flex.p-4
+                    a(href="#" data-target="#sidebar" data-toggle="collapse")
+                        i.fas.fa-bars.tool-bar-icon.mr-3
+                    i.fas.fa-plus.tool-bar-icon.mr-3(id="add_song_icon")
+                    i.fas.fa-trash-alt.tool-bar-icon
+
+                // content area
+                #content-area.d-flex.p-4.flex-wrap.align-content-start
+
 
 
 
