@@ -1,8 +1,9 @@
 $(document).ready(function () {
     $('#track_button').click(function (event) {
         event.preventDefault();
-        // console.log($('#tool-bar i').eq(1).attr('id'));
-        $('#tool-bar i[id=\'add_playlist_icon\']').attr('id', 'add_track_icon');
+        // $('#tool-bar i[id=\'add_playlist_icon\']').attr('id',
+        // 'add_track_icon');
+        $('#tool-bar i[id=\'add_playlist_icon\']').show();
         song_detail('GET');
     });
 
@@ -22,7 +23,9 @@ $(document).ready(function () {
                        console.log(window.location.href);
                        console.log(result);
                        window.history.pushState(null, null, '/track/');
-                       $('#content-area').html(result);
+                       // console.log($(result).filter('div').find('*'));
+                       $('#tool-bar').html($(result).filter('div').find('*'));
+                       $('#content-area').html($(result).filter('h1'));
                    },
                    error: function (e) {
                        console.log('error: ', e);

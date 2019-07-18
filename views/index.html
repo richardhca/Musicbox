@@ -17,11 +17,11 @@
     <script src="/jqueries/loadIndex.js"></script>
     <script src="/jqueries/resizeDiv.js"></script>
     <script src="/jqueries/contentAreaScrollable.js"></script>
-    <script src="/jqueries/loadSongContent.js"></script>
-    <script src="/jqueries/loadAlbumContent.js"></script>
+    <script src="/jqueries/loadTrackContent.js"></script>
+    <script src="/jqueries/loadPlaylistContent.js"></script>
   </head>
   <body class="fade-out">
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 main-area">
       <div class="d-flex flex-row">
         <!-- sidebar-->
         <div class="d-flex flex-nowrap">
@@ -32,23 +32,17 @@
         </div>
         <div class="d-flex flex-column flex-grow-1">
           <!-- tool area-->
-          <div class="d-flex p-4" id="tool-bar"><a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fas fa-bars tool-bar-icon mr-3"></i></a><i class="fas fa-plus tool-bar-icon mr-3" id="add_track_icon"></i><i class="fas fa-trash-alt tool-bar-icon"></i></div>
+          <div class="d-flex p-4" id="tool-bar">
+          </div>
           <!-- content area-->
           <div class="d-flex p-4 flex-wrap align-content-start" id="content-area">
-            <!--h1.text-white(id='test')-->
-            <!-- - for (var x = 0; x <100; x++)-->
-            <!--     .card(style="width: 10rem; height: 10rem").m-4-->
-            <!--         img.card-img-top(src="image/test.png")-->
-            <!--         .card-body-->
-            <!--             .card-title.text-white Alumb-->
           </div>
         </div>
       </div>
-    </div>
-    <!-- music player-->
-    <div class="container-fluid p-0 music-player-area" id="music-player">
-      <!--audio(controls)-->
-      <!--    source(src="/music/test.mp3" type="audio/mpeg")-->
+      <div class="container-fluid p-0 music-player-area" id="music-player">
+        <!--audio(controls)//    source(src="/music/test.mp3" type="audio/mpeg")
+        -->
+      </div>
     </div>
   </body>
 </html>

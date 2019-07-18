@@ -1,7 +1,7 @@
 extends layout_index
 
 block content
-    .container-fluid.p-0
+    .container-fluid.p-0.main-area
         .d-flex.flex-row
             // sidebar
             .d-flex.flex-nowrap
@@ -34,25 +34,28 @@ block content
             .d-flex.flex-column.flex-grow-1
                 // tool area
                 #tool-bar.d-flex.p-4
-                    a(href="#" data-target="#sidebar" data-toggle="collapse")
-                        i.fas.fa-bars.tool-bar-icon.mr-3
-                    i.fas.fa-plus.tool-bar-icon.mr-3(id="add_track_icon")
-                    i.fas.fa-trash-alt.tool-bar-icon
+                    if page === "track_detail" || page === "track_create"
+                        include track_tool_bar
+                    else if page === "playlist_detail" || page === "playlist_create"
+                        include playlist_tool_bar
 
                 // content area
                 #content-area.d-flex.p-4.flex-wrap.align-content-start
+                    if page === "track_detail"
+                        include track_detail
+                    else if page === "track_create"
+                        include track_create
+                    else if page === "playlist_detail"
+                        include playlist_detail
+                    else if page === "playlist_create"
+                        include playlist_create
 
 
 
 
-                    //h1.text-white(id='test')
-                    // - for (var x = 0; x <100; x++)
-                    //     .card(style="width: 10rem; height: 10rem").m-4
-                    //         img.card-img-top(src="image/test.png")
-                    //         .card-body
-                    //             .card-title.text-white Alumb
+        #music-player.container-fluid.p-0.music-player-area
+            //audio(controls)
+                           //    source(src="/music/test.mp3" type="audio/mpeg")
 
-    // music player
-    #music-player.container-fluid.p-0.music-player-area
-        //audio(controls)
-        //    source(src="/music/test.mp3" type="audio/mpeg")
+
+
