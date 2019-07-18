@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    $('#song_button').click(function (event) {
+    $('#track_button').click(function (event) {
         event.preventDefault();
         // console.log($('#tool-bar i').eq(1).attr('id'));
-        $('#tool-bar i[id=\'add_album_icon\']').attr('id', 'add_song_icon');
+        $('#tool-bar i[id=\'add_playlist_icon\']').attr('id', 'add_track_icon');
         song_detail('GET');
     });
 
-    $('#tool-bar').on('click', 'i[id=\'add_song_icon\']', function (event) {
+    $('#tool-bar').on('click', 'i[id=\'add_track_icon\']', function (event) {
         event.preventDefault();
         song_create_get('GET');
     });
@@ -14,14 +14,14 @@ $(document).ready(function () {
     function song_detail(type) {
         $.ajax({
                    type: 'GET',
-                   url: '/song',
+                   url: '/track',
                    dataType: 'html',
-                   data: {info: 'ajax, song detail', type: type},
+                   data: {info: 'ajax, track detail', type: type},
                    success: function (result) {
                        // const state = {id: 1, name: 'song'};
                        console.log(window.location.href);
                        console.log(result);
-                       window.history.pushState(null, null, '/song/');
+                       window.history.pushState(null, null, '/track/');
                        $('#content-area').html(result);
                    },
                    error: function (e) {
@@ -33,13 +33,13 @@ $(document).ready(function () {
     function song_create_get(type) {
         $.ajax({
                    type: 'GET',
-                   url: '/song/create',
+                   url: '/track/create',
                    dataType: 'html',
-                   data: {info: 'ajax, song create', type: type},
+                   data: {info: 'ajax, track create', type: type},
                    success: function (result) {
                        console.log(window.location.href);
                        console.log(result);
-                       window.history.pushState(null, null, '/song/create/');
+                       window.history.pushState(null, null, '/track/create/');
                        $('#content-area').html(result);
 
                    },
