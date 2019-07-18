@@ -25,7 +25,8 @@ router.post('/', upload.single('music'), function(req, res, next){
     console.log('filesize：%s', file.size);
     console.log('filepath：%s', file.path);
 	console.log('upload successful');
+	res.status(200).end();
+	res.redirect('/')
 });
 
 module.exports = router;
-
