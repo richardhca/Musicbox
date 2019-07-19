@@ -6,16 +6,9 @@ How to run:
 
 1- Go to project root
 
-2- Run `npm install`
+2- Run `docker-compose build && docker-compose up`
 
-3- Run `node ./bin/www`
-
-4- Go to http://localhost:3000
-
-
-
-##### NOTE: For now, you need postgres installed and running locally. The app expects postgres to run on port 5432 (i think it's the default)
-
+3- Go to http://localhost:3000
 
 
 #### Useful TypeORM documentation:
