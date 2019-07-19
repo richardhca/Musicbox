@@ -1,3 +1,3 @@
 exports.index_get = function (req, res, next) {
-  res.render('index');
+  res.redirect('/track');
 };

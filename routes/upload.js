@@ -1,29 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
-const multer = require('multer');
-const uploadDest = 'public/media/';
-const allowedMimeTypes = ['audio/wav', 'audio/mp3'];
-const filter = function (req, file, cb) {
-  if (!allowedMimeTypes.includes(file.mimetype.toLowerCase())) {
-    cb(null, false);
-    // return cb(new Error('Wrong file type'));
-  }
-  cb(null, true);
-};
-
-var upload = multer({
-  dest: uploadDest,
-  fileFilter: filter,
-});
+const sessionMiddleware = require('../middlewares/sessionMiddleware');
+const {upload} = require('../config/multerConfig');
+const uploadController = require('../controllers/uploadController');
 
 
 router.get('/', function (req, res, next) {
-  res.render('upload');
+    res.render('upload');
 });
 
-router.post('/', upload.array('media', 12), function (req, res, next) {
-  console.log('file-');
-});
+router.post('/',
+    sessionMiddleware.requiredLogin,
+    upload.array('media', 10), // Max upload = 10
+    uploadController.upload_post
+);
 
 module.exports = router;
