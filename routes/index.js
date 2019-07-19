@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname)
   }
 })
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage }).array('music', 50);
 
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
@@ -18,15 +18,15 @@ router.get('/', sessionMiddleware.requiredLogin, function (req, res, next) {
     res.render('index');
 });
 
-router.post('/', upload.single('music'), function(req, res, next){
-	var file = req.file;
-    console.log('file type：%s', file.mimetype);
-    console.log('filename：%s', file.originalname);
-    console.log('filesize：%s', file.size);
-    console.log('filepath：%s', file.path);
-	console.log('upload successful');
-	res.status(200).end();
-	res.redirect('/')
+router.post('/', function(req, res){
+	upload(req, res, function(err){
+		if(err){
+			return res.end("Error uploading file.");
+		}
+		console.log('upload successful');
+		res.status(200).end();
+		res.redirect('/')
+	});
 });
 
 module.exports = router;
