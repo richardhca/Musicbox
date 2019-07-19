@@ -6,6 +6,8 @@ How to run:
 
 1- Go to project root
 
+2- Run `npm install`
+
 2- Run `docker-compose build && docker-compose up`
 
 3- Go to http://localhost:3000
