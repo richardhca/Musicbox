@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname)
   }
 })
-var upload = multer({ storage: storage }).array('music', 50);
+var upload = multer({ storage: storage }).array('music', 10);
 
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
