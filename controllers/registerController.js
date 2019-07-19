@@ -51,6 +51,7 @@ exports.register_post = [
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, 10),
             date_of_birth: req.body.date_of_birth,
+            creation_date: new Date(),
         };
 
         // If form fields have validation errors.
@@ -60,30 +61,30 @@ exports.register_post = [
 
         const userRepository = connection.getRepository("Users");
         userRepository.save(newUserData)
-                      .then(function (user) {
-                          // If all goes well.
-                          req.session.userId = user.id;
-                          req.session.isLoggedIn = true;
-                          req.session.userConfirmed = user.confirmed;
-                          res.redirect('/');
-                      })
-                      .catch(function (error) {
-                          // If one of the unique fields already exists.
-                          // Error code "23505" means duplicate unique key constraint was violated.
-                          var errMessage;
-                          if (error.code === "23505") {
-                              if (error.detail.includes('email')) {
-                                  errMessage = `Email address "${req.body.email}" is already taken.`;
-                              } else {
-                                  errMessage = `Username "${req.body.username}" is already taken.`;
-                              }
-                              return res.render('register_form', {user: newUserData, errors: [{msg: errMessage}]});
-                          }
-                          // Other database errors are just handled by the error handler middleware in app.js
-                          var err = new Error();
-                          err.status = 503;
-                          return next(err);
-                      });
+            .then(function (user) {
+                // If all goes well.
+                req.session.userId = user.id;
+                req.session.isLoggedIn = true;
+                req.session.emailConfirmed = user.emailConfirmed;
+                res.redirect('/');
+            })
+            .catch(function (error) {
+                // If one of the unique fields already exists.
+                // Error code "23505" means duplicate unique key constraint was violated.
+                var errMessage;
+                if (error.code === "23505") {
+                    if (error.detail.includes('email')) {
+                        errMessage = `Email address "${req.body.email}" is already taken.`;
+                    } else {
+                        errMessage = `Username "${req.body.username}" is already taken.`;
+                    }
+                    return res.render('register_form', {user: newUserData, errors: [{msg: errMessage}]});
+                }
+                // Other database errors are just handled by the error handler middleware in app.js
+                var err = new Error();
+                err.status = 503;
+                return next(err);
+            });
     }
 ];
 

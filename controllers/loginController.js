@@ -46,7 +46,7 @@ exports.login_post = [
                 // If correct, assign session and redirect to home page.
                 req.session.userId = user.id;
                 req.session.isLoggedIn = true;
-                req.session.userConfirmed = user.confirmed;
+                req.session.userConfirmed = user.emailConfirmed;
                 return res.redirect('/');
             }
         }
