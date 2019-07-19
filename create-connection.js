@@ -3,7 +3,7 @@ const typeorm = require('typeorm');
 const createConnection = async function () {
   await typeorm.createConnection({
     type: "postgres",
-    host: "172.20.0.2",
+    host: "musicbox_postgres_1",
     port: 5432,
     username: "postgres",
     password: "password",
