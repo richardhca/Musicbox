@@ -1,5 +1,7 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
+const {body, validationResult} = require('express-validator');
+const {sanitizeBody} = require('express-validator');
 
 const registerController = require('../controllers/registerController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
@@ -11,3 +13,4 @@ router.post('/', sessionMiddleware.requiredLogin,
             registerController.register_post);
 
 module.exports = router;
+

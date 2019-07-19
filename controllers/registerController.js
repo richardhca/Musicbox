@@ -1,12 +1,11 @@
-const User = require('../models/user');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
+const connection = require('typeorm').getConnection();
+const bcrypt = require('bcrypt');
+
 
 exports.register_get = function (req, res, next) {
-    res.render('register_form',
-               {
-                   script: ['javascripts/show_and_hidden_password.js']
-               });
+    res.render('register_form');
 };
 
 exports.register_post = [
@@ -14,12 +13,9 @@ exports.register_post = [
     body('username')
         .trim()
         .exists()
-        .isLength({min: 3})
-        .withMessage('Username must be more than 3 characters.')
-        .isLength({max: 25})
-        .withMessage('Username cannot be more than 25 characters.')
-        .isAlphanumeric()
-        .withMessage('Username must not have non-alphanumeric characters.'),
+        .isLength({min: 3}).withMessage('Username must be more than 2 characters.')
+        .isLength({max: 25}).withMessage('Username cannot be more than 25 characters.')
+        .isAlphanumeric().withMessage('Username must not have non-alphanumeric characters.'),
     body('email')
         .trim()
         .exists()
@@ -30,15 +26,12 @@ exports.register_post = [
     body('password')
         .exists()
         .isAlphanumeric().withMessage('Password must be alphanumeric.')
-        .isLength({min: 8})
-        .withMessage('Password must be more than 8 characters.')
-        .isLength({max: 35})
-        .withMessage('Password cannot be more than 35 characters.')
+        .isLength({min: 8}).withMessage('Password must be more than 8 characters.')
+        .isLength({max: 35}).withMessage('Password cannot be more than 35 characters.')
         .custom(function (value, {req}) {
             if (value !== req.body.confirmPassword) {
                 throw new Error('Passwords do not match.');
-            }
-            else {
+            } else {
                 return true;
             }
         }),
@@ -53,56 +46,44 @@ exports.register_post = [
     async function (req, res, next) {
         const errors = validationResult(req);
 
-        const newUserData = {
+        var newUserData = {
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password,
+            password: await bcrypt.hash(req.body.password, 10),
             date_of_birth: req.body.date_of_birth,
         };
 
         // If form fields have validation errors.
         if (!errors.isEmpty()) {
-            return res.render('register_form', {
-                user: newUserData,
-                script: ['javascripts/show_and_hidden_password.js'],
-                errors: errors.array()
-            });
+            return res.render('register_form', {user: newUserData, errors: errors.array()});
         }
 
-        // Create new user
-        User.create(newUserData, function (mongooseError, user) {
-            if (mongooseError) {
-                console.log(mongooseError);
-                // If one of the unique fields already exists.
-                if (mongooseError.code === 11000) {
-                    var errors;
-                    if (mongooseError.errmsg.includes('email')) {
-                        errors =
-                            `Email address "${req.body.email}" is already taken.`;
-                    }
-                    else {
-                        errors =
-                            `Username "${req.body.username}" is already taken.`;
-                    }
-                    return res.render('register_form', {
-                        user: newUserData,
-                        script: ['javascripts/show_and_hidden_password.js'],
-                        errors: [{msg: errors}]
-                    });
-                }
-                // Other database errors are handled here.
-                const err = new Error();
-                err.status = 503;
-                return next(err);
-            }
-            else {
-                // If all goes well.
-                req.session.user_id = user._id;
-                req.session.isLoggedIn = true;
-                req.session.userConfirmed = user.confirmed;
-                res.redirect('/');
-            }
-        });
+        const userRepository = connection.getRepository("Users");
+        userRepository.save(newUserData)
+                      .then(function (user) {
+                          // If all goes well.
+                          req.session.userId = user.id;
+                          req.session.isLoggedIn = true;
+                          req.session.userConfirmed = user.confirmed;
+                          res.redirect('/');
+                      })
+                      .catch(function (error) {
+                          // If one of the unique fields already exists.
+                          // Error code "23505" means duplicate unique key constraint was violated.
+                          var errMessage;
+                          if (error.code === "23505") {
+                              if (error.detail.includes('email')) {
+                                  errMessage = `Email address "${req.body.email}" is already taken.`;
+                              } else {
+                                  errMessage = `Username "${req.body.username}" is already taken.`;
+                              }
+                              return res.render('register_form', {user: newUserData, errors: [{msg: errMessage}]});
+                          }
+                          // Other database errors are just handled by the error handler middleware in app.js
+                          var err = new Error();
+                          err.status = 503;
+                          return next(err);
+                      });
     }
 ];
 

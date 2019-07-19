@@ -8,3 +8,4 @@ router.get('/', sessionMiddleware.requiredLogin, function (req, res, next) {
 });
 
 module.exports = router;
+
