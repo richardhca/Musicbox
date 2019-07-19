@@ -3,7 +3,7 @@ var {EntitySchema} = require("typeorm");
 module.exports = new EntitySchema({
   name: "Artists",
   columns: {
-    artist_id: {
+    id: {
       type: "integer",
       primary: true,
       generated: "increment"

@@ -44,9 +44,14 @@ module.exports = new EntitySchema({
       enum: ['user', 'admin'],
       default: 'user'
     },
-    confirmed: {
+    emailConfirmed: {
       type: "boolean",
       default: false
     },
+    creation_date: {
+      type: "timestamp",
+      nullable: false
+    }
+
   }
 });
