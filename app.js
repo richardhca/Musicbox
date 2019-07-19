@@ -6,7 +6,7 @@ const logger = require('morgan');
 const session = require('express-session');
 
 // Create database connection by running this script
-require('./create-connection');
+require('./config/createConnection');
 
 // Init app
 const app = express();
@@ -37,8 +37,7 @@ const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 const trackRoute = require('./routes/track');
 const playlistRoute = require('./routes/playlist');
-const songRoute = require('./routes/song');
-const albumRoute = require('./routes/album');
+const tracksRoute = require('./routes/tracks');
 const uploadRoute = require('./routes/upload');
 
 
@@ -48,6 +47,7 @@ app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
 app.use('/track', trackRoute);
 app.use('/playlist', playlistRoute);
+app.use('/tracks', tracksRoute);
 // app.use('/user', userRouter);
 app.use('/upload', uploadRoute);
 
