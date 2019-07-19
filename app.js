@@ -7,7 +7,7 @@ const session = require('express-session');
 
 // Create database connection by running this script
 require('./create-connection');
-
+// Test
 // Init app
 const app = express();
 
