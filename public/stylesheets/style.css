@@ -1,330 +1,262 @@
-:root {
-    --login-form-width: 400px;
-    --btn-radius: 20px;
-    --text-color: white;
+/*
+
+HOW TO CREATE A UPLOAD FORM [TUTORIAL]
+
+"How to create a Upload Form [Tutorial]" was specially made for DesignModo by our friend Valeriu Timbuc.
+
+Links:
+http://vtimbuc.net/
+https://twitter.com/vtimbuc
+http://designmodo.com
+http://vladimirkudinov.com
+
+*/
+
+/* Reset */
+.upload-form,
+.upload-form div,
+.upload-form span,
+.upload-form input,
+.upload-form a,
+.upload-form h1,
+.upload-form p {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
 }
 
-/* Base Styles */
+/* Form Container */
+.upload-form {
+	position: relative;
+	z-index: 100;
+	cursor: default;
+	width: 200px;
+	min-height: 180px;
+	padding: 25px 25px 65px 25px;
 
-body {
-    background: black;
-    background-size: cover;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+
+	background: url(../img/upload-bg.png);
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%), url(../img/upload-bg.png);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%), url(../img/upload-bg.png);
+	background: -o-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%), url(../img/upload-bg.png);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%), url(../img/upload-bg.png);
+	background: linear-gradient(top, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%), url(../img/upload-bg.png);
 }
 
-/*body::-webkit-scrollbar {*/
-/*	display: none;*/
-/*}*/
+/* Clear Floats */
+.upload-form .cb { clear: both; }
 
-/*a:hover {*/
-/*    color: rgba(49, 176, 213, .7);*/
-/*}*/
-
-/* LogIn Page Styles */
-.icn-style {
-    font-size: 60px;
-    color: rgba(255, 255, 255, 1);;
+/* Form Title */
+.upload-form h1 {
+	font-family: 'Trebuchet MS', sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 18px;
+	color: #f6f6f6;
+	text-shadow: 0px 1px 1px rgba(0,0,0, .65);
+	padding-bottom: 2px;
+	border-bottom: 1px solid #7a7b80;
 }
 
-.icn-text-style {
-    font-size: 36px;
+/* Replace Title with Image */
+.upload-form h1.replace-text {
+	display: block;
+	width: 100%;
+	height: 17px;
+	padding-bottom: 7px;
+	text-indent: -9999px;
+	background: url(../img/title.png) no-repeat left center;
 }
 
-hr {
-    height: 0;
-    width: 100%;
-    border: 1px solid #FFFFFF;
-
+/* Close Button */
+.upload-form .close {
+	position: absolute;
+	display: block;
+	width: 12px;
+	height: 12px;
+	top: 28px;
+	right: 24px;
 }
 
-.login-form-col {
-    width: var(--login-form-width);
+/* Paragraph */
+.upload-form p {
+	padding: 10px 0;
+	font-family: sans-serif;
+	font-size: 12px;
+	color: #a4a5a8;
 }
 
-.btn-style {
-    border-radius: var(--btn-radius);
+/* Select & Upload Buttons */
+.upload-form .button {
+	display: inline-block;
+	height: 30px;
+	margin: 15px 0;
+	
+	font-family: sans-serif;
+	font-size: 14px;
+	color: #777;
+	
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 30px;
+	
+	background: #ffffff;
+	background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 100%);
+	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 100%);
+	background: linear-gradient(top, #ffffff 0%, #f6f6f6 100%);
 }
 
-
-/* Component Styles */
-
-/*.navbar {*/
-/*    position: relative;*/
-/*    padding: 1rem 0;*/
-/*    background: rgba(0, 0, 0, 0.5);*/
-/*}*/
-
-/*.lead {*/
-/*    margin-bottom: 2.5rem;*/
-/*}*/
-
-.main {
-    color: #fff;
+.upload-form .button:hover {
+	background: #f2f2f2;
+	background: -webkit-linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
+	background: -moz-linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
+	background: -o-linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
+	background: -ms-linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
+	background: linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
 }
 
-.foot {
-    width: 85%;
-    font-size: .85rem;
-    color: rgba(255, 255, 255, .6);
-    margin-left: auto;
-    margin-right: auto;
+.upload-form #pickfiles {
+	width: 99px;
+	float: left;
+	border-right: 1px solid #999;
+
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
 }
 
-/* Modifier Styles */
+.upload-form #uploadfiles {
+	width: 100px;
+	float: right;
 
-/*.navbar-nav .container {*/
-/*    display: flex;*/
-/*    width: 80%;*/
-/*}*/
-
-/*.nav-items .nav-link {*/
-/*    margin: 0 1rem;*/
-/*}*/
-
-/*.navbar-brand {*/
-/*    margin: 0;*/
-/*}*/
-
-/*.navbar .nav-link,*/
-/*.navbar .btn {*/
-/*    text-transform: uppercase;*/
-/*    font-size: .95rem;*/
-/*    margin-left: 0.1em;*/
-/*    margin-right: 0.1em;*/
-/*}*/
-
-/*#authentication {*/
-/*    display: none;*/
-/*    position: absolute;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    z-index: 2;*/
-/*    background: rgba(0, 0, 0, 0.9);*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*#login-form, #register-form {*/
-/*    display: none;*/
-/*    width: 40%;*/
-/*    height: 40%;*/
-/*    text-align: center;*/
-/*}*/
-
-/*#login-form {*/
-/*    position: absolute;*/
-/*    margin: 0px;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    -webkit-transform: translate(-50%, -50%);*/
-/*    -moz-transform: translate(-50%, -50%);*/
-/*    -ms-transform: translate(-50%, -50%);*/
-/*    transform: translate(-50%, -50%);*/
-/*}*/
-
-/*#register-form {*/
-/*    position: relative;*/
-/*    margin: auto;*/
-/*}*/
-
-/*.form-group {*/
-/*    margin-top: -10px;*/
-/*    text-align: left;*/
-/*}*/
-
-/*.form-control {*/
-/*    margin-top: -10px;*/
-/*}*/
-
-/*.label {*/
-/*    font-size: .88rem;*/
-/*    vertical-align: top;*/
-/*    margin: 3px 0 0 4px;*/
-/*}*/
-
-#panecontent { /* windows minimum size: 680x480 */
-    display: flex;
-    position: relative;
-    width: 85%;
-    height: 85%;
-    min-width: 640px;
-    min-height: 480px;
-    margin-left: auto;
-    margin-right: auto;
-    background: silver;
+	-webkit-border-radius: 0 3px 3px 0;
+	-moz-border-radius: 0 3px 3px 0;
+	border-radius: 0 3px 3px 0;
 }
 
+/* Added Files */
+.upload-form .addedFile {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	word-break: break-all;
+	margin-bottom: 5px;
+	padding: 0 25px 0 25px;
+	height: 30px;
+	
+	font-family: sans-serif;
+	font-size: 12px;
+	line-height: 30px;
+	color: #646464;
 
-#screen {
-    flex: 1;
-    min-height: 85%;
-    margin: 0px;
-    overflow: hidden;
-    background: -webkit-linear-gradient(left, silver, #222222);
-    background: -o-linear-gradient(right, silver, #222222);
-    background: -moz-linear-gradient(right, silver, #222222);
-    background: linear-gradient(to right, silver, #222222);
+	background: #f6f6f6 url(../img/file.png) no-repeat 5px center;
+
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
-#player {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 90px;
-    bottom: 0;
+/* Remove File Button */
+.upload-form a.removeFile {
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 10px;
+	top: 10px;
+	right: 10px;
+	background: url(../img/remove-file.png);
 }
 
-div#aplayer {
-    display: block;
-    position: relative;
-    margin: 0px;
-    background: rgba(66, 66, 66, 0.75);
+/* Progress Bar */
+.upload-form .ui-progressbar,
+.upload-form .ui-progressbar-value {
+	position: relative;
+	height: 4px;
+	
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
 }
 
-/* Button Styles */
+.upload-form .ui-progressbar {
+	cursor: pointer;
+	margin: 15px 0 20px 0;
+	background: #242424;
 
-/*.btn-primary {*/
-/*    background: #417aba;*/
-/*    border-color: #417aba;*/
-/*}*/
-
-/*.btn-info {*/
-/*    background-color: #31b0d5;*/
-/*    border-color: #2aabd2;*/
-/*}*/
-
-/*.btn-info:hover {*/
-/*    background-color: #5bc0de;*/
-/*    border-color: #5bc0de;*/
-/*}*/
-
-/*.btn-light {*/
-/*    color: rgba(255, 255, 255, .75);*/
-/*    background: rgba(255, 255, 255, 0.12);*/
-/*}*/
-
-/*.btn-light:hover {*/
-/*    background: rgba(255, 255, 255, 0.2);*/
-/*}*/
-
-/*.active,*/
-/*.btn {*/
-/*    transition: .4s;*/
-/*}*/
-
-/* Icon Styles */
-
-.icn-logo {
-    margin: 3px 3px 0;
-    float: left;
+	-webkit-box-shadow: 0px 1px 0px rgba(255,255,255, .1);
+	-moz-box-shadow: 0px 1px 0px rgba(255,255,255, .1);
+	box-shadow: 0px 1px 0px rgba(255,255,255, .1);
 }
 
-.userinfo {
-    display: block;
-    position: relative;
-    width: 110px;
-    height: 110px;
-    margin: auto;
+.upload-form .ui-progressbar-value {
+	background: #82d344;
+	background: -webkit-linear-gradient(top, #82d344 0%, #51af34 100%);
+	background: -moz-linear-gradient(top, #82d344 0%, #51af34 100%);
+	background: -o-linear-gradient(top, #82d344 0%, #51af34 100%);
+	background: -ms-linear-gradient(top, #82d344 0%, #51af34 100%);
+	background: linear-gradient(top, #82d344 0%, #51af34 100%);
 }
 
-.icn-avatar {
-    display: flex;
-    width: 80px;
-    height: 80px;
-    font-size: 16px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    border: solid 2px;
-    overflow: hidden;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+.upload-form .ui-progressbar-value span.progressTooltip {
+	position: absolute;
+	display: block;
+	width: 36px;
+	height: 14px;
+	padding: 5px 0 4px 0;
+	top: 10px;
+	right: -18px;
+
+	font-family: sans-serif;
+	font-weight: bold;
+	line-height: 14px;
+	text-align: center;
+	font-size: 12px;
+	color: #646464;
+
+	background: transparent url(../img/tooltip.png) no-repeat;
 }
 
-.username {
-    display: block;
-    position: relative;
-    width: 50%;
-    height: 20px;
-    font-size: 16pt;
-    text-decoration: underline;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+/* Close Checkbox */
+.upload-form #closeAfter {
+	position: absolute;
+	bottom: 25px;
+	left: 25px;
 }
 
-.list-group {
-    width: 125px;
-    margin: auto;
+.js .upload-form span.checkbox input[type=checkbox] {
+	position: fixed;
+	left: -99px;
 }
 
-a.list-group-item {
-    color: #fff;
-    font-size: 14pt;
-    padding: 5px;
-    white-space: nowrap;
-    cursor: pointer;
-    border: none;
-    background: #222222;
+.upload-form span.checkbox {
+	position: relative;
+	margin-top: 15px;
+	float: left;
 }
 
-a.list-group-item:hover {
-    color: rgba(255, 255, 255, 0.75);
-    background: #222222;
+.js .upload-form span.checkbox {
+	width: 21px;
+	height: 21px;
+	cursor: pointer;
+	background: url(../img/checkbox.png) no-repeat 0 -21px;
 }
 
-i.material-icons {
-    display: inline-block;
-    vertical-align: text-bottom;
+.js .upload-form span.checked { background-position: 0 0; }
+
+.upload-form span.checkbox label {
+	position: absolute;
+	top: 3px;
+	left: 31px;
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	color: #e4e4e4;
+	white-space: nowrap;
 }
-
-/* Media Queries */
-
-/*@media (min-width: 0) and (max-width: 767px) {*/
-/*    .navbar {*/
-/*        background: #1d2a33;*/
-/*    }*/
-
-/*    .navbar-nav .container {*/
-/*        position: relative;*/
-/*        width: auto;*/
-/*    }*/
-
-/*    .navbar-brand {*/
-/*        position: absolute;*/
-/*        left: 0;*/
-/*        margin-left: 40px;*/
-/*    }*/
-
-/*    .nav-items.clearfix {*/
-/*        position: inline-block;*/
-/*        margin-left: auto;*/
-/*        margin-right: auto;*/
-/*    }*/
-
-/*    .navbar-btn {*/
-/*        position: absolute;*/
-/*        right: 0;*/
-/*    }*/
-
-/*    .icn-person {*/
-/*        width: 50px;*/
-/*        height: 50px;*/
-/*    }*/
-/*}*/
-
-/*@media (min-width: 768px) {*/
-/*    .navbar {*/
-/*        min-height: 70px;*/
-/*    }*/
-
-/*    .navbar-nav .container {*/
-/*        display: -webkit-flex;*/
-/*    }*/
-
-/*    .nav-items {*/
-/*        margin-right: auto;*/
-/*        margin-left: auto;*/
-/*    }*/
-/*}*/
-
