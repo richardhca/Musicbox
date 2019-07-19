@@ -13,8 +13,9 @@ services:
     environment:
       DATABASE_URL: 
   postgres:
-    image: postgres:9.6.2-alpine
+    image: "postgres:latest"
     environment:
-      POSTGRES_USER: 
-      POSTGRES_DB: 
+      POSTGRES_DB: musicbox-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
       
