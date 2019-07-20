@@ -32,7 +32,7 @@ block content
                         i.fas.fa-sign-out-alt.d-inline
                         span.d-none.d-lg-inline.text-white Logout
 
-            div#app-screen.d-flex.flex-column.flex-grow-1
+            #app-screen.d-flex.flex-column.flex-grow-1
                 // tool area
                 #tool-bar.d-flex.p-4
                     if page === "track_detail" || page === "track_create"
@@ -41,15 +41,16 @@ block content
                         include playlist_tool_bar
 
                 // content area
-                #content-area.d-flex.p-4.flex-wrap.align-content-start
-                    if page === "track_detail"
-                        include track_detail
-                    else if page === "track_create"
-                        include track_create
-                    else if page === "playlist_detail"
-                        include playlist_detail
-                    else if page === "playlist_create"
-                        include playlist_create
+                #item-info
+                    #content-area.d-flex.p-4.flex-wrap.align-content-start
+                        if page === "track_detail"
+                            include track_detail
+                        else if page === "track_create"
+                            include track_create
+                        else if page === "playlist_detail"
+                            include playlist_detail
+                        else if page === "playlist_create"
+                            include playlist_create
 
             .position-absolute.music-player-area
                 div#aplayer
