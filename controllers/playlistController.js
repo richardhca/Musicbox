@@ -4,7 +4,6 @@ const pug = require('pug');
 exports.playlist_detail = (req, res, next) => {
     const info = req.query.info;
     const type = req.query.type;
-    console.log(req.test);
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);

@@ -1,7 +1,7 @@
 extends layout_index
 
 block content
-    .container-fluid.p-0.main-area
+    div#main-area.container-fluid.p-0
         .d-flex.flex-row
             // sidebar
             .d-flex.flex-nowrap
@@ -23,15 +23,16 @@ block content
                         i.fas.fa-search.d-inline
                         span.d-none.d-lg-inline.text-white Search
 
-                    a.list-group-item.d-inline-block.mt-auto.mb-1
+                    a.list-group-item.d-inline-block.mt-auto
                         hr
                         i.fas.fa-user-circle.d-inline
                         span.d-none.d-lg-inline.text-white Profile
 
-                    a.list-group-item.d-inline-block(href="/logout")
+                    a.list-group-item.d-inline-block.mb-4(href="/logout")
+                        i.fas.fa-sign-out-alt.d-inline
                         span.d-none.d-lg-inline.text-white Logout
 
-            .d-flex.flex-column.flex-grow-1
+            #app-screen.d-flex.flex-column.flex-grow-1
                 // tool area
                 #tool-bar.d-flex.p-4
                     if page === "track_detail" || page === "track_create"
@@ -40,20 +41,17 @@ block content
                         include playlist_tool_bar
 
                 // content area
-                #content-area.d-flex.p-4.flex-wrap.align-content-start
-                    if page === "track_detail"
-                        include track_detail
-                    else if page === "track_create"
-                        include track_create
-                    else if page === "playlist_detail"
-                        include playlist_detail
-                    else if page === "playlist_create"
-                        include playlist_create
+                #item-info
+                    #content-area.d-flex.p-4.flex-wrap.align-content-start
+                        if page === "track_detail"
+                            include track_detail
+                        else if page === "track_create"
+                            include track_create
+                        else if page === "playlist_detail"
+                            include playlist_detail
+                        else if page === "playlist_create"
+                            include playlist_create
 
-
-        #music-player.container-fluid.p-0.music-player-area
-            //audio(controls)
-                           //    source(src="/music/test.mp3" type="audio/mpeg")
-
-
-
+            .position-absolute.music-player-area
+                div#aplayer
+    script(type='text/javascript' src='/javascripts/aplayer.js')

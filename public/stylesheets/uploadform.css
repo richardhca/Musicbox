@@ -33,7 +33,7 @@
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	background: url(../img/upload-bg.png);
+	background: url(../images/upload-bg.png);
 	z-index: 100;
 }
 
@@ -133,7 +133,7 @@
 	font-size: 12px;
 	line-height: 30px;
 	color: #646464;
-	background: #f6f6f6 url(../img/file.png) no-repeat 5px center;
+	background: #f6f6f6 url(../images/file.png) no-repeat 5px center;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
