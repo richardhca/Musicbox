@@ -1,85 +1,56 @@
 extends layout_index
 
 block content
-    .container-fluid.p-0.main-area
-        .d-flex.flex-row.h-100
+    div#main-area.container-fluid.p-0
+        .d-flex.flex-row
+            // sidebar
             .d-flex.flex-nowrap
-                #sidebar.list-group.collapse.show.width(role="tablist")
+                #sidebar.list-group.collapse.show.width
                     #sidebaricon.list-group-item.d-inline-block
                         i.fas.fa-headphones-alt.d-none.d-lg-inline
                         span.d-none.d-lg-inline.d-md-none.text-white MusicBox
                         span.d-md-inline.d-lg-none.text-white.text-addrev MB
 
-                    a.list-group-item.d-inline-block.mt-3(href="/song" id="song_button")
+                    a.list-group-item.d-inline-block.mt-3(href="/track" id="track_button")
                         i.fas.fa-music.d-inline
-                        span.d-none.d-lg-inline.text-white Song
+                        span.d-none.d-lg-inline.text-white Track
 
-                    a.list-group-item.d-inline-blockid(href="/album" id="album_button")
+                    a.list-group-item.d-inline-blockid(href="/playlist" id="playlist_button")
                         i.fas.fa-compact-disc.d-inline
-                        span.d-none.d-lg-inline.text-white Album
+                        span.d-none.d-lg-inline.text-white Playlist
 
                     a.list-group-item.d-inline-block
                         i.fas.fa-search.d-inline
                         span.d-none.d-lg-inline.text-white Search
 
-                    a.list-group-item.d-inline-block(href="/logout")
-                        span.d-none.d-lg-inline.text-white Logout
-
-                    a#userprofile.list-group-item.d-inline-block.mt-auto
+                    a.list-group-item.d-inline-block.mt-auto
                         hr
                         i.fas.fa-user-circle.d-inline
                         span.d-none.d-lg-inline.text-white Profile
 
-            .d-flex.flex-column.flex-grow-1(id="tool-bar")
-                include uploadform
-                //nav.navbar.navbar-expand.navbar-dark.bg-dark
-                //    ul.navbar-nav
-                //        li.nav-item
-                //            a(href="#" data-target="#sidebar" data-toggle="collapse")
-                //                i.fas.fa-bars.tool-bar-icon.mr-3
-                //        li.nav-item
-                //            i.fas.fa-plus.tool-bar-icon.mr-3
-                //        li.nav-item
-                //            i.fas.fa-trash-alt.tool-bar-icon
-                .d-flex.p-4
-                    a(href="#" data-target="#sidebar" data-toggle="collapse")
-                        i.fas.fa-bars.tool-bar-icon.mr-3
-                    i.fas.fa-plus.tool-bar-icon.mr-3(onclick="document.getElementById('uploadpane').style.display='block';" style='cursor: pointer;')
-                    i.fas.fa-trash-alt.tool-bar-icon
-                #content-area.d-flex.p-4.flex-wrap
-                    h1.text-white(id="test")
-                    //block content_area
-                // - for (var x = 0; x < 8; x++)
-                // .card(style="width: 10rem; height: 10rem").m-4
-                //     img.card-img-top(src='...')
-                //     .card-body
-                //         .card-title.text-white Album
+                    a.list-group-item.d-inline-block.mb-4(href="/logout")
+                        i.fas.fa-sign-out-alt.d-inline
+                        span.d-none.d-lg-inline.text-white Logout
+
+            div#app-screen.d-flex.flex-column.flex-grow-1
+                // tool area
+                #tool-bar.d-flex.p-4
+                    if page === "track_detail" || page === "track_create"
+                        include track_tool_bar
+                    else if page === "playlist_detail" || page === "playlist_create"
+                        include playlist_tool_bar
+
+                // content area
+                #content-area.d-flex.p-4.flex-wrap.align-content-start
+                    if page === "track_detail"
+                        include track_detail
+                    else if page === "track_create"
+                        include track_create
+                    else if page === "playlist_detail"
+                        include playlist_detail
+                    else if page === "playlist_create"
+                        include playlist_create
 
             .position-absolute.music-player-area
                 div#aplayer
-    //script(type='text/javascript' src='/javascripts/autosubmitform.js')
     script(type='text/javascript' src='/javascripts/aplayer.js')
-    //div.main
-    //    div#panecontent
-    //        div#sidebar
-    //            div.userinfo
-    //                div.icn-avatar
-    //                    img(src='/icons/avatars/sparta.jpg' width='100%' height='100%')
-    //                div.username(style='width: 100%;')
-    //                    p(style='white-space: nowrap;') Leonardo II
-    //            hr
-    //            .list-group
-    //                a.list-group-item(href='#') #[i.material-icons home] Home
-    //                a.list-group-item(href='#') #[i.material-icons search] Search
-    //                a.list-group-item(href='#') #[i.material-icons star] Favorite
-    //                a.list-group-item(href='#') #[i.material-icons queue_music] Playlist
-    //                a.list-group-item(href='/logout') Logout
-    //        div#togglebutton
-    //        div#screen
-    //        div#player
-    //            div#aplayer
-    //script(type='text/javascript' src='/javascripts/dynamicstyle.js')
-    //script(type='text/javascript' src='/javascripts/aplayer.js')
-    // div.foot
-    //    p © Group 15 - CMPT470 Summmer 2019
-

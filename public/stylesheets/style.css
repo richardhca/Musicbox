@@ -7,13 +7,20 @@
 /* Login and sign up page */
 
 body {
+	opacity: 1;
+    transition: 1s opacity;
     background: black;
     background-size: cover;
 }
 
 body::-webkit-scrollbar { 
 	display: none; 
-} 
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: none;
+}
 
 .icn-style {
     font-size: 60px;
@@ -41,7 +48,7 @@ hr {
 
 /* main page */
 
-.main-area {
+#main-area {
 	display: block;
 	position: relative;
     height: 100%;
@@ -90,21 +97,27 @@ a.list-group-item {
     background: #222222;
 }
 
-#userprofile {
-	margin-bottom: 90px;
-}
-
-#tool-bar {
-	margin: 0px;
-	overflow: hidden;
+#app-screen {
 	background: -webkit-linear-gradient(left, silver , #222222);
 	background: -o-linear-gradient(right, silver, #222222);
 	background: -moz-linear-gradient(right, silver, #222222);
 	background: linear-gradient(to right, silver, #222222);
 }
 
-.tool-bar-area {
-    background: #242424 !important;
+#tool-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#content-area {
+    position: fixed;
+    right: 0;
+    overflow: auto;
+}
+
+#content-area::-webkit-scrollbar { 
+	display: none; 
 }
 
 .tool-bar-icon {
