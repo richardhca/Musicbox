@@ -6,12 +6,12 @@ How to run:
 
 1- Go to project root
 
-2- Run `npm install`
-
 2- Run `docker-compose build && docker-compose up`
 
 3- Go to http://localhost:3000
 
+#### If your docker is experiencing issues:
+If you're running linux and your docker build does not work, you can run `npm install` before running `docker-compose build && docker-compose up`. This will download the node modules before the docker image is built. However, do not try this on macOS as it will download modules that are incompitable with docker.
 
 #### Useful TypeORM documentation:
 
