@@ -9,5 +9,5 @@ COPY package*.json ./
 
 # Bundle app source
 COPY . .
-
+RUN npm install
 CMD [ "node", "./bin/www" ]
