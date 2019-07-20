@@ -23,7 +23,7 @@ const ap = new APlayer({
         {
             name: 'Breath and Life',
             artist: 'Audiomachine',
-            url: 'http://sf.sycdn.kuwo.cn/6a48b274b6b4a6542e605fc3cbd2656e/5d297ef6/resource/n2/99/60/3415994371.mp3',
+            url: 'useruploads/Breath and Life (Extended Version).mp3',
             cover: 'https://i.ytimg.com/vi/C0xZ-H2KYWw/maxresdefault.jpg',
             lrc: 'lrc2.lrc',
             theme: '#ffffff'
