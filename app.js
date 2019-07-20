@@ -35,15 +35,15 @@ const indexRouter = require('./routes/index');
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
-const songRoute = require('./routes/song');
-const albumRoute = require('./routes/album');
+const trackRoute = require('./routes/track');
+const playlistRoute = require('./routes/playlist');
 
 app.use('/', indexRouter);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
-app.use('/song', songRoute);
-app.use('/album', albumRoute);
+app.use('/track', trackRoute);
+app.use('/playlist', playlistRoute);
 // app.use('/user', userRouter);
 
 

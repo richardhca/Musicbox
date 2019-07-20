@@ -15,7 +15,7 @@ var upload = multer({ storage: storage }).array('music', 10);
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
 router.get('/', sessionMiddleware.requiredLogin, function (req, res, next) {
-    res.render('index');
+    res.redirect('/track');
 });
 
 router.post('/', function(req, res){
