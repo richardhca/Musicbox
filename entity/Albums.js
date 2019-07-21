@@ -3,7 +3,7 @@ var {EntitySchema} = require("typeorm");
 module.exports = new EntitySchema({
   name: "Albums",
   columns: {
-    album_id: {
+    id: {
       type: "integer",
       primary: true,
       generated: "increment"
@@ -35,7 +35,7 @@ module.exports = new EntitySchema({
   	album_to_artist: {
   		target: "Artists",
   		type: "many-to-many",
-  		joinTable: {name: "album_to_artist", joinColumn: {name: "album_id", referencedColumnName: "album_id"}, inverseJoinColumn: {name: "artist_id", referencedColumnName: "artist_id"}}
+  		joinTable: {name: "album_to_artist", joinColumn: {name: "album_id", referencedColumnName: "id"}, inverseJoinColumn: {name: "artist_id", referencedColumnName: "id"}}
   	},
   }
 });

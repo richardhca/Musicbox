@@ -6,7 +6,7 @@ const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
 router.get('/', song_controller.track_detail);
 
-router.get('/create',
-           song_controller.track_create_get);
+// router.get('/create',
+//            song_controller.track_create_get);
 
 module.exports = router;

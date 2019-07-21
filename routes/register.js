@@ -1,16 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const {body, validationResult} = require('express-validator');
-const {sanitizeBody} = require('express-validator');
-
 const registerController = require('../controllers/registerController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
-router.get('/', sessionMiddleware.requiredLogin,
-           registerController.register_get);
+router.get('/', sessionMiddleware.requiredLogin, registerController.register_get);
 
-router.post('/', sessionMiddleware.requiredLogin,
-            registerController.register_post);
+router.post('/', sessionMiddleware.requiredLogin, registerController.register_post);
 
 module.exports = router;
 

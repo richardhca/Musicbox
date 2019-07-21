@@ -1,7 +1,7 @@
 var {EntitySchema} = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Playlist_to_music",
+  name: "Playlist_to_track",
   columns: {
     id: {
       type: "integer",
@@ -21,11 +21,11 @@ module.exports = new EntitySchema({
       joinColumn: {name: "playlist_id", referencedColumnName: "playlist_id"},
       cascade: true
     },
-    music_id: {
-      target: "Musics",
+    track_id: {
+      target: "Tracks",
       type: "many-to-one",
       joinTable: true,
-      joinColumn: {name: "music_id", referencedColumnName: "music_id"},
+      joinColumn: {name: "track_id", referencedColumnName: "id"},
       cascade: true
     },
   }
