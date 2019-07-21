@@ -4,6 +4,7 @@ const sessionMiddleware = require('../middlewares/sessionMiddleware');
 const {upload} = require('../config/multerConfig');
 const uploadController = require('../controllers/uploadController');
 
+// '/upload'
 router.post('/',
   sessionMiddleware.requiredLogin,
   upload.array('media', 10), // Max upload = 10
