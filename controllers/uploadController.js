@@ -9,4 +9,5 @@ exports.upload_post = async function (req, res, next) {
 
   console.log('Upload successful.');
   res.status(200).end();
+  res.redirect('/track');
 };

@@ -7,10 +7,10 @@ $(document).ready(function () {
         song_detail('GET');
     });
 
-    $('#tool-bar').on('click', 'i[id=\'add_track_icon\']', function (event) {
-        event.preventDefault();
-        song_create_get('GET');
-    });
+    //$('#tool-bar').on('click', 'i[id=\'add_track_icon\']', function (event) {
+    //    event.preventDefault();
+    //    song_create_get('GET');
+    //});
 
     function song_detail(type) {
         $.ajax({
