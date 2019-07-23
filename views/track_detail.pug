@@ -1,5 +1,27 @@
-#track_detail.d-flex.align-content-start
+#track_detail
     #track_list.list-group
-        a.list-group-item.d-block
-            .text-white TrackName
+        - for (var x = 0; x <20; x++)
+            a.list-group-item
+                .row.flex-nowrap
+                    .col
+                        .text-white TrackName
+                    .col
+                        .text-white ArtistName
+                    .col
+                        .text-white AlbumName
+                    .col
+                        .text-white Genres
+                    .col
+                        .text-white Time
+
+
+
+        //
+        //     .d-flex.justify-content-around
+        //         .text-white.d-lg-inline TrackName
+        //         .text-white.d-lg-inline ArtistName
+        //         .text-white.d-lg-inline AlbumName
+        //         .text-white.d-lg-inline Genres
+        //         .text-white.d-lg-inline Time
+
 
