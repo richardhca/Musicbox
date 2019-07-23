@@ -22,6 +22,7 @@ exports.login_post = [
 
     // Handle request.
     async function (req, res, next) {
+        console.log(req);
         const errors = validationResult(req);
 
         // If form fields have validation errors.
@@ -50,7 +51,6 @@ exports.login_post = [
                 return res.redirect('/');
             }
         }
-
         return res.render('login_form', {errors: [{msg: 'Incorrect username or password.'}]});
     }
 ];
