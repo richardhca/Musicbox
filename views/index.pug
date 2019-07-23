@@ -43,11 +43,9 @@ block content
 
                 // content area
                 #item-info
-                    #content-area.d-flex.p-4.flex-wrap.align-content-start
+                    #content-area.d-flex.flex-wrap.p-4.align-content-start
                         if page === "track_detail"
                             include track_detail
-                        else if page === "track_create"
-                            include track_create
                         else if page === "playlist_detail"
                             include playlist_detail
                         else if page === "playlist_create"

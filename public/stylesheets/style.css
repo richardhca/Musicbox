@@ -125,11 +125,12 @@ a.list-group-item {
 #content-area {
     position: fixed;
 	height: 75%;
+    width: 100%;
 	padding: 0px;
-	background: -webkit-linear-gradient(left, silver , #222222);
-	background: -o-linear-gradient(right, silver, #222222);
-	background: -moz-linear-gradient(right, silver, #222222);
-	background: linear-gradient(to right, silver, #222222);
+	/*background: -webkit-linear-gradient(left, silver , #222222);*/
+	/*background: -o-linear-gradient(right, silver, #222222);*/
+	/*background: -moz-linear-gradient(right, silver, #222222);*/
+	/*background: linear-gradient(to right, silver, #222222);*/
     overflow: auto;
 }
 
