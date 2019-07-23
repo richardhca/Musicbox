@@ -25,7 +25,9 @@
     "pg": "^7.11.0",
     "popper.js": "^1.15.0",
     "pug": "^2.0.4",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.2.18",
+    "music-metadata": "^4.2.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

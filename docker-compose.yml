@@ -11,6 +11,8 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    environment:
+      - DOCKER_DB_HOST=db
   db:
     image: "postgres:latest"
     environment:

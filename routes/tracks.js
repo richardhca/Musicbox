@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const tracksController = require('../controllers/tracksController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
-const indexController = require('../controllers/indexController');
 
-router.get('/', sessionMiddleware.requiredLogin, indexController.index_get);
-
+router.get('/', sessionMiddleware.requiredLogin, tracksController.tracks_get);
 
 module.exports = router;

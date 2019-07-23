@@ -1,9 +1,9 @@
 var {EntitySchema} = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Musics",
+  name: "Tracks",
   columns: {
-    music_id: {
+    id: {
       type: "integer",
       primary: true,
       generated: "increment"
@@ -11,6 +11,10 @@ module.exports = new EntitySchema({
     title: {
       type: "character varying",
       nullable: false
+    },
+    mime_type: {
+      type: "character varying",
+      nullable: true // TODO: Let's confirm that MS EDGE (browser) populates this field in the uploaded file first.
     },
     published_on: {
       type: "date",
@@ -41,10 +45,15 @@ module.exports = new EntitySchema({
       type: "character varying",
       nullable: true
     },
-    file_location: {
+    file_name: {
       type: "character varying",
       length: 4096,
       nullable: false
+    },
+    cover_art_file_name: {
+      type: "character varying",
+      length: 4096,
+      nullable: true
     },
   },
   relations: {
@@ -52,7 +61,7 @@ module.exports = new EntitySchema({
       target: "Artists",
       type: "many-to-one",
       joinTable: true,
-      joinColumn: {name: "artist_id", referencedColumnName: "artist_id"},
+      joinColumn: {name: "artist_id", referencedColumnName: "id"},
       cascade: true,
       onUpdate: "CASCADE",
       onDelete: "CASCADE"
@@ -61,7 +70,7 @@ module.exports = new EntitySchema({
       target: "Albums",
       type: "many-to-one",
       joinTable: true,
-      joinColumn: {name: "album_id", referencedColumnName: "album_id"},
+      joinColumn: {name: "album_id", referencedColumnName: "id"},
       cascade: true,
       onUpdate: "CASCADE",
       onDelete: "CASCADE"
