@@ -35,22 +35,22 @@ $(document).ready(function () {
                });
     }
 
-    function song_create_get(type) {
-        $.ajax({
-                   type: 'GET',
-                   url: '/track/create',
-                   dataType: 'html',
-                   data: {info: 'ajax, track create', type: type},
-                   success: function (result) {
-                       console.log(window.location.href);
-                       console.log(result);
-                       window.history.pushState(null, null, '/track/create/');
-                       $('#content-area').html(result);
-
-                   },
-                   error: function (e) {
-                       console.log('error: ', e);
-                   }
-               });
-    }
+    // function song_create_get(type) {
+    //     $.ajax({
+    //                type: 'GET',
+    //                url: '/track/create',
+    //                dataType: 'html',
+    //                data: {info: 'ajax, track create', type: type},
+    //                success: function (result) {
+    //                    console.log(window.location.href);
+    //                    console.log(result);
+    //                    window.history.pushState(null, null, '/track/create/');
+    //                    $('#content-area').html(result);
+    //
+    //                },
+    //                error: function (e) {
+    //                    console.log('error: ', e);
+    //                }
+    //            });
+    // }
 });
