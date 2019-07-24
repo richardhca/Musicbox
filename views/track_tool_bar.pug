@@ -1,5 +1,25 @@
 div#track_tool_bar
     a(href="#" data-target="#sidebar" data-toggle="collapse")
         i.fas.fa-bars.tool-bar-icon.mr-3
-    i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3(id="add_track_icon" style='cursor: pointer;' onclick="document.getElementById('uploadpane').style.display='block';")
+    i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3(data-toggle="modal"
+        data-target="#uploadpane")
     i.fas.fa-trash-alt.tool-bar-icon
+    //i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3(id="add_track_icon"
+    //    style='cursor: pointer;' onclick="document.getElementById('uploadpane').style.display='block';")
+
+    .modal.fade(id="uploadpane" tabindex="-1" role="dialog"
+        aria-labelledby="uploadpaneTitle" aria-hidden="true")
+        .modal-dialog(role="document")
+            .modal-content.upload-form
+                .modal-header
+                    h1.modal-title(id="uploadpaneTitle") Upload Music
+                    button.close(type="button" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") &times;
+                .modal-body
+                    p Upload Your mp3 / wav files here!
+                    form#uf(action='/upload' method='post' enctype='multipart/form-data')
+                        input#sf(type='file' name='tracks' accept='audio/mp3, audio/wav' style='display: none;' multiple)
+                        input#pickfiles.upload-button(type='button' value='Select' onclick="document.getElementById('sf').click()")
+                        input#uploadfiles.upload-button(type='button' value='Upload')
+
+                    div#filelist

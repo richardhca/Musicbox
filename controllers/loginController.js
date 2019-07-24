@@ -22,7 +22,6 @@ exports.login_post = [
 
     // Handle request.
     async function (req, res, next) {
-        console.log(req);
         const errors = validationResult(req);
 
         // If form fields have validation errors.
@@ -36,7 +35,8 @@ exports.login_post = [
         var where = {};
         if (username.includes('@')) {
             where = {email: username};
-        } else {
+        }
+        else {
             where = {username: username};
         }
         const user = await usersRepo.findOne({where: where});

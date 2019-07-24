@@ -63,8 +63,6 @@ const processUpload = async function (file, uploaderId) {
     // Extract metadata
     const metadata = await extractMetaData(file);
 
-    console.log(metadata);
-
     // Save cover art
     await processCoverArt(metadata);
 
