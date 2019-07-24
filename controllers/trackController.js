@@ -12,12 +12,12 @@ exports.track_detail = async function (req, res, next) {
             '../views/track_tool_bar.pug');
         const fn_track_detail_tool_bar = pug.compileFile(
             p_track_detail_tool_bar, null);
+
         const p_track_detail = path.join(__dirname,
             '../views/track_detail.pug');
         const fn_track_detail = pug.compileFile(p_track_detail, null);
 
-        const html = fn_track_detail_tool_bar() + fn_track_detail(
-            {title: 'this is track page'});
+        const html = fn_track_detail_tool_bar() + fn_track_detail({tracks: tracks});
         // console.log(html);
         res.send(html);
     }
