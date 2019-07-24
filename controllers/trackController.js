@@ -6,6 +6,7 @@ exports.track_detail = async function (req, res, next) {
     const info = req.query.info;
     const type = req.query.type;
     const tracks = await connection.getRepository('Tracks').find({owner_id: req.session.userId});
+    console.log(tracks);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_track_detail_tool_bar = path.join(__dirname,
@@ -23,7 +24,7 @@ exports.track_detail = async function (req, res, next) {
     }
     else {
         console.log('server receive a empty req');
-        console.log(tracks);
+
         res.render('index',
             {page: 'track_detail', tracks: tracks});
     }

@@ -82,6 +82,7 @@ const processUpload = async function (file, uploaderId) {
 // Process each upload and fetch current logged in user object
 const processUploads = async function (req) {
     for (var i = 0; i < req.files.length; i++) {
+        console.log('upload success ', i);
         processUpload(req.files[i], req.session.userId);
     }
 };
