@@ -2,7 +2,7 @@ extends layout_index
 
 block content
     div#main-area.container-fluid.p-0
-        .d-flex.flex-row
+        #container.d-flex.flex-row
             // sidebar
             .d-flex.flex-nowrap
                 #sidebar.list-group.collapse.show.width
@@ -15,7 +15,7 @@ block content
                         i.fas.fa-music.d-inline
                         span.d-none.d-lg-inline.text-white Track
 
-                    a.list-group-item.d-inline-blockid(href="/playlist" id="playlist_button")
+                    a.list-group-item.d-inline-block(href="/playlist" id="playlist_button")
                         i.fas.fa-compact-disc.d-inline
                         span.d-none.d-lg-inline.text-white Playlist
 
@@ -34,6 +34,7 @@ block content
 
             #app-screen.d-flex.flex-column.flex-grow-1
                 // tool area
+                include uploadform
                 #tool-bar.d-flex.p-4
                     if page === "track_detail" || page === "track_create"
                         include track_tool_bar
@@ -42,11 +43,9 @@ block content
 
                 // content area
                 #item-info
-                    #content-area.d-flex.p-4.flex-wrap.align-content-start
+                    #content-area.d-flex.flex-wrap.p-4.align-content-start
                         if page === "track_detail"
                             include track_detail
-                        else if page === "track_create"
-                            include track_create
                         else if page === "playlist_detail"
                             include playlist_detail
                         else if page === "playlist_create"

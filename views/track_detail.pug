@@ -1,9 +1,44 @@
-#track_detail.d-flex.flex-wrap.align-content-start
-    h1.text-white=title
-    // - for (var x = 0; x <100; x++)
-    //     .card(style="width: 10rem; height: 10rem").m-4
-    //         img.card-img-top(src='../public/image/test.png')
-    //         .card-body
-    //             .card-title.text-white Alumb
+#track_detail
+    #track_list.list-group
+        a.list-group-item
+            .row.flex-nowrap
+                .col
+                    .text-white Track
+                .col
+                    .text-white Artist
+                .col
+                    .text-white Album
+                .col
+                    .text-white Genres
+                .col
+                    .text-white Duration
+        for track in tracks
+            - const track_name = (null === track.title ? 'None' : track.title)
+            - const artist_name = (undefined === track.artist ? 'None' : track.artist)
+            - const album_name = (undefined === track.album ? 'None' : track.album)
+            - const genres_name = (null === track.genres ? 'None' : track.genres)
+            - const duration = (undefined === track.duration ? 'None' : track.duration)
+            a.list-group-item
+                .row.flex-nowrap
+                    .col
+                        .text-white #{track_name}
+                    .col
+                        .text-white #{artist_name}
+                    .col
+                        .text-white #{album_name}
+                    .col
+                        .text-white #{genres_name}
+                    .col
+                        .text-white #{duration}
+
+
+
+        //
+        //     .d-flex.justify-content-around
+        //         .text-white.d-lg-inline TrackName
+        //         .text-white.d-lg-inline ArtistName
+        //         .text-white.d-lg-inline AlbumName
+        //         .text-white.d-lg-inline Genres
+        //         .text-white.d-lg-inline Time
 
 

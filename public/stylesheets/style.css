@@ -6,15 +6,20 @@
 
 /* Login and sign up page */
 
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
 body {
-	opacity: 1;
+    opacity: 1;
     transition: 1s opacity;
     background: black;
     background-size: cover;
 }
 
-body::-webkit-scrollbar { 
-	display: none; 
+body::-webkit-scrollbar {
+    display: none;
 }
 
 body.fade-out {
@@ -49,25 +54,33 @@ hr {
 /* main page */
 
 #main-area {
-	display: block;
+    display: block;
 	position: relative;
+	width: 100%;
     height: 100%;
-	min-width: 320px;
-	min-height: 480px;
+    min-width: 320px;
+    min-height: 480px;
+}
+
+#container {
+	height: 100%;
 }
 
 .music-player-area {
-	display: block;
-	width: 100%;
-	height: 90px;
-	bottom: 0;
+    display: block;
+	position: relative;
+    width: 100%;
+    height: 90px;
+    bottom: 0;
+    background: rgba(66, 66, 00, 0.1);
+	z-index: 3;
 }
 
 div#aplayer {
-	display: block;
+    display: block;
 	position: relative;
-	margin: 0px;
-	background:rgba(66, 66, 66, 0.75);
+    position: relative;
+    margin: 0px;
 }
 
 #sidebar.list-group {
@@ -88,7 +101,7 @@ div#aplayer {
     font-size: 20px;
 }
 
-a.list-group-item {
+#sidebar a.list-group-item {
     font-size: 14pt;
     /*white-space: nowrap;*/
     /*cursor: pointer;*/
@@ -98,36 +111,35 @@ a.list-group-item {
 }
 
 #app-screen {
-	background: -webkit-linear-gradient(left, silver , #222222);
-	background: -o-linear-gradient(right, silver, #222222);
-	background: -moz-linear-gradient(right, silver, #222222);
-	background: linear-gradient(to right, silver, #222222);
+	position: relative;
+	height: 100%;
+    background: -webkit-linear-gradient(left, silver, #222222);
+    background: -o-linear-gradient(right, silver, #222222);
+    background: -moz-linear-gradient(right, silver, #222222);
+    background: linear-gradient(to right, silver, #222222);
+    overflow: auto;
 }
 
 #tool-bar {
     position: relative;
-	width: 100%;
-	margin: 0;
+    width: 100%;
+    margin: 0;
 }
 
-#item-info {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-#content-area {
-    position: fixed;
-	height: 100%;
-	background: -webkit-linear-gradient(left, silver , #222222);
-	background: -o-linear-gradient(right, silver, #222222);
-	background: -moz-linear-gradient(right, silver, #222222);
-	background: linear-gradient(to right, silver, #222222);
+#item-info, #content-area {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
     overflow: auto;
 }
 
-#content-area::-webkit-scrollbar { 
-	display: none; 
+#content-area {
+	height: 90%; /* To shows the bottom content properly if needs to scroll */
+}
+
+#content-area::-webkit-scrollbar {
+    display: none;
 }
 
 .tool-bar-icon {
@@ -155,4 +167,18 @@ a.list-group-item {
     height: 100%;
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
+}
+
+#track_detail {
+    width: 100%;
+}
+
+#track_list {
+    width: 100%;
+}
+
+#track_list a {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
 }

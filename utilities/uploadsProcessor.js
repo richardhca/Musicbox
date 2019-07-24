@@ -44,7 +44,7 @@ const processTrack = async function (metadata, uploader) {
         cover_art_file_name: metadata.common.coverArtFileName,
         owner_id: uploader
     };
-    const tracksRepo = connection.getRepository("Tracks");
+    const tracksRepo = connection.getRepository('Tracks');
     await tracksRepo.save(newTrackData).catch(error => {
         console.log(`Failed to save track. Error: ${error}`)
     });
@@ -63,11 +63,13 @@ const processUpload = async function (file, uploaderId) {
     // Extract metadata
     const metadata = await extractMetaData(file);
 
+    console.log(metadata);
+
     // Save cover art
     await processCoverArt(metadata);
 
     // Track uploader
-    const uploader = await connection.getRepository("Users").findOne({id: uploaderId});
+    const uploader = await connection.getRepository('Users').findOne({id: uploaderId});
 
     // Process Track
     const track = await processTrack(metadata, uploader);

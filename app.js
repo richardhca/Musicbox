@@ -13,9 +13,9 @@ const app = express();
 
 // use express-session
 app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: false,
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: false,
 }));
 
 // view engine setup
@@ -28,7 +28,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/fontawesome', express.static(
-  path.join(__dirname + '/node_modules/@fortawesome/fontawesome-free/')));
+    path.join(__dirname + '/node_modules/@fortawesome/fontawesome-free/')));
 
 const indexRouter = require('./routes/index');
 // const userRouter = require('./routes/user');
@@ -37,7 +37,6 @@ const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 const trackRoute = require('./routes/track');
 const playlistRoute = require('./routes/playlist');
-const tracksRoute = require('./routes/tracks');
 const uploadRoute = require('./routes/upload');
 
 
@@ -47,25 +46,24 @@ app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
 app.use('/track', trackRoute);
 app.use('/playlist', playlistRoute);
-app.use('/tracks', tracksRoute);
 // app.use('/user', userRouter);
 app.use('/upload', uploadRoute);
 
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

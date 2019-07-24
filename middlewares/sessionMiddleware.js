@@ -10,18 +10,15 @@ exports.requiredLogin = function (req, res, next) {
         const original_url = req.originalUrl;
         if (original_url === '/login' || original_url === '/register') {
             res.redirect('/');
-        }
-        else {
+        } else {
             console.error('Required login');
             next();
         }
-    }
-    else {
+    } else {
         const original_url = req.originalUrl;
         if (original_url === '/login' || original_url === '/register') {
             next();
-        }
-        else {
+        } else {
             console.error('Required login');
             res.redirect('/login');
         }
