@@ -8,6 +8,7 @@ const playlistMiddleware = require('../middlewares/playlistMiddleware');
 router.get('/', playlistMiddleware.getUserPlaylistInfo,
            album_controller.playlist_detail);
 
+//go to playlist create page?
 router.get('/create', album_controller.playlist_create_get);
 
 router.get('/:id/detail', sessionMiddleware.requiredLogin, album_controller.playlist_details_get);
