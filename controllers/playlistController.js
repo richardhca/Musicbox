@@ -1,10 +1,13 @@
 const path = require('path');
 const pug = require('pug');
+const connection = require('typeorm').getConnection();
 
-exports.playlist_detail = (req, res, next) => {
+exports.playlist_detail = async function (req, res, next) {
     const info = req.query.info;
     const type = req.query.type;
-
+    const playlists = await connection.getRepository('Playlists').find({owner_id: req.session.userId});
+    console.log(req.session.userId);
+    console.log(playlists);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_playlist_detail_tool_bar = path.join(__dirname,
@@ -21,6 +24,8 @@ exports.playlist_detail = (req, res, next) => {
         const html = fn_playlist_detail_tool_bar() + fn_playlist_detail(
             {path: image_path});
         // console.log(html);
+
+
 
         res.send(html);
     }
