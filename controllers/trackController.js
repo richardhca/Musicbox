@@ -6,7 +6,7 @@ exports.track_detail = async function (req, res, next) {
     const info = req.query.info;
     const type = req.query.type;
     const tracks = await connection.getRepository('Tracks').find({owner_id: req.session.userId});
-    console.log(tracks);
+    // console.log(tracks);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_track_detail_tool_bar = path.join(__dirname,

@@ -11,6 +11,15 @@ require('./config/createConnection');
 // Init app
 const app = express();
 
+// Init socket.io
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.use(function (req, res, next) {
+    res.io = io;
+    next();
+});
+
 // use express-session
 app.use(session({
     secret: 'secret',
@@ -66,4 +75,4 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+module.exports = {app, server};

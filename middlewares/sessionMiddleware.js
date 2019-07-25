@@ -6,20 +6,23 @@ exports.isLoggedIn = function (req, res, next) {
 
 exports.requiredLogin = function (req, res, next) {
     if (req.session.userId && req.session.isLoggedIn) {
-        console.log('Already login');
+        // console.log('Already login');
         const original_url = req.originalUrl;
         if (original_url === '/login' || original_url === '/register') {
             res.redirect('/');
-        } else {
-            console.error('Required login');
+        }
+        else {
+            // console.error('Required login');
             next();
         }
-    } else {
+    }
+    else {
         const original_url = req.originalUrl;
         if (original_url === '/login' || original_url === '/register') {
             next();
-        } else {
-            console.error('Required login');
+        }
+        else {
+            // console.error('Required login');
             res.redirect('/login');
         }
     }
