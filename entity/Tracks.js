@@ -35,12 +35,13 @@ module.exports = new EntitySchema({
         },
         is_public: {
             type: "boolean",
-            default: false
+            default: false,
+            nullable: false
         },
         artist_name: {
             type: "character varying",
             length: 70,
-            nullable: false
+            nullable: true
         },
         artists: {
             type: "simple-array",
@@ -73,7 +74,6 @@ module.exports = new EntitySchema({
         album_id: {
             target: "Albums",
             type: "many-to-one",
-            nullable: false,
             joinTable: true,
             joinColumn: {name: "album_id", referencedColumnName: "id"},
             cascade: true,

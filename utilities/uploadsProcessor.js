@@ -38,6 +38,9 @@ const processTrack = async function (metadata, uploader) {
     const newTrackData = {
         title: metadata.common.title,
         year: metadata.common.year,
+        artist_name: metadata.common.artist,
+        artists: metadata.common.artists,
+        duration: metadata.format.duration,
         mime_type: metadata.format.mimeType,
         uploaded_on: new Date(),
         file_name: metadata.common.fileName,
