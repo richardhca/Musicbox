@@ -3,17 +3,10 @@ $(document).ready(function () {
         event.preventDefault();
         // $('#tool-bar i[id=\'add_playlist_icon\']').attr('id',
         // 'add_track_icon');
-        // $('#tool-bar i[id=\'add_playlist_icon\']').show();
+        $('#tool-bar i[id=\'add_playlist_icon\']').show();
         tracks_detail('GET');
     });
 
-    $('#tool-bar i[id=\'test\']').click(function (event) {
-        event.preventDefault();
-
-
-        // $('#upload_toast_area').append(data);
-        $('.toast').toast('show');
-    });
 
     function tracks_detail(type) {
         $.ajax({
@@ -39,8 +32,3 @@ $(document).ready(function () {
     }
 
 });
-
-
-
-
-
