@@ -5,7 +5,8 @@ const album_controller = require('../controllers/playlistController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 const playlistMiddleware = require('../middlewares/playlistMiddleware');
 
-router.get('/', playlistMiddleware.getUserPlaylistInfo,
+
+router.get('/', playlistMiddleware.getUserPlaylistInfo, sessionMiddleware.requiredLogin,
            album_controller.playlist_detail);
 
 //go to playlist create page?
