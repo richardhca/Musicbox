@@ -7,21 +7,6 @@ $(document).ready(function () {
         tracks_detail('GET');
     });
 
-    $('#tool-bar i[id=\'test\']').click(function (event) {
-        // event.preventDefault();
-
-        // console.log('click test icon');
-        // console.log(document.location.hostname);
-        // console.log(document.location.port);
-        // var socket = io('//' + document.location.hostname + ':' + document.location.port);
-        // socket.on('pencent', function (data) {
-        //     console.log(data);
-        // });
-        // $('#upload_toast_area').append(data);
-        // $('.toast').toast('show');
-    });
-
-
     function tracks_detail(type) {
         $.ajax({
             type: 'GET',

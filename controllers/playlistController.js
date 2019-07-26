@@ -8,15 +8,15 @@ exports.playlist_detail = (req, res, next) => {
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_playlist_detail_tool_bar = path.join(__dirname,
-                                                     '../views/playlist_tool_bar.pug');
+            '../views/playlist_tool_bar.pug');
         const fn_playlist_detail_tool_bar = pug.compileFile(
             p_playlist_detail_tool_bar, null);
         const p_playlist_detail = path.join(__dirname,
-                                            '../views/playlist_detail.pug');
+            '../views/playlist_detail.pug');
         const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
 
         const image_path = path.join(__dirname,
-                                     '../public/images/test.png');
+            '../public/images/test.png');
 
         const html = fn_playlist_detail_tool_bar() + fn_playlist_detail(
             {path: image_path});
@@ -28,7 +28,7 @@ exports.playlist_detail = (req, res, next) => {
         console.log('server receive a empty req');
         const image_path = path.join('../public/images/test.png');
         res.render('index',
-                   {page: 'playlist_detail', path: image_path});
+            {page: 'playlist_detail', path: image_path});
     }
 };
 
@@ -47,9 +47,9 @@ exports.playlist_create_get = (req, res, next) => {
     else {
         console.log('server receive a empty req');
         res.render('index',
-                   {
-                       page: 'playlist_create', title: 'this is playlist'
-                                                       + ' create page'
-                   });
+            {
+                page: 'playlist_create', title: 'this is playlist'
+                    + ' create page'
+            });
     }
 };

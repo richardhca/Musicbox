@@ -1,16 +1,18 @@
 div(aria-live="polite" aria-atomic="true"
     style="position: relative; min-height: 250px;")
     div#upload_toast_area(style="position: absolute; top: 0; right: 20px;")
-        .toast(role="alert" aria-live="assertive" aria-atomic="true"
+        .toast.animated(role="alert" aria-live="assertive" aria-atomic="true"
             data-autohide="false")
             .toast-header
-                .spinner-border.spinner-border-sm.mr-2(role="status")
-                    span.sr-only Loading...
-                strong.mr-auto Uploading...
+                div#spinner.mr-auto
+                    .spinner-border.spinner-border-sm.text-primary.mr-2(role="status")
+                    strong.mr-auto Uploading...
+                div#complete.mr-auto
+                    i.fas.fa-check.text-success.mr-2
+                    strong.mr-auto Done!
                 button.mb-1.close(data-dismiss="toast" aria-label="Close")
                     span(aria-hidden="true") &times
             .toast-body
-                p Track: 2/10
-                .progress(style="height: 10px; width: 250px;")
-                    .progress-bar(role="progressbar" style="width: 25%;"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100")
+                p
+                .progress(style="height: 16px; width: 250px;")
+                    .progress-bar(role="progressbar")
