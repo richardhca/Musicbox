@@ -6,7 +6,13 @@ exports.album_detail_get = async function (req, res, next) {
         return res.send({});
     }
     const album = await connection.getRepository('Albums').findOne({id: albumId, owner_id: req.session.userId});
-    const tracks = await connection.getRepository('Tracks').find({album_id: albumId, owner_id: req.session.userId});
+    const tracks = await connection.getRepository('Tracks')
+        .createQueryBuilder('tracks')
+        .select('tracks')
+        .where('tracks.owner_id = :userId', {userId: req.session.userId})
+        .andWhere('tracks.album_id = :albumId', {albumId: albumId})
+        .addOrderBy("tracks.rank_in_album", "ASC")
+        .getMany();
     if (album == null || tracks == null){
         return res.status(404)        // HTTP status 404: NotFound
                   .send({});
