@@ -58,3 +58,26 @@ exports.playlist_create_get = (req, res, next) => {
                    });
     }
 };
+
+exports.playlist_details_get = async function (req, res, next) {
+
+    const tracks = await connection.getRepository("Playlists")
+        .createQueryBuilder("playlists")
+        .select("playlists")
+        .addSelect("playlist_to_track.rank")
+        .addSelect("tracks")
+        .leftJoin("playlist_to_track", "playlist_to_track", "playlist_to_track.playlist_id = playlists.playlist_id")
+        .leftJoin("tracks", "tracks", "playlist_to_track.track_id = tracks.id")
+        .where("playlists.owner_id = :userId", {userId: req.session.userId})
+        .andWhere("playlists.playlist_id = :id", {id: req.params.id})
+        .andWhere("tracks.owner_id = :userId", {userId: req.session.userId})
+        .addOrderBy("playlist_to_track.rank", "ASC")
+        .getRawMany();
+    if(tracks == null){
+        return res.status(404).send({});
+    }
+    if(tracks.length <= 0){
+        return res.status(404).send({});
+    }
+    res.send(tracks);
+};
