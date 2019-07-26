@@ -80,9 +80,6 @@ module.exports = new EntitySchema({
             type: "many-to-one",
             joinTable: true,
             joinColumn: {name: "album_id", referencedColumnName: "id"},
-            cascade: true,
-            onUpdate: "CASCADE",
-            onDelete: "CASCADE"
         },
         owner_id: {
             target: "Users",
@@ -90,7 +87,6 @@ module.exports = new EntitySchema({
             joinTable: true,
             joinColumn: {name: "owner_id", referencedColumnName: "id"},
             cascade: true,
-            onUpdate: "CASCADE",
             onDelete: "CASCADE"
         },
     }
