@@ -7,8 +7,8 @@
 /* Login and sign up page */
 
 html, body {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -55,32 +55,31 @@ hr {
 
 #main-area {
     display: block;
-	position: relative;
-	width: 100%;
+    position: relative;
+    width: 100%;
     height: 100%;
     min-width: 320px;
     min-height: 480px;
 }
 
 #container {
-	height: 100%;
+    height: 100%;
 }
 
 .music-player-area {
     display: block;
-	position: relative;
+    position: relative;
     width: 100%;
     height: 90px;
     bottom: 0;
     background: rgba(66, 66, 00, 0.1);
-	z-index: 3;
+    z-index: 3;
 }
 
 div#aplayer {
     display: block;
-	position: relative;
     position: relative;
-    margin: 0px;
+    margin: 0;
 }
 
 #sidebar.list-group {
@@ -101,6 +100,10 @@ div#aplayer {
     font-size: 20px;
 }
 
+#sidebar a {
+    text-decoration: none;
+}
+
 #sidebar a.list-group-item {
     font-size: 14pt;
     /*white-space: nowrap;*/
@@ -111,8 +114,8 @@ div#aplayer {
 }
 
 #app-screen {
-	position: relative;
-	height: 100%;
+    position: relative;
+    height: 100%;
     background: -webkit-linear-gradient(left, silver, #222222);
     background: -o-linear-gradient(right, silver, #222222);
     background: -moz-linear-gradient(right, silver, #222222);
@@ -130,12 +133,12 @@ div#aplayer {
     position: relative;
     height: 100%;
     width: 100%;
-    padding: 0px;
+    padding: 0;
     overflow: auto;
 }
 
 #content-area {
-	height: 90%; /* To shows the bottom content properly if needs to scroll */
+    height: 90%; /* To shows the bottom content properly if needs to scroll */
 }
 
 #content-area::-webkit-scrollbar {
@@ -181,4 +184,18 @@ div#aplayer {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
+}
+
+#album_detail .card {
+    width: 150px;
+    height: 190px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#album_detail .card img {
+    border-radius: 10px;
+    height: 150px;
+    width: 150px;
 }
