@@ -69,6 +69,10 @@ module.exports = new EntitySchema({
             length: 4096,
             nullable: true
         },
+        rank_in_album: {
+            type: "integer",
+            nullable: true
+        }
     },
     relations: {
         album_id: {
