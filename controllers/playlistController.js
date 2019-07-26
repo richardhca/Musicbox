@@ -60,12 +60,10 @@ exports.playlist_create_get = (req, res, next) => {
 };
 
 exports.playlist_details_get = async function (req, res, next) {
-
+	const playlist = await connection.getRepository("Playlists").findOne({playlist_id: req.params.id});
     const tracks = await connection.getRepository("Playlists")
         .createQueryBuilder("playlists")
-        .select("playlists")
-        .addSelect("playlist_to_track.rank")
-        .addSelect("tracks")
+        .select("tracks")
         .leftJoin("playlist_to_track", "playlist_to_track", "playlist_to_track.playlist_id = playlists.playlist_id")
         .leftJoin("tracks", "tracks", "playlist_to_track.track_id = tracks.id")
         .where("playlists.owner_id = :userId", {userId: req.session.userId})
@@ -73,11 +71,5 @@ exports.playlist_details_get = async function (req, res, next) {
         .andWhere("tracks.owner_id = :userId", {userId: req.session.userId})
         .addOrderBy("playlist_to_track.rank", "ASC")
         .getRawMany();
-    if(tracks == null){
-        return res.status(404).send({});
-    }
-    if(tracks.length <= 0){
-        return res.status(404).send({});
-    }
-    res.send(tracks);
+    res.send({name: playlist.name, tracks: tracks});
 };
