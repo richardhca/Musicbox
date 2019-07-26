@@ -23,6 +23,7 @@ module.exports = new EntitySchema({
             type: "simple-array",
             nullable: true
         },
+        // TODO: Figure out how to handle this field if time permits
         published_on: {
             type: "date",
             nullable: true
@@ -31,6 +32,11 @@ module.exports = new EntitySchema({
             type: "timestamp",
             nullable: false
         },
+        cover_art_file_name: {
+            type: "character varying",
+            length: 4096,
+            nullable: true
+        },
         language: {
             type: "character varying",
             length: 30,
@@ -38,11 +44,6 @@ module.exports = new EntitySchema({
         },
         genres: {
             type: "simple-array",
-            nullable: true
-        },
-        cover: {
-            type: "character varying",
-            length: 4096,
             nullable: true
         },
     },

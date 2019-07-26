@@ -34,7 +34,6 @@ const processCoverArt = async function (metadata) {
 };
 
 const processTrack = async function (metadata, uploader) {
-    // TODO: Populate other fields
     const newTrackData = {
         title: metadata.common.title,
         year: metadata.common.year,
@@ -54,6 +53,30 @@ const processTrack = async function (metadata, uploader) {
     });
 };
 
+const getHighestTrackRank = function (album) {
+    var maxRank = 1;
+    album.tracks.forEach(track => {
+        maxRank = Math.max(maxRank, track.rank_in_album)
+    });
+    return maxRank;
+};
+
+const updateAlbum = async function (album, track) {
+    // Add track rank (1 + album's last track's rank)
+    track.rank_in_album = getHighestTrackRank(album) + 1;
+    album.tracks.push(track);
+    // Set to remove duplicates
+    // TODO: Update these fields when a track gets deleted (if applicable)
+    album.artists = Array.from(new Set(album.artists.concat(track.artists || [])));
+    album.genres = Array.from(new Set(album.genres.concat(track.genres || [])));
+
+    // TODO: Update album cover art file name when a track is deleted (if applicable)
+    if (!album.cover_art_file_name) {
+        album.cover_art_file_name = track.cover_art_file_name;
+    }
+
+    return album;
+};
 
 /*
  Scenario 1: If album exists, add track to it and update relevant fields.
@@ -68,6 +91,8 @@ const processAlbum = async function (metadata, track, uploader) {
 
     // If uploaded track has an album field
     if (albumTitle) {
+
+        // Get "Albums" repository
         const albumsRepo = connection.getRepository("Albums");
 
         // Find album and load its tracks
@@ -79,23 +104,28 @@ const processAlbum = async function (metadata, track, uploader) {
             .leftJoinAndSelect("album.tracks", "tracks")
             .getOne();
 
-        // If album exists, update it with new track
+        // (if) album exists, update it with new track
         if (album) {
-            // Add track rank (1 + album's last track's rank)
-            track.rank_in_album = album.tracks.slice(-1)[0].rank_in_album + 1;
-            album.tracks.push(track);
-            album.artists = Array.from(new Set(album.artists.concat(track.artists))); // Set to remove duplicates
+            // Update album with new track data
+            updateAlbum(album, track);
+
+            // Save album changes
             await albumsRepo.save(album);
         } else {
+            // (else) create new album
+
             // Set initial track rank
             track.rank_in_album = 1;
+
             // Create new album
             await albumsRepo.save({
                 title: albumTitle,
                 artist_name: track.artist_name,
-                artists: track.artists,
+                artists: track.artists || [],
                 uploaded_on: track.uploaded_on,
                 owner_id: uploaderId,
+                genres: track.genres || [],
+                cover_art_file_name: track.cover_art_file_name,
                 tracks: [track]
             });
         }
@@ -115,17 +145,24 @@ const processUpload = async function (file, uploader) {
 
     // Process Album
     const album = await processAlbum(metadata, track, uploader);
+
+    return track;
 };
 
 // Process each upload and fetch current logged in user object
-const processUploads = async function (req) {
+const processUploads = async function (req, res) {
 
     // Track(s) uploader
     const uploader = await connection.getRepository("Users").findOne({id: req.session.userId});
 
+    const processedTracks = [];
+
     for (var i = 0; i < req.files.length; i++) {
-        await processUpload(req.files[i], uploader);
+        const processedTrack = await processUpload(req.files[i], uploader);
+        processedTracks.push(processedTrack);
     }
+
+    return processedTracks;
 };
 
 module.exports = {

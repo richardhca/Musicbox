@@ -16,6 +16,7 @@ module.exports = new EntitySchema({
             type: "character varying",
             nullable: true // TODO: Let's confirm that MS EDGE (browser) populates this field in the uploaded file first.
         },
+        // TODO: Figure out how to handle this field if time permits
         published_on: {
             type: "date",
             nullable: true
