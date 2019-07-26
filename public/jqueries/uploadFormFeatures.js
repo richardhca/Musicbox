@@ -1,8 +1,14 @@
 $(document).ready(function () {
     $('#upload_icon').on('click', function (event) {
         event.preventDefault();
-        console.log('upload icon click');
-        $('#uploadpane').modal('show');
+        if ($(upload_icon).hasClass('isDisabled')) {
+            console.log('upload icon click, uploading...');
+        }
+        else {
+            console.log('upload icon click');
+            $('#uploadpane').modal('show');
+            window.history.pushState(null, null, '/track/#upload');
+        }
     });
 
     $('#uploadpane').on('shown.bs.modal', function () {
@@ -46,6 +52,8 @@ $(document).ready(function () {
             alert('Please select some tracks');
         }
         else {
+            $('#upload_icon').addClass('isDisabled');
+
             var formData = new FormData();
 
             for (var i = 0; i < files_len; i++) {
@@ -99,7 +107,7 @@ $(document).ready(function () {
                     .addClass('fadeOutRight delay-2s');
                 // toast hide
 
-
+                $('#upload_icon').removeClass('isDisabled');
                 // $('body').removeClass('modal-open');
                 // $('.modal-backdrop').remove();
 

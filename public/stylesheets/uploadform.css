@@ -142,3 +142,8 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+
+.isDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

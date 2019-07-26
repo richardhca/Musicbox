@@ -3,7 +3,7 @@ $(document).ready(function () {
         event.preventDefault();
         // $('#tool-bar i[id=\'add_playlist_icon\']').attr('id',
         // 'add_track_icon');
-        $('#tool-bar i[id=\'add_playlist_icon\']').show();
+        // $('#tool-bar i[id=\'add_playlist_icon\']').show();
         tracks_detail('GET');
     });
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 // const state = {id: 1, name: 'song'};
                 console.log(window.location.href);
                 // console.log(result);
-                window.history.pushState(null, null, '/track/');
+                window.history.pushState(null, null, '/track');
                 // console.log($(result).filter('div').find('*'));
                 $('#tool-bar')
                     .html($(result).filter('#track_tool_bar'));
