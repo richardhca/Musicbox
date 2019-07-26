@@ -47,6 +47,7 @@ const logoutRoute = require('./routes/logout');
 const trackRoute = require('./routes/track');
 const playlistRoute = require('./routes/playlist');
 const uploadRoute = require('./routes/upload');
+const albumRoute = require('./routes/album');
 
 
 app.use('/', indexRouter);
@@ -57,7 +58,7 @@ app.use('/track', trackRoute);
 app.use('/playlist', playlistRoute);
 // app.use('/user', userRouter);
 app.use('/upload', uploadRoute);
-
+app.use('/album', albumRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

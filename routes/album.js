@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 
-router.get('/', function (req, res, next) {
-    res.send('this is album page');
-});
+const album_controller = require('../controllers/albumController');
+const sessionMiddleware = require('../middlewares/sessionMiddleware');
+
+router.get('/', sessionMiddleware.requiredLogin, album_controller.album_detail);
+
 
 module.exports = router;

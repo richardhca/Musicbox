@@ -45,7 +45,7 @@ exports.playlist_create_get = (req, res, next) => {
         res.send(html);
     }
     else {
-        console.log('server receive a empty req');
+        console.log('server receive a empty req : /playlist');
         res.render('index',
             {
                 page: 'playlist_create', title: 'this is playlist'

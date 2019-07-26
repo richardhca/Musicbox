@@ -1,9 +1,6 @@
 $(document).ready(function () {
     $('#track_button').click(function (event) {
         event.preventDefault();
-        // $('#tool-bar i[id=\'add_playlist_icon\']').attr('id',
-        // 'add_track_icon');
-        // $('#tool-bar i[id=\'add_playlist_icon\']').show();
         tracks_detail('GET');
     });
 

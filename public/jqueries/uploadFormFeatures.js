@@ -105,12 +105,7 @@ $(document).ready(function () {
                 $('#complete').show();
                 $('.toast').removeClass('fadeInRight')
                     .addClass('fadeOutRight delay-2s');
-                // toast hide
-
                 $('#upload_icon').removeClass('isDisabled');
-                // $('body').removeClass('modal-open');
-                // $('.modal-backdrop').remove();
-
             },
             error: function (e) {
                 console.log('error: ', e);

@@ -15,8 +15,14 @@ block content
                         i.fas.fa-music.d-inline
                         span.d-none.d-lg-inline.text-white Track
 
-                    a.list-group-item.d-inline-block(href="/playlist" id="playlist_button")
+
+                    a.list-group-item.d-inline-block(href="/album" id="album_button")
                         i.fas.fa-compact-disc.d-inline
+                        span.d-none.d-lg-inline.text-white Album
+
+
+                    a.list-group-item.d-inline-block(href="/playlist" id="playlist_button")
+                        i.fas.fa-stream.d-inline
                         span.d-none.d-lg-inline.text-white Playlist
 
                     a.list-group-item.d-inline-block
@@ -40,6 +46,8 @@ block content
                         include track_tool_bar
                     else if page === "playlist_detail" || page === "playlist_create"
                         include playlist_tool_bar
+                    else if page === "album_detail"
+                        include album_tool_bar
 
                 // content area
                 #item-info
@@ -50,9 +58,12 @@ block content
                             include playlist_detail
                         else if page === "playlist_create"
                             include playlist_create
+                        else if page === "album_detail"
+                            include album_detail
 
                 include upload_toast_layout
 
             .position-absolute.music-player-area
                 div#aplayer
+                    
     script(type='text/javascript' src='/javascripts/aplayer.js')

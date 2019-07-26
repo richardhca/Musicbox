@@ -1,18 +1,16 @@
 $(document).ready(function () {
     $('#playlist_button').click(function (event) {
         event.preventDefault();
-        // $('#tool-bar i[id=\'add_track_icon\']').attr('id',
-        // 'add_playlist_icon');
-        album_detail('GET');
+        playlist_detail('GET');
     });
 
     $('#tool-bar')
         .on('click', 'i[id=\'add_playlist_icon\']', function (event) {
             event.preventDefault();
-            album_create_get('GET');
+            playlist_create_get('GET');
         });
 
-    function album_detail(type) {
+    function playlist_detail(type) {
         $.ajax({
             type: 'GET',
             url: '/playlist',
@@ -33,7 +31,7 @@ $(document).ready(function () {
         });
     }
 
-    function album_create_get(type) {
+    function playlist_create_get(type) {
         $.ajax({
             type: 'GET',
             url: '/playlist/create',

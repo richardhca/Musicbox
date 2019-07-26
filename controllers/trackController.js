@@ -23,7 +23,7 @@ exports.track_detail = async function (req, res, next) {
         res.send(html);
     }
     else {
-        console.log('server receive a empty req');
+        console.log('server receive a empty req: /track');
 
         res.render('index',
             {page: 'track_detail', tracks: tracks});
