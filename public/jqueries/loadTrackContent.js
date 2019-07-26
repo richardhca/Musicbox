@@ -23,6 +23,8 @@ $(document).ready(function () {
                     .html($(result).filter('#track_tool_bar'));
                 $('#content-area')
                     .html($(result).filter('#track_detail'));
+
+                $.getScript('/jqueries/uploadFormFeatures.js');
             },
             error: function (e) {
                 console.log('error: ', e);
