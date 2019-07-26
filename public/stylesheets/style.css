@@ -270,3 +270,100 @@ div#aplayer {
     height: 150px;
     width: 150px;
 }
+
+#album_detail {
+    width: 100%;
+}
+
+#album_detail .card {
+    max-height: 320px;
+    max-width: 320px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#album_detail ul.list-group {
+    max-height: 300px;
+    max-width: 300px;
+
+}
+
+#album_detail ul.list-group .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#album_detail_play_btn {
+    width: 140px;
+    height: 45px;
+    border-radius: 50px;
+
+}
+
+#album_detail_icon_list {
+    font-size: 24px;
+}
+
+#album_detail_track_list.list-group a.list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+
+#playlist_page_detail .card {
+    width: 150px;
+    height: 190px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#playlist_page_detail .card img {
+    border-radius: 10px;
+    height: 150px;
+    width: 150px;
+}
+
+#playlist_detail {
+    width: 100%;
+}
+
+#playlist_detail .card {
+    max-height: 320px;
+    max-width: 320px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#playlist_detail ul.list-group {
+    max-height: 300px;
+    max-width: 300px;
+
+}
+
+#playlist_detail ul.list-group .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#playlist_detail_play_btn {
+    width: 140px;
+    height: 45px;
+    border-radius: 50px;
+
+}
+
+#playlist_detail_icon_list {
+    font-size: 24px;
+}
+
+#playlist_detail_track_list.list-group a.list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}

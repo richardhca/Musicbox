@@ -53,3 +53,32 @@ exports.playlist_create_get = (req, res, next) => {
             });
     }
 };
+
+exports.playlist_detail_get = function (req, res, next) {
+
+    const info = req.query.info;
+    const type = req.query.type;
+
+    if (info && type) {
+        console.log('server receive a req, type: ', type, ' , info: ', info);
+        const p_playlist_detail_tool_bar = path.join(__dirname,
+            '../views/playlist_detail_tool_bar.pug');
+        const fn_playlist_detail_tool_bar = pug.compileFile(
+            p_playlist_detail_tool_bar, null);
+
+        const p_playlist_detail = path.join(__dirname,
+            '../views/playlist_detail.pug');
+        const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
+
+        const html = fn_playlist_detail_tool_bar() + fn_playlist_detail();
+        // console.log(html);
+        res.send(html);
+    }
+    else {
+        console.log('server receive a empty req: /playlist/detail');
+
+        res.render('index',
+            {page: 'playlist_detail_get'});
+    }
+
+};

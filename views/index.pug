@@ -48,6 +48,10 @@ block content
                         include playlist_page_tool_bar
                     else if page === "album_page_get"
                         include album_page_tool_bar
+                    else if page === "album_detail_get"
+                        include album_detail_tool_bar
+                    else if page === "playlist_detail_get"
+                        include playlist_detail_tool_bar
 
                 // content area
                 #item-info
@@ -60,6 +64,10 @@ block content
                             include playlist_create
                         else if page === "album_page_get"
                             include album_page
+                        else if page === "album_detail_get"
+                            include album_detail
+                        else if page === "playlist_detail_get"
+                            include playlist_detail
 
                 include upload_toast_layout
 

@@ -26,6 +26,7 @@ $(document).ready(function () {
                     $(result).filter('#playlist_page_detail'));
 
                 $.getScript('/jqueries/toggleIcon.js');
+                $.getScript('/jqueries/loadPlaylistDetailContent.js');
             },
             error: function (e) {
                 console.log('error: ', e);

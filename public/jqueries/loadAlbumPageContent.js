@@ -12,8 +12,8 @@ $(document).ready(function () {
             dataType: 'html',
             data: {info: 'ajax, album page', type: type},
             success: function (result) {
-                console.log(window.location.href);
-                console.log(result);
+                // console.log(window.location.href);
+                // console.log(result);
                 window.history.pushState(null, null, '/album');
                 $('#tool-bar').html(
                     $(result).filter('#album_page_tool_bar'));
@@ -21,6 +21,7 @@ $(document).ready(function () {
                     $(result).filter('#album_page_detail'));
 
                 $.getScript('/jqueries/toggleIcon.js');
+                $.getScript('/jqueries/loadAlbumDetailContent.js');
             },
             error: function (e) {
                 console.log('error: ', e);
