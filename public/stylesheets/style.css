@@ -243,7 +243,7 @@ div#aplayer {
     transition-timing-function: ease-out;
 }
 
-#track_detail {
+#track_page_detail {
     width: 100%;
 }
 
@@ -257,7 +257,7 @@ div#aplayer {
     border-color: rgba(0, 0, 0, 0);
 }
 
-#album_detail .card {
+#album_page_detail .card {
     width: 150px;
     height: 190px;
     background-color: #000000;
@@ -265,7 +265,7 @@ div#aplayer {
     border-color: rgba(0, 0, 0, 0);
 }
 
-#album_detail .card img {
+#album_page_detail .card img {
     border-radius: 10px;
     height: 150px;
     width: 150px;

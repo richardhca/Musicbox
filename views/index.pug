@@ -42,24 +42,24 @@ block content
                 // tool area
                 //include upload_form
                 #tool-bar.d-flex.p-4
-                    if page === "track_detail" || page === "track_create"
-                        include track_tool_bar
-                    else if page === "playlist_detail" || page === "playlist_create"
-                        include playlist_tool_bar
-                    else if page === "album_detail"
-                        include album_tool_bar
+                    if page === "track_page_get" || page === "track_create"
+                        include track_page_tool_bar
+                    else if page === "playlist_page_get" || page === "playlist_create"
+                        include playlist_page_tool_bar
+                    else if page === "album_page_get"
+                        include album_page_tool_bar
 
                 // content area
                 #item-info
                     #content-area.d-flex.flex-wrap.p-4.align-content-start
-                        if page === "track_detail"
-                            include track_detail
-                        else if page === "playlist_detail"
-                            include playlist_detail
+                        if page === "track_page_get"
+                            include track_page
+                        else if page === "playlist_page_get"
+                            include playlist_page
                         else if page === "playlist_create"
                             include playlist_create
-                        else if page === "album_detail"
-                            include album_detail
+                        else if page === "album_page_get"
+                            include album_page
 
                 include upload_toast_layout
 

@@ -61,7 +61,7 @@ $(document).ready(function () {
                 // !important, name must be tracks!!
                 formData.append('tracks', file);
             }
-            // tracks_detail('GET');
+            // tracks_page_get('GET');
             tracks_upload(formData);
             $('#uploadpane').modal('hide');
             $('body').removeClass('modal-open');
@@ -100,7 +100,7 @@ $(document).ready(function () {
                 return xhr;
             },
             success: function (result) {
-                tracks_detail('GET');
+                tracks_page_get('GET');
                 $('#spinner').hide();
                 $('#complete').show();
                 $('.toast').removeClass('fadeInRight')
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
     }
 
-    function tracks_detail(type) {
+    function tracks_page_get(type) {
         $.ajax({
             type: 'GET',
             url: '/track',
@@ -122,9 +122,9 @@ $(document).ready(function () {
             data: {info: 'ajax, tracks detail', type: type},
             success: function (result) {
                 $('#tool-bar')
-                    .html($(result).filter('#track_tool_bar'));
+                    .html($(result).filter('#track_page_tool_bar'));
                 $('#content-area')
-                    .html($(result).filter('#track_detail'));
+                    .html($(result).filter('#track_page_detail'));
 
                 $.getScript('/jqueries/uploadFormFeatures.js');
             },
