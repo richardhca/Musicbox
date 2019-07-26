@@ -24,6 +24,8 @@ $(document).ready(function () {
                     $(result).filter('#playlist_tool_bar'));
                 $('#content-area').html(
                     $(result).filter('#playlist_detail'));
+
+                $.getScript('/jqueries/toggleIcon.js');
             },
             error: function (e) {
                 console.log('error: ', e);

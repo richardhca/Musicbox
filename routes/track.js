@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const song_controller = require('../controllers/trackController');
+const track_controller = require('../controllers/trackController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
-router.get('/', sessionMiddleware.requiredLogin, song_controller.track_detail);
+router.get('/', sessionMiddleware.requiredLogin, track_controller.track_detail);
 
 
 module.exports = router;

@@ -4,6 +4,7 @@ $(document).ready(function () {
         album_detail('GET');
     });
 
+
     function album_detail(type) {
         $.ajax({
             type: 'GET',
@@ -18,6 +19,8 @@ $(document).ready(function () {
                     $(result).filter('#album_tool_bar'));
                 $('#content-area').html(
                     $(result).filter('#album_detail'));
+
+                $.getScript('/jqueries/toggleIcon.js');
             },
             error: function (e) {
                 console.log('error: ', e);

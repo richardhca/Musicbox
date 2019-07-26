@@ -129,6 +129,77 @@ div#aplayer {
     margin: 0;
 }
 
+
+/*copy and modify from https://bootsnipp.com/snippets/Wa6zr*/
+.cta {
+    height: 19px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.toggle-btn {
+    height: 3px;
+    border-radius: 10px;
+    width: 20px;
+    background-color: #fff;
+    position: relative;
+    top: 50%;
+    left: 0;
+    margin: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-btn:before {
+    content: "";
+    height: 3px;
+    border-radius: 10px;
+    width: 20px;
+    box-shadow: 0 -7.5px 0 0 #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-btn:after {
+    content: "";
+    height: 3px;
+    border-radius: 10px;
+    width: 20px;
+    box-shadow: 0 7.5px 0 0 #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.active .toggle-btn {
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.active .toggle-btn:before {
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.active .toggle-btn:after {
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.active .change_icon:before {
+    left: -5px;
+    top: 3px;
+    transform: translateY(0) rotate(25deg);
+}
+
+.active .change_icon:after {
+    left: -5px;
+    top: -3px;
+    transform: translateY(0) rotate(-25deg);
+}
+
 #item-info, #content-area {
     position: relative;
     height: 100%;

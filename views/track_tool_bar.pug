@@ -1,10 +1,12 @@
 div#track_tool_bar
-    a(href="#" data-target="#sidebar" data-toggle="collapse")
-        i.fas.fa-bars.tool-bar-icon.mr-3
-    a(href='#upload', id="upload_icon")
-        i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3
-    a(href="#")
-        i.fas.fa-trash-alt.tool-bar-icon.mr-3
+    .d-flex
+        .cta.mr-3
+            .toggle-btn.change_icon
+            //i.fas.fa-bars.tool-bar-icon.mr-3
+        a(href='#upload', id="upload_icon")
+            i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3
+        a(href="#")
+            i.fas.fa-trash-alt.tool-bar-icon.mr-3
 
     //button.btn.btn-primary(id='btn1') tets1
     //button.btn.btn-primary(id='btn2') tets2

@@ -22,6 +22,7 @@ $(document).ready(function () {
                     .html($(result).filter('#track_detail'));
 
                 $.getScript('/jqueries/uploadFormFeatures.js');
+                $.getScript('/jqueries/toggleIcon.js');
             },
             error: function (e) {
                 console.log('error: ', e);
