@@ -42,7 +42,6 @@ const uploadRoute = require('./routes/upload');
 const albumRoute = require('./routes/album');
 const albumsRoute = require('./routes/albums');
 
-
 app.use('/', indexRouter);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);

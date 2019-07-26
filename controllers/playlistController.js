@@ -1,8 +1,26 @@
 const path = require('path');
 const pug = require('pug');
+const {body, validationResult} = require('express-validator');
+const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 
-exports.playlist_valid = (req, res, next) => {
+exports.playlist_valid = async (req, res, next) => {
+    const playlist_name = req.body.playlist_name;
+    if (!playlist_name) {
+        console.log('playlist name is empty.');
+        //return res.render('');
+    } else {
+        const playlist_name_from_db = connection.getRepository('Playlists');
+        const compare = await playlist_name_from_db.findOne(playlist_name);
+        if (compare) {
+            console.log('Invalid playlist name.');
+            //res.render('');
+        } else {
+            console.log('Valid playlist name.');
+            //res.render('');
+        }
+    }
+
 
 };
 
@@ -92,7 +110,6 @@ exports.playlist_details_get = async function (req, res, next) {
     }
 
     transformPlaylistTracks(playlist);
-
     res.send(playlist);
 };
 
