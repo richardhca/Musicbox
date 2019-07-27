@@ -16,6 +16,7 @@ module.exports = new EntitySchema({
             type: "character varying",
             nullable: true // TODO: Let's confirm that MS EDGE (browser) populates this field in the uploaded file first.
         },
+        // TODO: Figure out how to handle this field if time permits
         published_on: {
             type: "date",
             nullable: true
@@ -80,9 +81,6 @@ module.exports = new EntitySchema({
             type: "many-to-one",
             joinTable: true,
             joinColumn: {name: "album_id", referencedColumnName: "id"},
-            cascade: true,
-            onUpdate: "CASCADE",
-            onDelete: "CASCADE"
         },
         owner_id: {
             target: "Users",
@@ -90,7 +88,6 @@ module.exports = new EntitySchema({
             joinTable: true,
             joinColumn: {name: "owner_id", referencedColumnName: "id"},
             cascade: true,
-            onUpdate: "CASCADE",
             onDelete: "CASCADE"
         },
     }
