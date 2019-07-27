@@ -1,23 +1,28 @@
 $(document).ready(function () {
-    $('#album_button').click(function (event) {
+    $('.album_card').on('click', function (event) {
         event.preventDefault();
-        album_detail('GET');
+        album_detail_get('GET');
     });
 
-    function album_detail(type) {
+
+    function album_detail_get(type) {
         $.ajax({
             type: 'GET',
-            url: '/album',
+            url: '/album/detail',
             dataType: 'html',
             data: {info: 'ajax, album detail', type: type},
             success: function (result) {
                 console.log(window.location.href);
-                console.log(result);
-                window.history.pushState(null, null, '/album');
+                // const pretty = html_beautify(result);
+                // console.log(pretty);
+                window.history.pushState(null, null, '/album/detail');
                 $('#tool-bar').html(
-                    $(result).filter('#album_tool_bar'));
+                    $(result).filter('#album_detail_tool_bar'));
                 $('#content-area').html(
                     $(result).filter('#album_detail'));
+
+                $.getScript('/jqueries/toggleIcon.js');
+                $.getScript('/jqueries/trackListEventHandler.js');
             },
             error: function (e) {
                 console.log('error: ', e);
