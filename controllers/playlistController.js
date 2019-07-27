@@ -79,8 +79,10 @@ exports.playlist_details_get = async function (req, res, next) {
 
 exports.playlist_modify_post = async function (req, res, next) {
 	const playlist = await connection.getRepository("Playlists").findOne({playlist_id: req.body.playlistId, owner_id: req.session.userId});
+	const track_record = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.updateId});
+	console.log(track_record);
 	var newRank = null;
-	if (playlist == null){
+	if (playlist == null || track_record == null){
 		return res.status(404).send("404 Not Found");
 	}//If no playlist found, return 404
 	//handle the two cases where there is no tracks before or after the track (i.e. move to the top or bottom of the playlist)
@@ -89,7 +91,11 @@ exports.playlist_modify_post = async function (req, res, next) {
 		    .createQueryBuilder("Playlist_to_track")
 		    .select("MIN(Playlist_to_track.rank)")
 		    .from("playlist_to_track")
+		    .where("playlist_to_track.playlist_id = :playlistId", {playlistId: req.body.playlistId})
 		    .getRawOne();
+	    if(track_record.rank == smallestRank.min){
+			return res.send("Success");
+		}
 		newRank = smallestRank.min / 2;
 	}
 	else if(req.body.afterId == -1){ //If beforeId in the request is -1, that means no track should be after this track (i.e. bottom of the playlist). Please set the beforeId to anything that is not -1
@@ -97,7 +103,11 @@ exports.playlist_modify_post = async function (req, res, next) {
 		    .createQueryBuilder("Playlist_to_track")
 		    .select("MAX(Playlist_to_track.rank)")
 		    .from("playlist_to_track")
+		    .where("playlist_to_track.playlist_id = :playlistId", {playlistId: req.body.playlistId})
 		    .getRawOne();
+		if(track_record.rank == largestRank.max){
+			return res.send("Success");
+		}
 		newRank = largestRank.max + 1;
 	}
 	else { //If nothing else, put the track between the track indicated in beforeId and afterId
