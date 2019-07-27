@@ -113,6 +113,51 @@ exports.playlist_details_get = async function (req, res, next) {
     res.send(playlist);
 };
 
+exports.playlist_post = [
+    body('playlistname')
+        .trim()
+        .exists()
+        .isLength({min: 3}).withMessage('playlist name must be more than 2 characters.')
+        .isLength({max: 25}).withMessage('playlist name cannot be more than 25 characters.'),
+
+    body('public')
+        .exists(),
+    //select public or not here.
+
+    //Sanitize input.
+    sanitizeBody('playlistname').escape(),
+
+    //Handle request.
+    async function (req, res, next) {
+
+        const errors = validationResult(req);
+
+        var playlistData = {
+            name: req.body.playlistname,
+            is_public: req.body.public,
+            creation_on: new Date(),
+        };
+
+        // If form fields have validation errors.
+        if (!errors.isEmpty()) {
+            return res.render('', {Playlists: playlistData, errors: errors.array()});
+        }
+
+        const playlistRepository = connection.getRepository("Playlists");
+        playlistRepository.save(playlistData)
+            .then(function (Playlists) {
+                res.json(playlistData)
+            })
+            .catch(function (error) {
+                var errMessage;
+                if (error.code === "23505") {
+                    errMessage = `playlist name "${req.body.playlistname}" is already taken.`;
+                }
+            });
+    }
+];
+
+
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
     const playlist = await connection.getRepository("Playlists").findOne({
