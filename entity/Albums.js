@@ -10,20 +10,31 @@ module.exports = new EntitySchema({
         },
         title: {
             type: "character varying",
+            length: 70,
             nullable: false
         },
         artist_name: {
             type: "character varying",
             length: 70,
-            nullable: true
+            nullable: false
         },
         // Includes featured artists
         artists: {
             type: "simple-array",
             nullable: true
         },
+        // TODO: Figure out how to handle this field if time permits
         published_on: {
             type: "date",
+            nullable: true
+        },
+        uploaded_on: {
+            type: "timestamp",
+            nullable: false
+        },
+        cover_art_file_name: {
+            type: "character varying",
+            length: 4096,
             nullable: true
         },
         language: {
@@ -35,11 +46,6 @@ module.exports = new EntitySchema({
             type: "simple-array",
             nullable: true
         },
-        cover: {
-            type: "character varying",
-            length: 4096,
-            nullable: true
-        },
     },
     relations: {
         owner_id: {
@@ -49,7 +55,16 @@ module.exports = new EntitySchema({
             joinTable: true,
             joinColumn: {name: "owner_id", referencedColumnName: "id"},
             cascade: true,
-            onUpdate: "CASCADE",
+            onDelete: "CASCADE"
+        },
+        tracks: {
+            target: "Tracks",
+            nullable: false,
+            type: "one-to-many",
+            joinTable: true,
+            joinColumn: {name: "tracks", referencedColumnName: "id"},
+            inverseSide: "album_id",
+            cascade: true,
             onDelete: "CASCADE"
         },
     },
