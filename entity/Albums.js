@@ -65,7 +65,6 @@ module.exports = new EntitySchema({
             joinColumn: {name: "tracks", referencedColumnName: "id"},
             inverseSide: "album_id",
             cascade: true,
-            onDelete: "CASCADE"
         },
     },
     uniques: [
