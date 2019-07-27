@@ -105,7 +105,7 @@ exports.playlist_modify_post = async function (req, res, next) {
 		    .from("playlist_to_track")
 		    .where("playlist_to_track.playlist_id = :playlistId", {playlistId: req.body.playlistId})
 		    .getRawOne();
-		if(track_record.rank == largestRank.max){
+		if(track_record.rank == largestRank.max){//if the current track is already at the bottom of the playlist. do nothing.
 			return res.send("Success");
 		}
 		newRank = largestRank.max + 1;
