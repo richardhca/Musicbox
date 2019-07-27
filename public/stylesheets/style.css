@@ -398,4 +398,18 @@ div#aplayer {
                                      supported by Chrome and Opera */
 }
 
+#upload_toast_area {
+    z-index: 100;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -115%);
+}
+
+.toast {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
 

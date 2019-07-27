@@ -1,18 +1,15 @@
-div(aria-live="polite" aria-atomic="true"
-    style="position: relative; min-height: 250px;")
-    div#upload_toast_area(style="position: absolute; top: 0; right: 20px;")
-        .toast.animated(role="alert" aria-live="assertive" aria-atomic="true"
-            data-autohide="false")
-            .toast-header
-                div#spinner.mr-auto
-                    .spinner-border.spinner-border-sm.text-primary.mr-2(role="status")
-                    strong.mr-auto Uploading...
-                div#complete.mr-auto
-                    i.fas.fa-check.text-success.mr-2
-                    strong.mr-auto Done!
-                button.mb-1.close(data-dismiss="toast" aria-label="Close")
-                    span(aria-hidden="true") &times
-            .toast-body
-                p
-                .progress(style="height: 16px; width: 250px;")
-                    .progress-bar(role="progressbar")
+div#upload_toast_area
+    .toast.animated(role="alert" aria-live="assertive" aria-atomic="true"
+        data-autohide="false")
+        .toast-header
+            div#spinner.mr-auto
+                .spinner-border.spinner-border-sm.text-primary.mr-2(role="status")
+                strong.mr-auto Uploading...
+            div#complete.mr-auto
+                i.fas.fa-check.text-success.mr-2
+                strong.mr-auto Done!
+            button.mb-1.close(data-dismiss="toast" aria-label="Close")
+                span(aria-hidden="true") &times
+        .toast-body.p-1(style="height: 25px;")
+            .progress(style="height: 16px; width: 250px;")
+                .progress-bar(role="progressbar" style="width: 50%;")

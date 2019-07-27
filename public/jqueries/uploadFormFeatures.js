@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $('#test').on('click', function (e) {
+        e.preventDefault();
+        $('.toast').addClass('fadeInUp');
+    });
+
     $('#upload_icon').on('click', function (event) {
         event.preventDefault();
         if ($(upload_icon).hasClass('isDisabled')) {
@@ -81,8 +86,8 @@ $(document).ready(function () {
             $('#spinner').show();
             $('#complete').hide();
 
-            $('.toast').removeClass('delay-2s fadeOutRight')
-                .addClass('fadeInRight');
+            $('.toast').removeClass('fadeOutDown')
+                .addClass('delay-2s fadeInUp');
         }
     });
 
@@ -113,8 +118,8 @@ $(document).ready(function () {
                 tracks_page_get('GET');
                 $('#spinner').hide();
                 $('#complete').show();
-                $('.toast').removeClass('fadeInRight')
-                    .addClass('fadeOutRight delay-2s');
+                $('.toast').removeClass('fadeInUp')
+                    .addClass('fadeOutDown delay-2s');
                 $('#upload_icon').removeClass('isDisabled');
             },
             error: function (e) {
