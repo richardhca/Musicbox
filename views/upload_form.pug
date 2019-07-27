@@ -11,23 +11,8 @@
                 form#uf(action='/upload' method='post' enctype='multipart/form-data')
                     input#sf(type='file' name='tracks' accept='audio/mp3, audio/wav'
                         style='display: none;' multiple)
-                    input#pickfiles.upload-button(type='button' value='Select'
+                    input#pickfiles.upload-button(type='button' class='btn btn-default btn-sm' value='Select'
                         onclick="document.getElementById('sf').click()")
-                    input#uploadfiles.upload-button(type='button' value='Upload')
+                    input#uploadfiles.upload-button(type='button' class='btn btn-default btn-sm' value='Upload')
 
                 div#filelist
-
-
-//div#uploadpane.position-absolute
-//	div#uploader.upload-form
-//		h1.replace-text Upload Music
-//		p.close(title='Close Window')
-//			img#closeUploadPane(src='../images/close-button.png' alt='Close')
-//		p Upload Your mp3 / wav files here!
-//
-//		form#uf(action='/upload' method='post' enctype='multipart/form-data')
-//			input#sf(type='file' name='tracks' accept='audio/mp3, audio/wav' style='display: none;' multiple)
-//			input#pickfiles.button(type='button' value='Select' onclick="document.getElementById('sf').click()")
-//			input#uploadfiles.button(type='button' value='Upload')
-//
-//		div#filelist
