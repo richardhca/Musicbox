@@ -2,11 +2,11 @@ const {processUploads} = require('../utilities/uploadsProcessor');
 
 
 exports.upload_post = async function (req, res, next) {
+    var processedTracks = [];
 
-  if (req.files && req.files.length) {
-    await processUploads(req);
-  }
+    if (req.files && req.files.length) {
+        processedTracks = await processUploads(req, res);
+    }
 
-  console.log('Upload successful.');
-  res.status(200).end();
+    res.status(200).send({uploaded: processedTracks});
 };
