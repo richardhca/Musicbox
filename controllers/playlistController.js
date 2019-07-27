@@ -78,22 +78,26 @@ exports.playlist_details_get = async function (req, res, next) {
 };
 
 exports.playlist_modify_post = async function (req, res, next) {
-	console.log(req.body.playlistId);
-	console.log(req.body.beforeId);
-	console.log(req.body.updateId);
-	console.log(req.body.afterId);
 	const playlist = await connection.getRepository("Playlists").findOne({playlist_id: req.body.playlistId, owner_id: req.session.userId});
 	var newRank = null;
 	if (playlist == null){
 		return res.status(404).send("404 Not Found");
 	}
 	if(req.body.beforeId == -1){
-		const trackBefore = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.beforeId});
-		newRank = trackBefore.rank / 2;
+		const smallestRank = await connection.getRepository("Playlists")
+		    .createQueryBuilder("Playlist_to_track")
+		    .select("MIN(Playlist_to_track.rank)")
+		    .from("playlist_to_track")
+		    .getRawOne();
+		newRank = smallestRank.min / 2;
 	}
 	else if(req.body.afterId == -1){
-		const trackAfter = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.afterId});
-		newRank = trackAfter.rank + 1;
+		const largestRank = await connection.getRepository("Playlists")
+		    .createQueryBuilder("Playlist_to_track")
+		    .select("MAX(Playlist_to_track.rank)")
+		    .from("playlist_to_track")
+		    .getRawOne();
+		newRank = largestRank.max + 1;
 	}
 	else {
 		const trackBefore = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.beforeId});
