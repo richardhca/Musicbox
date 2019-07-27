@@ -13,6 +13,8 @@ $(document).ready(function () {
             success: function (result) {
                 // const state = {id: 1, name: 'song'};
                 console.log(window.location.href);
+                // const pretty = html_beautify(result);
+                // console.log(pretty);
                 // console.log(result);
                 window.history.pushState(null, null, '/track');
                 // console.log($(result).filter('div').find('*'));
@@ -22,6 +24,7 @@ $(document).ready(function () {
                     .html($(result).filter('#track_page_detail'));
 
                 $.getScript('/jqueries/uploadFormFeatures.js');
+                $.getScript('/jqueries/trackListEventHandler.js');
                 $.getScript('/jqueries/toggleIcon.js');
             },
             error: function (e) {

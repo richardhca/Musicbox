@@ -18,7 +18,8 @@ $(document).ready(function () {
             data: {info: 'ajax, playlist page', type: type},
             success: function (result) {
                 console.log(window.location.href);
-                console.log(result);
+                // const pretty = html_beautify(result);
+                // console.log(pretty);
                 window.history.pushState(null, null, '/playlist');
                 $('#tool-bar').html(
                     $(result).filter('#playlist_page_tool_bar'));

@@ -9,15 +9,15 @@ div#album_detail
                 .d-flex.justify-content-end
                     ul.list-group.text-center.w-100.mr-3
                         li.list-group-item.pb-0
-                            h4.text-white Album &#183; Artists
+                            h4.text-white.noselect Album &#183; Artists
                         li.list-group-item.pt-0
-                            h5.text-white Genres
+                            h5.text-white.noselect Genres
                         li.list-group-item
                             button.btn.btn-secondary(id="album_detail_play_btn") PLAY
                         li.list-group-item.pb-0
-                            p.text-white Never miss a new release! Catch all the latest music from artists you follow, plus new singles picked just for you. Updates every Friday.
+                            p.text-white.noselect Never miss a new release! Catch all the latest music from artists you follow, plus new singles picked just for you. Updates every Friday.
                         li.list-group-item.pt-0
-                            p.text-white 10 TRACKS
+                            p.text-white.noselect 10 TRACKS
                         li.list-group-item.d-inline-block(id="album_detail_icon_list")
                             i.far.fa-heart.text-white.mr-4
                             //i.fas.fa-heart.text-white
@@ -29,12 +29,14 @@ div#album_detail
         .col-lg-8
             #album_detail_track_list.list-group
                 - for (var x = 0; x <10; x++)
-                    a.list-group-item
+                    a.list-group-item.track_list
                         .row.flex-nowrap
+                            .col.tracklist_icon
+                                i.material-icons.text-white.noselect music_note
                             .col
-                                .text-white Track
+                                .text-white.noselect Track
                             .col
-                                .text-white 3:50
+                                .text-white.noselect 3:50
 
 
 

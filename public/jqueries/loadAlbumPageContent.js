@@ -12,8 +12,9 @@ $(document).ready(function () {
             dataType: 'html',
             data: {info: 'ajax, album page', type: type},
             success: function (result) {
-                // console.log(window.location.href);
-                // console.log(result);
+                console.log(window.location.href);
+                // const pretty = html_beautify(result);
+                // console.log(pretty);
                 window.history.pushState(null, null, '/album');
                 $('#tool-bar').html(
                     $(result).filter('#album_page_tool_bar'));

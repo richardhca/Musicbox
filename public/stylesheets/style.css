@@ -154,7 +154,7 @@ div#aplayer {
     height: 3px;
     border-radius: 10px;
     width: 20px;
-    box-shadow: 0 -7.5px 0 0 #fff;
+    box-shadow: 0 -8px 0 0 #fff;
     position: absolute;
     top: 0;
     left: 0;
@@ -166,7 +166,7 @@ div#aplayer {
     height: 3px;
     border-radius: 10px;
     width: 20px;
-    box-shadow: 0 7.5px 0 0 #fff;
+    box-shadow: 0 8px 0 0 #fff;
     position: absolute;
     top: 0;
     left: 0;
@@ -247,15 +247,16 @@ div#aplayer {
     width: 100%;
 }
 
-#track_list {
+#track_page_track_list {
     width: 100%;
 }
 
-#track_list a {
+#track_page_track_list .list-group-item {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
 }
+
 
 #album_page_detail .card {
     width: 150px;
@@ -367,3 +368,34 @@ div#aplayer {
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
 }
+
+#track_page_track_list.list-group a.list-group-item:hover,
+#album_detail_track_list.list-group a.list-group-item:hover,
+#playlist_detail_track_list.list-group a.list-group-item:hover,
+.playing {
+    background-color: #242424 !important;
+    border-radius: 0 !important;
+}
+
+
+.tracklist_icon, #tracklist_icon_title {
+    max-width: 30px;
+    max-height: 30px;
+    text-align: right;
+}
+
+#track_list_play_icon {
+    display: none;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome and Opera */
+}
+
+

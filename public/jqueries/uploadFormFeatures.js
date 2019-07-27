@@ -14,16 +14,16 @@ $(document).ready(function () {
     $('#uploadpane').on('shown.bs.modal', function () {
         console.log('upload pane shown');
         $('.progress-bar').css('width', '0%').text('0 %');
-        console.log($('#sf').get(0).files.length);
+        // console.log($('#sf').get(0).files.length);
     });
 
     $('#uploadpane').on('hidden.bs.modal', function () {
         $('.addedFile').remove();
         console.log('upload pane hidden');
-        console.log($('#sf').get(0).files.length);
+        // console.log($('#sf').get(0).files.length);
         console.log('upload pane files clearing');
         $('#sf').wrap('<form>').closest('form').get(0).reset();
-        console.log($('#sf').get(0).files.length);
+        // console.log($('#sf').get(0).files.length);
         window.history.pushState(null, null, '/track');
     });
 
@@ -61,8 +61,18 @@ $(document).ready(function () {
                 // !important, name must be tracks!!
                 formData.append('tracks', file);
             }
-            // tracks_page_get('GET');
+
+            // keep play icon
+            var idx = 0;
+            $('.tracklist_icon').each(function (index) {
+                if ($(this).html().includes('play_arrow')) {
+                    idx = index;
+                }
+            });
+            console.log(idx);
+
             tracks_upload(formData);
+
             $('#uploadpane').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
@@ -119,7 +129,7 @@ $(document).ready(function () {
             type: 'GET',
             url: '/track',
             dataType: 'html',
-            data: {info: 'ajax, tracks detail', type: type},
+            data: {info: 'ajax, tracks page', type: type},
             success: function (result) {
                 $('#tool-bar')
                     .html($(result).filter('#track_page_tool_bar'));
@@ -127,6 +137,8 @@ $(document).ready(function () {
                     .html($(result).filter('#track_page_detail'));
 
                 $.getScript('/jqueries/uploadFormFeatures.js');
+                $.getScript('/jqueries/trackListEventHandler.js');
+                $.getScript('/jqueries/toggleIcon.js');
             },
             error: function (e) {
                 console.log('error: ', e);
