@@ -60,7 +60,10 @@ exports.playlist_create_get = (req, res, next) => {
 };
 
 exports.playlist_details_get = async function (req, res, next) {
-	const playlist = await connection.getRepository("Playlists").findOne({playlist_id: req.params.id});
+	const playlist = await connection.getRepository("Playlists").findOne({playlist_id: req.params.id, owner_id: req.session.userId});
+	if (playlist==null){
+		return res.status(404).send("404 Not Found");
+	}
     const tracks = await connection.getRepository("Playlists")
         .createQueryBuilder("playlists")
         .select("tracks")
@@ -73,3 +76,38 @@ exports.playlist_details_get = async function (req, res, next) {
         .getRawMany();
     res.send({name: playlist.name, tracks: tracks});
 };
+
+exports.playlist_modify_post = async function (req, res, next) {
+	console.log(req.body.playlistId);
+	console.log(req.body.beforeId);
+	console.log(req.body.updateId);
+	console.log(req.body.afterId);
+	const playlist = await connection.getRepository("Playlists").findOne({playlist_id: req.body.playlistId, owner_id: req.session.userId});
+	var newRank = null;
+	if (playlist == null){
+		return res.status(404).send("404 Not Found");
+	}
+	if(req.body.beforeId == -1){
+		const trackBefore = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.beforeId});
+		newRank = trackBefore.rank / 2;
+	}
+	else if(req.body.afterId == -1){
+		const trackAfter = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.afterId});
+		newRank = trackAfter.rank + 1;
+	}
+	else {
+		const trackBefore = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.beforeId});
+		const trackAfter = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.afterId});
+		newRank = (trackBefore.rank+trackAfter.rank)/2;
+	}
+	
+	await connection.getRepository("Playlist_to_track")
+	    .createQueryBuilder("Playlist_to_track")
+	    .update("Playlist_to_track")
+	    .set({rank:newRank})
+	    .where("track_id = :updateId", {updateId: req.body.updateId})
+	    .andWhere("playlist_id = :playlistId", {playlistId: req.body.playlistId})
+	    .execute();
+	return res.send("Success");
+
+}
