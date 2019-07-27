@@ -82,8 +82,9 @@ exports.playlist_modify_post = async function (req, res, next) {
 	var newRank = null;
 	if (playlist == null){
 		return res.status(404).send("404 Not Found");
-	}
-	if(req.body.beforeId == -1){
+	}//If no playlist found, return 404
+	//handle the two cases where there is no tracks before or after the track (i.e. move to the top or bottom of the playlist)
+	if(req.body.beforeId == -1){ //If beforeId in the request is -1, that means no track should be before this track (i.e. top of the playlist). Please set the afterId to anything that is not -1
 		const smallestRank = await connection.getRepository("Playlists")
 		    .createQueryBuilder("Playlist_to_track")
 		    .select("MIN(Playlist_to_track.rank)")
@@ -91,7 +92,7 @@ exports.playlist_modify_post = async function (req, res, next) {
 		    .getRawOne();
 		newRank = smallestRank.min / 2;
 	}
-	else if(req.body.afterId == -1){
+	else if(req.body.afterId == -1){ //If beforeId in the request is -1, that means no track should be after this track (i.e. bottom of the playlist). Please set the beforeId to anything that is not -1
 		const largestRank = await connection.getRepository("Playlists")
 		    .createQueryBuilder("Playlist_to_track")
 		    .select("MAX(Playlist_to_track.rank)")
@@ -99,7 +100,7 @@ exports.playlist_modify_post = async function (req, res, next) {
 		    .getRawOne();
 		newRank = largestRank.max + 1;
 	}
-	else {
+	else { //If nothing else, put the track between the track indicated in beforeId and afterId
 		const trackBefore = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.beforeId});
 		const trackAfter = await connection.getRepository("Playlist_to_track").findOne({playlist_id: req.body.playlistId, track_id: req.body.afterId});
 		newRank = (trackBefore.rank+trackAfter.rank)/2;
