@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    $('#test').on('click', function (e) {
-        e.preventDefault();
-        $('.toast').addClass('fadeInUp');
-    });
+    let uploadFiles = null;
 
     $('#upload_icon').on('click', function (event) {
         event.preventDefault();
@@ -58,15 +55,12 @@ $(document).ready(function () {
         }
         else {
             $('#upload_icon').addClass('isDisabled');
-
             var formData = new FormData();
-
             for (var i = 0; i < files_len; i++) {
                 const file = files[i];
                 // !important, name must be tracks!!
                 formData.append('tracks', file);
             }
-
             // keep play icon
             var idx = 0;
             $('.tracklist_icon').each(function (index) {
@@ -74,9 +68,8 @@ $(document).ready(function () {
                     idx = index;
                 }
             });
-            console.log(idx);
 
-            tracks_upload(formData);
+            uploadFiles = formData;
 
             $('#uploadpane').modal('hide');
             $('body').removeClass('modal-open');
@@ -85,10 +78,18 @@ $(document).ready(function () {
             // toast show
             $('#spinner').show();
             $('#complete').hide();
-
-            $('.toast').removeClass('fadeOutDown')
-                .addClass('delay-2s fadeInUp');
+            $('.toast').removeClass('delay-2s fadeOutDown')
+                .addClass('fadeInUp fast');
         }
+    });
+
+    $('.toast').on('animationend', function () {
+        if ($(this).hasClass('fadeInUp')) {
+            tracks_upload(uploadFiles);
+        }
+        else {
+        }
+
     });
 
     function tracks_upload(formData) {
@@ -115,12 +116,12 @@ $(document).ready(function () {
                 return xhr;
             },
             success: function (result) {
-                tracks_page_get('GET');
                 $('#spinner').hide();
                 $('#complete').show();
-                $('.toast').removeClass('fadeInUp')
-                    .addClass('fadeOutDown delay-2s');
                 $('#upload_icon').removeClass('isDisabled');
+                tracks_page_get('GET');
+                $('.toast').removeClass('fadeInUp fast')
+                    .addClass('fadeOutDown delay-2s');
             },
             error: function (e) {
                 console.log('error: ', e);
