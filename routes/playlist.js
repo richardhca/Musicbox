@@ -14,6 +14,8 @@ router.get('/create', sessionMiddleware.requiredLogin, playlistController.playli
 
 router.get('/:id/detail', sessionMiddleware.requiredLogin, playlistController.playlist_details_get);
 
+router.post('/:playlistId/add/:trackId', sessionMiddleware.requiredLogin, playlistController.playlist_add_post);
+
 router.post('/modify', sessionMiddleware.requiredLogin, playlistController.playlist_modify_post);
 
 module.exports = router;

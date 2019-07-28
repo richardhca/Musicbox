@@ -84,8 +84,10 @@ const transformPlaylistTracks = function (playlist) {
     const tracks = [];
     playlist.playlist_tracks.forEach(playlistTrack => {
         const track = playlistTrack.track_id;
-        track.rank_in_playlist = playlistTrack.rank;
-        tracks.push(track);
+        if (track) {
+            track.rank_in_playlist = playlistTrack.rank;
+            tracks.push(track);
+        }
     });
     playlist.tracks = tracks;
     delete playlist.playlist_tracks;
@@ -137,7 +139,8 @@ exports.playlist_create_post = [
             title: req.body.playlistname,
             is_public: req.body.public,
             created_on: new Date(),
-            owner_id: req.session.userId
+            owner_id: req.session.userId,
+            playlist_tracks: []
         };
 
         // TODO: Figure out what to do if there are errors. Talk to Richard/Arlen
@@ -154,6 +157,40 @@ exports.playlist_create_post = [
     }
 ];
 
+const getHighestTrackRank = function (playlist) {
+    var maxRank = 1;
+    playlist.playlist_tracks.forEach(playlistTrack => {
+        maxRank = Math.max(maxRank, playlistTrack.rank)
+    });
+    return maxRank;
+};
+
+exports.playlist_add_post = async function (req, res, next) {
+
+    // Load playlist and track
+    const playlistRepo = connection.getRepository('Playlists');
+    const playlist = await playlistRepo.findOne({playlist_id: req.params.playlistId}, {relations: ['playlist_tracks']});
+    const track = await connection.getRepository('Tracks').findOne({id: req.params.trackId});
+
+    // 404 if either does not exist
+    if (!playlist || !track) {
+        res.status(404).send("Playlist or track can't be found");
+    }
+
+    // Add track to playlist with correct rank
+    playlist.playlist_tracks.push({
+        rank: getHighestTrackRank(playlist) + 1,
+        track_id: track,
+    });
+
+    // Save updated playlist
+    await playlistRepo.save(playlist);
+
+    transformPlaylistTracks(playlist);
+
+    res.send(playlist);
+
+};
 
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
