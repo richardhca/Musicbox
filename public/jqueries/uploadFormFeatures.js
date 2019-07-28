@@ -4,12 +4,12 @@ $(document).ready(function () {
     $('#upload_icon').on('click', function (event) {
         event.preventDefault();
         if ($(upload_icon).hasClass('isDisabled')) {
-            console.log('upload icon click, uploading...');
+            console.log('upload icon clicked, uploading...');
         }
         else {
             console.log('upload icon click');
             $('#uploadpane').modal('show');
-            window.history.pushState(null, null, '/track/#upload');
+            //window.history.pushState(null, null, '/track/#upload');
         }
     });
 

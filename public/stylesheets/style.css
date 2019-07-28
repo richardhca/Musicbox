@@ -412,3 +412,13 @@ div#aplayer {
 .track_list_more_icon {
     display: none;
 }
+
+.dropdown{
+	width: 20px;
+	float: right;
+	cursor: pointer;
+}
+
+.dropdown-item {
+	cursor: pointer;
+}
