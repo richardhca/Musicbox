@@ -16,7 +16,7 @@ module.exports = new EntitySchema({
         artist_name: {
             type: "character varying",
             length: 70,
-            nullable: false
+            nullable: true
         },
         // Includes featured artists
         artists: {
@@ -65,7 +65,6 @@ module.exports = new EntitySchema({
             joinColumn: {name: "tracks", referencedColumnName: "id"},
             inverseSide: "album_id",
             cascade: true,
-            onDelete: "CASCADE"
         },
     },
     uniques: [

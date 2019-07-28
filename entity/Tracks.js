@@ -81,6 +81,7 @@ module.exports = new EntitySchema({
             type: "many-to-one",
             joinTable: true,
             joinColumn: {name: "album_id", referencedColumnName: "id"},
+            onDelete: "CASCADE"
         },
         owner_id: {
             target: "Users",

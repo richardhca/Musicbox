@@ -10,4 +10,8 @@ router.get('/', playlistMiddleware.getUserPlaylistInfo,
 
 router.get('/create', album_controller.playlist_create_get);
 
+router.get('/:id/detail', sessionMiddleware.requiredLogin, album_controller.playlist_details_get);
+
+router.post('/modify', sessionMiddleware.requiredLogin, album_controller.playlist_modify_post);
+
 module.exports = router;

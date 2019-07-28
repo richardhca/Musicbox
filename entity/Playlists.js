@@ -8,8 +8,9 @@ module.exports = new EntitySchema({
       primary: true,
       generated: "uuid"
     },
-    name: {
+    title: {
       type: "character varying",
+      length: 70,
       nullable: false
     },
     is_public: {
@@ -18,18 +19,27 @@ module.exports = new EntitySchema({
     },
     created_on: {
       type: "timestamp",
-      nullable: true
+      nullable: false
     }
   },
   relations: {
     owner_id: {
       target: "Users",
+      nullable: false,
       type: "many-to-one",
       joinTable: true,
       joinColumn: {name: "owner_id", referencedColumnName: "id"},
       cascade: true,
-      onUpdate: "CASCADE",
-      onDelete: "CASCADE"
+      onDelete: "SET NULL"
+    },
+    playlist_tracks: {
+      target: "Playlist_to_track",
+      type: "one-to-many",
+      joinTable: true,
+      joinColumn: {name: "playlist_tracks", referencedColumnName: "id"},
+      inverseSide: "playlist_id",
+      cascade: true,
+      onDelete: "SET NULL"
     },
   }
 });
