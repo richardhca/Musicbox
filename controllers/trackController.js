@@ -44,6 +44,44 @@ exports.track_detail_get = async (req, res, next) => {
     res.send(track || {});
 };
 
+exports.track_delete = async (req, res, next) => {
+	const id = parseInt(req.params.id);
+
+    // If an id character can't be converted to an int, parseInt returns NaN.
+    // Ex: 'abc'
+    if (isNaN(id)) {
+        return res.send({});
+    }
+	const track = await connection.getRepository('Tracks').findOne({id: id, owner_id: req.session.userId});
+	if(track == null){
+		return res.status(404).send("404 Not Found!")
+	}
+	const fs = require('fs');
+	console.log(track.file_name);
+	console.log(track.cover_art_file_name);
+	const path_track = './public/tracks/'+track.file_name;
+	try {
+	    fs.unlinkSync(path_track);
+	    //file removed
+	} catch(err) {
+	    console.error(err);
+	    return res.status(500).send();
+	}
+	if(track.cover_art_file_name != null){
+		const path_cover = './public/covers/'+track.cover_art_file_name;
+		try {
+		    fs.unlinkSync(path_cover);
+		    //file removed
+		} catch(err) {
+		    console.error(err);
+		    return res.status(500).send();
+		}
+	}
+	await connection.getRepository('Tracks').remove(track);
+	return res.send("Success");
+
+}
+
 // exports.track_create_get = (req, res, next) => {
 //     const info = req.query.info;
 //     const type = req.query.type;
