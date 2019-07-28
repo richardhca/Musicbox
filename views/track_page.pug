@@ -19,9 +19,9 @@
             - const album_name = (undefined === track.album ? 'None' : track.album)
             - const genres_name = (null === track.genres ? 'None' : track.genres)
             - const duration = (undefined === track.duration ? 'None' : track.duration)
-            a.list-group-item.track_list
+            .list-group-item.track_list
                 .row.flex-nowrap
-                    .col.tracklist_icon
+                    .col.track_list_icon
                         i.material-icons.text-white.noselect music_note
                     .col
                         .text-white.noselect #{track_name}
@@ -31,7 +31,21 @@
                         .text-white.noselect #{album_name}
                     .col
                         .text-white.noselect #{genres_name}
-                    .col
+                    .col.d-flex
                         .text-white.noselect #{duration}
+                        .dropdown
+                            i.material-icons.text-white.noselect.ml-5.track_list_more_icon(id="trackDropdownMenu"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
+                            .dropdown-menu(aria-labelledby="trackDropdownMenu")
+                                .dropdown-item add to Playlist
+                                .dropdown-item a
+                                .dropdown-item a
+                        //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
+
+
+
+
+
+
 
 

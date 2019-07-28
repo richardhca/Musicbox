@@ -29,14 +29,15 @@ div#album_detail
         .col-lg-8
             #album_detail_track_list.list-group
                 - for (var x = 0; x <10; x++)
-                    a.list-group-item.track_list
+                    .list-group-item.track_list
                         .row.flex-nowrap
-                            .col.tracklist_icon
+                            .col.track_list_icon
                                 i.material-icons.text-white.noselect music_note
                             .col
                                 .text-white.noselect Track
-                            .col
+                            .col.d-flex
                                 .text-white.noselect 3:50
+                                i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
 
 
 
