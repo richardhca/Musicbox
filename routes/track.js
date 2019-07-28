@@ -12,6 +12,10 @@ router.get(
     trackController.track_detail_get
 );
 
-router.delete('/delete/:id',sessionMiddleware.requiredLogin,trackController.track_delete);
+router.delete(
+    '/delete/:id',
+    sessionMiddleware.requiredLogin,
+    trackController.track_delete
+);
 
 module.exports = router;
