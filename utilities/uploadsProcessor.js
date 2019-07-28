@@ -5,6 +5,7 @@ const connection = require('typeorm').getConnection();
 const mm = require('music-metadata');
 const {imageMimeTypeToExt} = require('../config/multerConfig');
 const projectRoot = require('../config/projectRoot');
+const albumUtilities = require('./albumUtilities');
 
 
 const extractMetaData = async function (file) {
@@ -53,17 +54,10 @@ const processTrack = async function (metadata, uploader) {
     });
 };
 
-const getHighestTrackRank = function (album) {
-    var maxRank = 1;
-    album.tracks.forEach(track => {
-        maxRank = Math.max(maxRank, track.rank_in_album)
-    });
-    return maxRank;
-};
 
 const updateAlbum = async function (album, track) {
     // Add track rank (1 + album's last track's rank)
-    track.rank_in_album = getHighestTrackRank(album) + 1;
+    track.rank_in_album = albumUtilities.getHighestTrackRank(album) + 1;
     album.tracks.push(track);
     // Set to remove duplicates
     // TODO: Update these fields when a track gets deleted (if applicable)

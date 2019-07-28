@@ -1,17 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-const album_controller = require('../controllers/playlistController');
+const playlistController = require('../controllers/playlistController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 const playlistMiddleware = require('../middlewares/playlistMiddleware');
 
-router.get('/', playlistMiddleware.getUserPlaylistInfo,
-           album_controller.playlist_detail);
 
-router.get('/create', album_controller.playlist_create_get);
+router.get('/', playlistMiddleware.getUserPlaylistInfo, sessionMiddleware.requiredLogin, playlistController.playlist_detail);
 
-router.get('/:id/detail', sessionMiddleware.requiredLogin, album_controller.playlist_details_get);
+router.post('/create', sessionMiddleware.requiredLogin, playlistController.playlist_create_post);
 
-router.post('/modify', sessionMiddleware.requiredLogin, album_controller.playlist_modify_post);
+router.get('/create', sessionMiddleware.requiredLogin, playlistController.playlist_create_get);
+
+router.get('/:id/detail', sessionMiddleware.requiredLogin, playlistController.playlist_details_get);
+
+router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlistController.playlist_add_post);
+
+router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlistController.playlist_tracks_delete);
+
+router.post('/modify', sessionMiddleware.requiredLogin, playlistController.playlist_modify_post);
 
 module.exports = router;
