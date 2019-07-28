@@ -130,10 +130,9 @@ exports.playlist_create_post = [
             playlist_tracks: []
         };
 
-        // TODO: Figure out what to do if there are errors. Talk to Richard/Arlen
         // If form fields have validation errors.
         if (!errors.isEmpty()) {
-            return res.render('', {Playlists: playlistData, errors: errors.array()});
+            return res.status(400).send({errors: errors.array()});
         }
 
         const playlistRepository = connection.getRepository("Playlists");
