@@ -113,47 +113,44 @@ exports.playlist_details_get = async function (req, res, next) {
     res.send(playlist);
 };
 
-exports.playlist_post = [
+exports.playlist_create_post = [
+
+    // Validate fields.
     body('playlistname')
         .trim()
         .exists()
-        .isLength({min: 3}).withMessage('playlist name must be more than 2 characters.')
-        .isLength({max: 25}).withMessage('playlist name cannot be more than 25 characters.'),
-
+        .isLength({min: 3}).withMessage('Playlist name must be more than 2 characters.')
+        .isLength({max: 25}).withMessage('Playlist name cannot be more than 25 characters.'),
     body('public')
         .exists(),
-    //select public or not here.
 
-    //Sanitize input.
+    // Sanitize input.
     sanitizeBody('playlistname').escape(),
+    sanitizeBody('public').toBoolean(),
 
-    //Handle request.
+    // Handle request.
     async function (req, res, next) {
 
         const errors = validationResult(req);
 
         var playlistData = {
-            name: req.body.playlistname,
+            title: req.body.playlistname,
             is_public: req.body.public,
-            creation_on: new Date(),
+            created_on: new Date(),
+            owner_id: req.session.userId
         };
 
+        // TODO: Figure out what to do if there are errors. Talk to Richard/Arlen
         // If form fields have validation errors.
         if (!errors.isEmpty()) {
             return res.render('', {Playlists: playlistData, errors: errors.array()});
         }
 
         const playlistRepository = connection.getRepository("Playlists");
-        playlistRepository.save(playlistData)
-            .then(function (Playlists) {
-                res.json(playlistData)
-            })
-            .catch(function (error) {
-                var errMessage;
-                if (error.code === "23505") {
-                    errMessage = `playlist name "${req.body.playlistname}" is already taken.`;
-                }
-            });
+
+        const playlist = await playlistRepository.save(playlistData);
+
+        res.send(playlist);
     }
 ];
 
