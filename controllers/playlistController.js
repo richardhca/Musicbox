@@ -3,6 +3,7 @@ const pug = require('pug');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
+const playlistUtilities = require('../utilities/playlistUtilities');
 
 exports.playlist_valid = async (req, res, next) => {
     const playlist_name = req.body.playlist_name;
@@ -79,21 +80,6 @@ exports.playlist_create_get = (req, res, next) => {
     }
 };
 
-// playlist -> playlist_tracks -> tracks TO playlist -> tracks
-const transformPlaylistTracks = function (playlist) {
-    const tracks = [];
-    playlist.playlist_tracks.forEach(playlistTrack => {
-        const track = playlistTrack.track_id;
-        if (track) {
-            track.rank_in_playlist = playlistTrack.rank;
-            tracks.push(track);
-        }
-    });
-    playlist.tracks = tracks;
-    delete playlist.playlist_tracks;
-    playlist.tracks.sort((a, b) => a.rank_in_playlist - b.rank_in_playlist);
-};
-
 exports.playlist_details_get = async function (req, res, next) {
 
     // Get playlist and load its tracks
@@ -111,7 +97,8 @@ exports.playlist_details_get = async function (req, res, next) {
         return res.status(404).send();
     }
 
-    transformPlaylistTracks(playlist);
+    playlistUtilities.transformPlaylistTracks(playlist);
+
     res.send(playlist);
 };
 
@@ -157,40 +144,95 @@ exports.playlist_create_post = [
     }
 ];
 
-const getHighestTrackRank = function (playlist) {
-    var maxRank = 1;
-    playlist.playlist_tracks.forEach(playlistTrack => {
-        maxRank = Math.max(maxRank, playlistTrack.rank)
-    });
-    return maxRank;
-};
 
 exports.playlist_add_post = async function (req, res, next) {
 
-    // Load playlist and track
-    const playlistRepo = connection.getRepository('Playlists');
-    const playlist = await playlistRepo.findOne({playlist_id: req.params.playlistId}, {relations: ['playlist_tracks']});
-    const track = await connection.getRepository('Tracks').findOne({id: req.params.trackId});
+    const playlistId = req.params.playlistId;
+    var trackIds = req.query.ids;
 
-    // 404 if either does not exist
-    if (!playlist || !track) {
-        res.status(404).send("Playlist or track can't be found");
+    // 404 if either was not provided
+    if (!playlistId || !trackIds) {
+        return res.status(404).send("Playlist or track can't be found");
     }
 
-    // Add track to playlist with correct rank
-    playlist.playlist_tracks.push({
-        rank: getHighestTrackRank(playlist) + 1,
-        track_id: track,
-    });
+    // Load playlist and track
+    const playlistRepo = connection.getRepository('Playlists');
+    const playlist = await playlistRepo.findOne(
+        {
+            playlist_id: playlistId,
+            owner_id: req.session.userId
+        },
+        {
+            relations: ['playlist_tracks']
+        }
+    );
+
+    // 404 if playlist doesn't exist
+    if (!playlist) {
+        res.status(404).send("Playlist can't be found");
+    }
+
+    trackIds = trackIds.split(",");
+
+    // Add tracks to playlist
+    for (var i = 0; i < trackIds.length; i++) {
+        const track = await connection.getRepository('Tracks').findOne({id: trackIds[i], owner_id: req.session.userId});
+        if (!track) {
+            return res.status(404).send(`Track Id ${trackIds[i]} could not be found`);
+        }
+        // Add track to playlist with correct rank
+        playlist.playlist_tracks.push({
+            rank: playlistUtilities.getHighestTrackRank(playlist) + 1,
+            track_id: track,
+        });
+    }
 
     // Save updated playlist
     await playlistRepo.save(playlist);
 
-    transformPlaylistTracks(playlist);
+    playlistUtilities.transformPlaylistTracks(playlist);
 
     res.send(playlist);
 
 };
+
+exports.playlist_tracks_delete = async function (req, res, next) {
+    const playlistId = req.params.playlistId;
+    var ranks = req.query.ranks;
+
+    // 404 if either was not provided
+    if (!playlistId || !ranks) {
+        res.status(404).send("Playlist or tracks can't be found");
+    }
+
+    // Split into array
+    ranks = ranks.split(",");
+
+    const playlistRepo = connection.getRepository('Playlists');
+    const playlist = await playlistRepo.findOne(
+        {
+            playlist_id: playlistId,
+            owner_id: req.session.userId
+        },
+        {
+            relations: ['playlist_tracks']
+        }
+    );
+
+    // 404 if playlist does not exist
+    if (!playlist) {
+        return res.status(404).send("Playlist can't be found");
+    }
+
+    playlist.playlist_tracks = playlist.playlist_tracks.filter(pt => !ranks.includes(pt.rank.toString()));
+
+    await playlistRepo.save(playlist);
+
+    playlistUtilities.transformPlaylistTracks(playlist);
+
+    res.send(playlist);
+};
+
 
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
