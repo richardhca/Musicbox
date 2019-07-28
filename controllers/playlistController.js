@@ -223,7 +223,24 @@ exports.playlist_tracks_delete = async function (req, res, next) {
         return res.status(404).send("Playlist can't be found");
     }
 
-    playlist.playlist_tracks = playlist.playlist_tracks.filter(pt => !ranks.includes(pt.rank.toString()));
+    const ptRepo = connection.getRepository('Playlist_to_track');
+
+    // playlist_to_track records to remove based on rank within playlist
+    const ptToRemove = [];
+
+    // Filter filter and collect player_to_track records to be deleted
+    playlist.playlist_tracks = playlist.playlist_tracks.filter(pt => {
+        if (ranks.includes(pt.rank.toString())) {
+            ptToRemove.push(pt);
+            return false
+        }
+        return true
+    });
+
+    // Delete player_to_track records from database
+    ptToRemove.forEach(async (pt) => {
+        await ptRepo.remove(pt);
+    });
 
     await playlistRepo.save(playlist);
 
