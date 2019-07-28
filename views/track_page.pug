@@ -24,7 +24,8 @@
                     .col.track_list_icon
                         i.material-icons.text-white.noselect music_note
                     .col
-                        .text-white.noselect #{track_name}
+                        .d-flex.flex-nowrap
+                            .text-white.noselect #{track_name}
                     .col
                         .text-white.noselect #{artist_name}
                     .col
@@ -34,12 +35,13 @@
                     .col.d-flex
                         .text-white.noselect #{duration}
                         .dropdown
-                            i.material-icons.text-white.noselect.ml-5.track_list_more_icon(id="trackDropdownMenu"
+                            i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
                             .dropdown-menu(aria-labelledby="trackDropdownMenu")
-                                .dropdown-item add to Playlist
-                                .dropdown-item a
-                                .dropdown-item a
+                                .dropdown-item Add to Playlist
+                                .dropdown-item Copy Track Link
+                                .dropdown-item Share to Other
+                                .dropdown-item Delete Track1
                         //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
 
 

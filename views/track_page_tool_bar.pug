@@ -1,13 +1,15 @@
-div#track_page_tool_bar
-    .d-flex
+div#track_page_tool_bar.w-100
+    .d-flex.pl-4.pr-4
         .cta.mr-3
             .toggle-btn.change_icon
             //i.fas.fa-bars.tool-bar-icon.mr-3
         a(href='#upload', id="upload_icon")
             i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3
-        a(href="#")
-            i.fas.fa-trash-alt.tool-bar-icon.mr-3
-
+        i.fas.fa-trash-alt.tool-bar-icon.mr-3
+        i.fas.fa-search.tool-bar-icon
+    .d-flex.search_area.align-items-center
+        input.w-100(id="track_search_input" type="search" placeholder="Search...")
+        i.fas.fa-times(id="track_search_close")
 
     //i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3(id="add_track_icon"
     //    style='cursor: pointer;' onclick="document.getElementById('uploadpane').style.display='block';")

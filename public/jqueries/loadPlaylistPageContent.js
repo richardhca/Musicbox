@@ -28,6 +28,7 @@ $(document).ready(function () {
 
                 $.getScript('/jqueries/toggleIcon.js');
                 $.getScript('/jqueries/loadPlaylistDetailContent.js');
+                $.getScript('/jqueries/albumPlaylistEventHandler.js');
             },
             error: function (e) {
                 console.log('error: ', e);

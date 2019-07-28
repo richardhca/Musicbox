@@ -266,12 +266,6 @@ div#aplayer {
     border-color: rgba(0, 0, 0, 0);
 }
 
-#album_page_detail .card img {
-    border-radius: 10px;
-    height: 150px;
-    width: 150px;
-}
-
 #album_detail {
     width: 100%;
 }
@@ -282,6 +276,7 @@ div#aplayer {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
+
 }
 
 #album_detail ul.list-group {
@@ -307,12 +302,11 @@ div#aplayer {
     font-size: 24px;
 }
 
-#album_detail_track_list.list-group a.list-group-item {
+#album_detail_track_list.list-group .list-group-item {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
 }
-
 
 #playlist_page_detail .card {
     width: 150px;
@@ -320,12 +314,6 @@ div#aplayer {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
-}
-
-#playlist_page_detail .card img {
-    border-radius: 10px;
-    height: 150px;
-    width: 150px;
 }
 
 #playlist_detail {
@@ -363,7 +351,7 @@ div#aplayer {
     font-size: 24px;
 }
 
-#playlist_detail_track_list.list-group a.list-group-item {
+#playlist_detail_track_list.list-group .list-group-item {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
@@ -373,7 +361,7 @@ div#aplayer {
 /*#album_detail_track_list.list-group .list-group-item:hover,*/
 /*#playlist_detail_track_list.list-group .list-group-item:hover,*/
 .track_hover, .playing {
-    background-color: #242424 !important;
+    background-color: #161618 !important;
     border-radius: 0 !important;
 }
 
@@ -397,8 +385,8 @@ div#aplayer {
 #upload_toast_area {
     z-index: 100;
     position: fixed;
-    left: 50%;
-    transform: translate(-50%, -115%);
+    right: 10px;
+    transform: translate(0, -120%);
 }
 
 .toast {
@@ -409,6 +397,82 @@ div#aplayer {
     border-radius: 10px;
 }
 
-.track_list_more_icon {
+.hidden_icon {
     display: none;
+}
+
+.dropdown-menu {
+    background-color: #282828;
+}
+
+.dropdown-item:hover {
+    background-color: #333333;
+    color: white;
+}
+
+.dropdown-item {
+    color: #aeaeae;
+}
+
+.cover_forced {
+    filter: brightness(50%);
+}
+
+.album_play_icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transform: translate(0, 0);
+    display: none;
+    transition: transform .2s;
+}
+
+.album_play_icon:hover {
+    transform: scale(1.3);
+}
+
+.album_cover {
+    position: absolute;
+    border-radius: 10px;
+    height: 150px;
+    width: 150px;
+    box-shadow: 3px 3px 10px #000;
+}
+
+.card-body {
+    position: absolute;
+    top: 155px;
+    width: 150px;
+    text-align: center;
+}
+
+.search_area {
+    display: none !important;
+    margin-top: 10px;
+    background-color: #282828;
+}
+
+#track_search_input {
+    color: white;
+    font-size: 30px;
+    margin-left: 30px;
+    height: 64px;
+    background-color: #282828;
+    border: 0;
+}
+
+#track_search_input:focus {
+    outline: none !important;
+}
+
+#track_search_close {
+    color: white;
+    font-size: 24px;
+    margin-left: 5px;
+    margin-right: 20px;
 }

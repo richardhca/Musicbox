@@ -25,6 +25,7 @@ $(document).ready(function () {
 
                 $.getScript('/jqueries/uploadFormFeatures.js');
                 $.getScript('/jqueries/trackListEventHandler.js');
+                $.getScript('/jqueries/searchHandler.js');
                 $.getScript('/jqueries/toggleIcon.js');
             },
             error: function (e) {
