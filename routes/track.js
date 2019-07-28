@@ -14,7 +14,4 @@ router.get(
 
 router.delete('/delete/:id',sessionMiddleware.requiredLogin,trackController.track_delete);
 
-// router.get('/create',
-//            song_controller.track_create_get);
-
 module.exports = router;
