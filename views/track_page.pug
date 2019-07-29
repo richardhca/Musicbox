@@ -6,16 +6,18 @@
             - const album_name = (null === track.album_id.title ? 'None' : track.album_id.title);
             - const genres_name = (null === track.genres ? 'None' : track.genres);
             - const duration = (null === track.duration ? 'None' : track.duration);
-            .list-group-item.track_list
+            - const track_url = (null === track.file_name ? 'None' : '/tracks/' + track.file_name);
+            - const track_cover = (null === track.cover_art_file_name ? 'None' : '/covers/' + track.cover_art_file_name);
+            a.list-group-item.track_list(href=track_url + "," + track_cover)
                 .row.flex-nowrap
                     .col.track_list_music_status_icon_col
                         i.material-icons.text-white.noselect music_note
                     .col
-                        .text-white.noselect #{track_name}
+                        .text-white.noselect.track_name.track_hover_arts #{track_name}
                     .col
-                        .text-white.noselect #{artist_name}
+                        .text-white.noselect.track_artist #{artist_name}
                     .col
-                        .text-white.noselect #{album_name}
+                        .text-white.noselect(href) #{album_name}
                     .col
                         .text-white.noselect #{genres_name}
                     .col.d-flex

@@ -14,15 +14,15 @@ const ap = new APlayer({
     container: document.getElementById('aplayer'),
     mini: false,
     autoplay: false,
-    theme: '#FADFA3',
+    theme: 'grey',
     loop: 'none',
     order: 'list',
     preload: 'none',
     volume: 0.5,
     mutex: true,
-    listFolded: true,
-    listMaxHeight: 90,
-    lrcType: 3,
+    // listFolded: true,
+    // listMaxHeight: 90,
+    // lrcType: 3,
     audio: []
 });
 
