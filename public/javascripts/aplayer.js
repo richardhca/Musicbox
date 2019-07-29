@@ -1,9 +1,9 @@
-$(document).ready(function() {
-    $('#loadPL').click(function() {
+$(document).ready(function () {
+    $('#loadPL').click(function () {
         $.ajax({
-            url: "../playlists/SAO",
-            dataType: "text",
-            success : function(data) {
+            url: '../playlists/SAO',
+            dataType: 'text',
+            success: function (data) {
                 loadPlaylist(data);
             }
         });
@@ -26,13 +26,13 @@ const ap = new APlayer({
     audio: []
 });
 
-function loadPlaylist(data){
-	var playlist = JSON.parse(data);
-	if (playlist.length === 0) {
-		alert("You have loaded an empty playlist");
-	}
-	else {
-		ap.list.clear();
-		ap.list.add(playlist);
-	}
+function loadPlaylist(data) {
+    var playlist = JSON.parse(data);
+    if (playlist.length === 0) {
+        alert('You have loaded an empty playlist');
+    }
+    else {
+        ap.list.clear();
+        ap.list.add(playlist);
+    }
 }

@@ -9,7 +9,7 @@
             .modal-body
                 p Upload Your mp3 / wav files here!
                 form#uf(action='/upload' method='post' enctype='multipart/form-data')
-                    input#sf(type='file' name='tracks' accept='audio/mp3, audio/wav'
+                    input#sf(type='file' name='tracks' accept='audio/mp3, audio/wav, audio/mp4'
                         style='display: none;' multiple)
                     input#pickfiles.upload-button(type='button' class='btn btn-default btn-sm' value='Select'
                         onclick="document.getElementById('sf').click()")

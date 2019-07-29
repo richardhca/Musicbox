@@ -10,6 +10,4 @@ router.post('/',
     uploadController.upload_post
 );
 
-router.get('/test', sessionMiddleware.requiredLogin, uploadController.test);
-
 module.exports = router;

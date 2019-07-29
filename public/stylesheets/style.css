@@ -366,7 +366,8 @@ div#aplayer {
 }
 
 
-.track_list_icon, #tracklist_icon_title {
+.track_list_music_status_icon_col,
+.track_list_more_icon {
     max-width: 30px;
     max-height: 30px;
     text-align: right;
@@ -398,7 +399,7 @@ div#aplayer {
 }
 
 .hidden_icon {
-    display: none;
+    visibility: hidden;
 }
 
 .dropdown-menu {

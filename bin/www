@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const {app, server} = require('../app');
+const app = require('../app');
 const debug = require('debug')('musicbox:server');
 const http = require('http');
 
@@ -18,6 +18,8 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
+
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
