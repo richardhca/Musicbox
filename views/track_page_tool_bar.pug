@@ -6,9 +6,9 @@ div#track_page_tool_bar.w-100
         a(href='#upload', id="upload_icon")
             i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3
         i.fas.fa-trash-alt.tool-bar-icon.mr-3
-        i.fas.fa-search.tool-bar-icon
-    .d-flex.search_area.align-items-center
-        input.w-100(id="track_search_input" type="search" placeholder="Search...")
+        i.fas.fa-search.tool-bar-icon(id="track_search")
+    .d-flex.search_area.align-items-center.hidden
+        input.w-100(id="track_search_input" type="text" placeholder="Search...")
         i.fas.fa-times(id="track_search_close")
 
     //i.fas.fa-cloud-upload-alt.tool-bar-icon.mr-3(id="add_track_icon"

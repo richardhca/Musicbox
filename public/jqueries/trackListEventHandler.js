@@ -1,8 +1,6 @@
 $(document).ready(function () {
     // $('.track_list_more_icon').hide();
 
-    console.log('document ready');
-
     $('.track_list').on('mouseenter', function () {
         // console.log('mouse enter');
         const forced_music_icon = $(this).find('.track_list_icon');

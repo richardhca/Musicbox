@@ -452,9 +452,14 @@ div#aplayer {
 }
 
 .search_area {
-    display: none !important;
+    /*display: none;*/
+    height: 64px;
     margin-top: 10px;
     background-color: #282828;
+}
+
+.hidden {
+    display: none !important;
 }
 
 #track_search_input {
