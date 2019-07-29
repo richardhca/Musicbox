@@ -11,14 +11,14 @@ $(document).ready(function () {
             forced_music_icon.html('<i class="material-icons text-white noselect">pause</i>');
         }
 
-        forced_track_area = $(this);
+        const forced_track_area = $(this);
         if (forced_track_area.hasClass('track_hover')) {
         }
         else {
             forced_track_area.addClass('track_hover');
         }
 
-        forced_more_icon = forced_track_area.find('.track_list_more_icon');
+        const forced_more_icon = forced_track_area.find('.track_list_more_icon');
         if (forced_more_icon.hasClass('hidden_icon')) {
             forced_more_icon.removeClass('hidden_icon')
         }
@@ -38,14 +38,14 @@ $(document).ready(function () {
             forced_music_icon.html('<i class="material-icons text-white noselect">volume_up</i>');
         }
 
-        forced_track_area = $(this);
+        const forced_track_area = $(this);
         if (forced_track_area.hasClass('track_hover')) {
             forced_track_area.removeClass('track_hover');
         }
         else {
         }
 
-        forced_more_icon = forced_track_area.find('.track_list_more_icon');
+        const forced_more_icon = forced_track_area.find('.track_list_more_icon');
         if (forced_more_icon.hasClass('hidden_icon')) {
 
         }

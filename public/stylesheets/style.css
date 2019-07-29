@@ -13,7 +13,7 @@ html, body {
 
 body {
     opacity: 1;
-    transition: 1s opacity;
+    transition: 2s opacity;
     background: black;
     background-size: cover;
 }
@@ -98,10 +98,6 @@ div#aplayer {
 
 #sidebaricon .text-addrev {
     font-size: 20px;
-}
-
-#sidebar a {
-    text-decoration: none;
 }
 
 #sidebar a.list-group-item {
@@ -266,13 +262,10 @@ div#aplayer {
     border-color: rgba(0, 0, 0, 0);
 }
 
-#album_detail {
-    width: 100%;
-}
 
 #album_detail .card {
-    max-height: 320px;
-    max-width: 320px;
+    height: 320px;
+    width: 320px;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
@@ -421,8 +414,8 @@ div#aplayer {
 
 .album_play_icon {
     position: absolute;
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     left: 0;
     right: 0;
     top: 0;
@@ -434,7 +427,7 @@ div#aplayer {
 }
 
 .album_play_icon:hover {
-    transform: scale(1.3);
+    transform: scale(1.1);
 }
 
 .album_cover {
@@ -442,7 +435,7 @@ div#aplayer {
     border-radius: 10px;
     height: 150px;
     width: 150px;
-    box-shadow: 3px 3px 10px #000;
+    box-shadow: 5px 6px 12px #000;
 }
 
 .card-body {
@@ -484,11 +477,24 @@ div#aplayer {
 }
 
 .dropdown{
-	width: 20px;
-	float: right;
+	/*width: 20px;*/
+	/*float: right;*/
 	cursor: pointer;
 }
 
 .dropdown-item {
 	cursor: pointer;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+
+.album_cover_in_detail_page {
+    position: absolute;
+    border-radius: 10px;
+    /*height: 150px;*/
+    /*width: 150px;*/
+    box-shadow: 5px 6px 12px #000;
 }

@@ -1,50 +1,114 @@
-div#album_detail
-    .row
+div#album_detail.d-flex.h-100.w-100
+    - const default_cover = '/images/music_cover_default_black.png'
+    - const album_cover = (null === album.cover_art_file_name ? default_cover : '/covers/' + album.cover_art_file_name);
+    - const album_name = (null === album.title ? "None" : album.title);
+    - const album_artists = (null === album.artists ? "None" : album.artists);
+    - const album_genres = (null === album.genres ? "None" : album.genres);
+    - const album_tracks = (null === album.tracks ? [] : album.tracks);
+    - const tracks_len = album_tracks.length;
+    .row.flex-row.w-100
         .col-lg-4
             .d-flex.flex-column
-                .d-flex.justify-content-end.flex-wrap
-                    .album_card.card.mr-5
-                        img.card-img-top(src='/images/music_cover_default_black.png')
-
                 .d-flex.justify-content-end
-                    ul.list-group.text-center.w-100.mr-3
+                    .album_card.card.mr-5
+                        div.album_cover_in_detail_page
+                            .album_cover_image
+                                img.card-img-top(src=album_cover)
+                            img.card-img-top.album_play_icon(src='/images/circled_play.png')
+                .d-flex.justify-content-end
+                    ul.list-group.text-center.w-100.mr-5.mt-2
                         li.list-group-item.pb-0
-                            h4.text-white.noselect Album &#183; Artists
+                            h4.text-white.noselect #{album_name}
                         li.list-group-item.pt-0
-                            h5.text-white.noselect Genres
+                            h4.text-white.noselect  #{album_artists}
+                        li.list-group-item.pt-0
+                            h6.text-white.noselect Genres #{album_genres}
                         li.list-group-item
                             button.btn.btn-secondary(id="album_detail_play_btn") PLAY
-                        li.list-group-item.pb-0
-                            p.text-white.noselect Never miss a new release! Catch all the latest music from artists you follow, plus new singles picked just for you. Updates every Friday.
-                        li.list-group-item.pt-0
-                            p.text-white.noselect 10 TRACKS
+                        li.list-group-item.pt-3
+                            p.text-white.noselect #{tracks_len} TRACKS
                         li.list-group-item.d-inline-block(id="album_detail_icon_list")
-                            i.far.fa-heart.text-white.mr-4
+                            i.far.fa-heart.text-white.d-inline.mr-4(id="like_icon")
                             //i.fas.fa-heart.text-white
-                            i.fas.fa-share-alt.text-white.mr-4
-                            i.fas.fa-ellipsis-h.text-white
-
-
+                            .dropdown.d-inline
+                                i.fas.fa-ellipsis-h.text-white(id="albumDropdownMenu"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                                .dropdown-menu(aria-labelledby="albumDropdownMenu")
+                                    .dropdown-item Add to Playlist
+                                    .dropdown-item Copy Album Link
+                                    .dropdown-item Share to Other
+                                    .dropdown-item Delete Album
+                            //i.fas.fa-ellipsis-h.text-white
 
         .col-lg-8
-            #album_detail_track_list.list-group
-                - for (var x = 0; x <10; x++)
-                    .list-group-item.track_list
-                        .row.flex-nowrap
-                            .col.track_list_icon
-                                i.material-icons.text-white.noselect music_note
-                            .col
-                                .text-white.noselect Track
-                            .col.d-flex
-                                .text-white.noselect 3:50
-                                .dropdown
-                                    i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
-                                    .dropdown-menu(aria-labelledby="trackDropdownMenu")
-                                        .dropdown-item Add to Playlist
-                                        .dropdown-item Copy Track Link
-                                        .dropdown-item Share to Other
-                                        .dropdown-item Delete Track
+            .d-flex
+                #album_detail_track_list.list-group.w-100
+                    for track in album_tracks
+                        - const track_name = (null === track.title ? 'None' : track.title);
+                        - const duration = (null === track.duration ? 'None' : track.duration);
+                        .list-group-item.track_list
+                            .row.flex-nowrap
+                                .col.track_list_music_status_icon_col
+                                    i.material-icons.text-white.noselect music_note
+                                .col
+                                    .text-white.noselect #{track_name}
+                                .col.d-flex
+                                    .text-white.noselect #{duration}
+                                    .dropdown
+                                        i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
+                                        .dropdown-menu(aria-labelledby="trackDropdownMenu")
+                                            .dropdown-item Add to Playlist
+                                            .dropdown-item Copy Track Link
+                                            .dropdown-item Share to Other
+                                            .dropdown-item Delete Track
+
+    //.row
+    //    .col-lg-4
+    //        .d-flex.flex-column
+    //            .album_card.card.mr-5
+    //                div.album_cover_in_detail_page
+    //                    img.card-img-top(src=album_cover)
+
+    //            .d-flex.justify-content-center
+    //                ul.list-group.text-center.w-100.mr-3
+    //                    li.list-group-item.pb-0
+    //                        h4.text-white.noselect #{album_name}
+    //                    li.list-group-item.pb-0
+    //                        h5.text-white.noselect  #{album_artists}
+    //                    li.list-group-item.pt-0
+    //                        h5.text-white.noselect Genres #{album_genres}
+    //                    li.list-group-item
+    //                        button.btn.btn-secondary(id="album_detail_play_btn") PLAY
+    //                    li.list-group-item.pt-0
+    //                        p.text-white.noselect #{tracks_len} TRACKS
+    //                    li.list-group-item.d-inline-block(id="album_detail_icon_list")
+    //                        i.far.fa-heart.text-white.mr-4
+    //                        //i.fas.fa-heart.text-white
+    //                        i.fas.fa-share-alt.text-white.mr-4
+    //                        i.fas.fa-ellipsis-h.text-white
+    //
+    //    .col-lg-8
+    //        #album_detail_track_list.list-group
+    //            for track in album_tracks
+    //                - const track_name = (null === track.title ? 'None' : track.title);
+    //                - const duration = (null === track.duration ? 'None' : track.duration);
+    //                .list-group-item.track_list
+    //                    .row.flex-nowrap
+    //                        .col.track_list_music_status_icon_col
+    //                            i.material-icons.text-white.noselect music_note
+    //                        .col
+    //                            .text-white.noselect #{track_name}
+    //                        .col.d-flex
+    //                            .text-white.noselect #{duration}
+    //                            .dropdown
+    //                                i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
+    //                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
+    //                                .dropdown-menu(aria-labelledby="trackDropdownMenu")
+    //                                    .dropdown-item Add to Playlist
+    //                                    .dropdown-item Copy Track Link
+    //                                    .dropdown-item Share to Other
+    //                                    .dropdown-item Delete Track
 
                                 //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
 

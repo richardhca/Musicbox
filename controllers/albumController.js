@@ -1,5 +1,7 @@
 const path = require('path');
 const pug = require('pug');
+const beautify_html = require('js-beautify').html;
+const trackDurationParser = require('../utilities/trackDurationParser.js');
 const connection = require('typeorm').getConnection();
 
 exports.album_page_get = async function (req, res, next) {
@@ -18,7 +20,7 @@ exports.album_page_get = async function (req, res, next) {
             '../views/album_page.pug');
         const fn_album_page = pug.compileFile(p_album_page, null);
 
-        const html = fn_album_page_tool_bar() + fn_album_page();
+        const html = fn_album_page_tool_bar() + fn_album_page({albums : albums});
         // console.log(html);
         res.send(html);
     }
@@ -26,11 +28,33 @@ exports.album_page_get = async function (req, res, next) {
         console.log('server receive a empty req: /album');
 
         res.render('index',
-            {page: 'album_page_get'});
+            {page: 'album_page_get', albums: albums});
     }
 };
 
-exports.album_detail_get = function (req, res, next) {
+exports.album_detail_get = async function (req, res, next) {
+    const albumId = parseInt(req.params.id);
+
+    if (isNaN(albumId)) {
+        return res.status(404).send();
+    }
+    const album = await connection.getRepository('Albums').findOne(
+        {id: albumId, owner_id: req.session.userId},
+        {relations: ['tracks']},
+    );
+    if (album == null) {
+        // HTTP status 404: NotFound
+        return res.status(404).send();
+    }
+    // Sort tracks ASC by rank in album
+    album.tracks.sort((a, b) => a.rank_in_album - b.rank_in_album);
+
+
+    var track;
+    for (track of album.tracks) {
+        track.duration = trackDurationParser.durationParser(track.duration);
+    }
+    console.log(album);
 
     const info = req.query.info;
     const type = req.query.type;
@@ -46,7 +70,7 @@ exports.album_detail_get = function (req, res, next) {
             '../views/album_detail.pug');
         const fn_album_detail = pug.compileFile(p_album_detail, null);
 
-        const html = fn_album_detail_tool_bar() + fn_album_detail();
+        const html = fn_album_detail_tool_bar() + fn_album_detail({album: album});
         // console.log(html);
         res.send(html);
     }
@@ -54,31 +78,10 @@ exports.album_detail_get = function (req, res, next) {
         console.log('server receive a empty req: /album/detail');
 
         res.render('index',
-            {page: 'album_detail_get'});
-    }
-};
-
-exports.album_detail_get = async function (req, res, next) {
-    const albumId = parseInt(req.params.id);
-
-    if (isNaN(albumId)) {
-        return res.status(404).send();
+            {page: 'album_detail_get', album: album});
     }
 
-    const album = await connection.getRepository('Albums').findOne(
-        {id: albumId, owner_id: req.session.userId},
-        {relations: ['tracks']},
-    );
 
-    if (album == null) {
-        // HTTP status 404: NotFound
-        return res.status(404).send();
-    }
-
-    // Sort tracks ASC by rank in album
-    album.tracks.sort((a, b) => a.rank_in_album - b.rank_in_album);
-
-    res.send(album);
 };
 
 exports.album_delete = async function (req, res, next) {

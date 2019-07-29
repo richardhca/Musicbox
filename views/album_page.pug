@@ -1,12 +1,14 @@
 #album_page_detail.d-flex.flex-wrap.align-content-start
-    - for (var x = 0; x <9; x++)
+    for album in albums
+        - const album_name = (null === album.title ? 'None' : album.title);
+        - const default_cover = '/images/music_cover_default_black.png'
+        - const album_cover = (null === album.cover_art_file_name ? default_cover : '/covers/' + album.cover_art_file_name)
+        - const album_id = (null === album.id ? 'None' : album.id);
+        - const url = '/album/detail/' + album_id;
         .album_card.card.m-3
             div.album_cover
-                if x % 2 === 0
-                    img.card-img-top.album_cover_image(src='/images/music_cover_default_black.png')
-                else
-                    img.card-img-top.album_cover_image(src='/images/music_cover_default_white.png')
-
-                img.card-img-top.album_play_icon(src='/images/baseline_play_circle_outline_white.png')
-            .card-body.p-0
-                .card-text.mt-1.text-white.noselect Album &#183; Artists
+                a.album_cover_image(href=url)
+                    img.card-img-top(src=album_cover)
+                img.card-img-top.album_play_icon(src='/images/circled_play.png' href=url)
+            .card-body.p-0.mt-2
+                a.card-text.mt-1.text-white.noselect.album_text(href=url) #{album.title}
