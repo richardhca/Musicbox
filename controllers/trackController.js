@@ -39,7 +39,7 @@ exports.track_detail_get = async (req, res, next) => {
     }
 
     // Find track
-    const track = await connection.getRepository('Tracks').findOne({id: id});
+    const track = await connection.getRepository('Tracks').findOne({id: id}, {relations: ['album_id']});
 
     // If no track found, return empty object
     res.send(track || {});
