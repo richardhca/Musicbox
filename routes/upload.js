@@ -9,7 +9,4 @@ router.post('/',
     upload.array('tracks', 10), // Max upload = 10
     uploadController.upload_post
 );
-
-router.get('/test', sessionMiddleware.requiredLogin, uploadController.test);
-
 module.exports = router;
