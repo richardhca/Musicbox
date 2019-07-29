@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $('.track_list').on('mouseenter', function () {
         // console.log('mouse enter');
-        const forced_music_icon = $(this).find('.track_list_icon');
+        const forced_music_icon = $(this).find('.track_list_music_status_icon_col');
         if (forced_music_icon.html().includes('music_note')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">play_arrow</i>');
         }
@@ -30,7 +30,7 @@ $(document).ready(function () {
 
     $('.track_list').on('mouseleave', function () {
         // console.log('mouse leave');
-        const forced_music_icon = $(this).find('.track_list_icon');
+        const forced_music_icon = $(this).find('.track_list_music_status_icon_col');
         if (forced_music_icon.html().includes('play_arrow')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">music_note</i>');
         }
@@ -98,7 +98,7 @@ $(document).ready(function () {
         ap.toggle();
 
         // replace icon
-        const forced_music_icon = $(this).find('.track_list_icon');
+        const forced_music_icon = $(this).find('.track_list_music_status_icon_col');
         // const pretty = html_beautify(forced_music_icon.html());
         // console.log(pretty);
         // stop to playing
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
         // change playicon to music icon
         $(this).siblings('.track_list').each(function () {
-            const icon = $(this).find('.track_list_icon');
+            const icon = $(this).find('.track_list_music_status_icon_col');
             // console.log(html_beautify($(this).html()));
             if (icon.html().includes('volume_up')) {
                 icon.html('<i class="material-icons text-white noselect">music_note</i>');
