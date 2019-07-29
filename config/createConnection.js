@@ -13,6 +13,7 @@ const createConnection = async function () {
         entities: [
             require("../entity/Users"),
             require("../entity/Albums"),
+            require("../entity/Artists"),
             require("../entity/Tracks"),
             require("../entity/Playlists"),
             require("../entity/Playlist_to_track"),

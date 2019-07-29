@@ -366,11 +366,16 @@ div#aplayer {
 }
 
 
-.track_list_music_status_icon_col,
-.track_list_more_icon {
+.track_list_icon, #tracklist_icon_title {
     max-width: 30px;
     max-height: 30px;
     text-align: right;
+}
+
+.track_list_more_icon {
+	width: 20px;
+	float: right;
+	cursor: pointer;
 }
 
 .noselect {
@@ -399,20 +404,21 @@ div#aplayer {
 }
 
 .hidden_icon {
-    visibility: hidden;
+    display: none;
 }
 
 .dropdown-menu {
     background-color: #282828;
 }
 
+.dropdown-item {
+    color: #aeaeae;
+	cursor: pointer;
+}
+
 .dropdown-item:hover {
     background-color: #333333;
     color: white;
-}
-
-.dropdown-item {
-    color: #aeaeae;
 }
 
 .cover_forced {
@@ -481,14 +487,4 @@ div#aplayer {
     font-size: 24px;
     margin-left: 5px;
     margin-right: 20px;
-}
-
-.dropdown{
-	width: 20px;
-	float: right;
-	cursor: pointer;
-}
-
-.dropdown-item {
-	cursor: pointer;
 }

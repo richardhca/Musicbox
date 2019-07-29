@@ -9,8 +9,4 @@ router.get('/', sessionMiddleware.requiredLogin, album_controller.album_page_get
 
 router.get('/detail/', sessionMiddleware.requiredLogin, album_controller.album_detail_get);
 
-router.get('/details/:id/', sessionMiddleware.requiredLogin, album_controller.album_detail_get);
-
-router.delete('/delete/:id/', sessionMiddleware.requiredLogin, album_controller.album_delete);
-
 module.exports = router;

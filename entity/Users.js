@@ -52,5 +52,6 @@ module.exports = new EntitySchema({
       type: "timestamp",
       nullable: false
     }
+
   }
 });

@@ -29,39 +29,3 @@ exports.track_page_get = async function (req, res, next) {
             {page: 'track_page_get', tracks: tracks});
     }
 };
-
-exports.track_detail_get = async (req, res, next) => {
-    const id = parseInt(req.params.id);
-
-    // If an id character can't be converted to an int, parseInt returns NaN.
-    // Ex: 'abc'
-    if (isNaN(id)) {
-        return res.send({});
-    }
-
-    // Find track
-    const track = await connection.getRepository('Tracks').findOne({id: id});
-
-    // If no track found, return empty object
-    res.send(track || {});
-};
-
-// exports.track_create_get = (req, res, next) => {
-//     const info = req.query.info;
-//     const type = req.query.type;
-//     if (info && type) {
-//         console.log('server receive a req, type: ', type, ' , info: ', info);
-//         const p = path.join(__dirname, '../views/track_create.pug');
-//         const fn = pug.compileFile(p, null);
-//         const html = fn({title: 'this is track create page'});
-//         console.log(html);
-//
-//         res.send(html);
-//     }
-//     else {
-//         console.log('server receive a empty req');
-//         res.render('index', {
-//             page: 'track_create', title: 'this is track create page'
-//         });
-//     }
-// };
