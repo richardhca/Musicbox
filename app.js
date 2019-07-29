@@ -11,6 +11,15 @@ require('./config/createConnection');
 // Init app
 const app = express();
 
+// Init socket.io
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.use(function (req, res, next) {
+    res.io = io;
+    next();
+});
+
 // use express-session
 app.use(session({
     secret: 'secret',
@@ -36,24 +45,20 @@ const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 const trackRoute = require('./routes/track');
-const tracksRoute = require('./routes/tracks');
 const playlistRoute = require('./routes/playlist');
 const uploadRoute = require('./routes/upload');
 const albumRoute = require('./routes/album');
-const albumsRoute = require('./routes/albums');
+
 
 app.use('/', indexRouter);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
 app.use('/track', trackRoute);
-app.use('/tracks', tracksRoute);
 app.use('/playlist', playlistRoute);
 // app.use('/user', userRouter);
 app.use('/upload', uploadRoute);
 app.use('/album', albumRoute);
-app.use('/albums', albumsRoute);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -71,4 +76,4 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+module.exports = {app, server};

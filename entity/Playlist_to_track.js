@@ -19,16 +19,13 @@ module.exports = new EntitySchema({
       type: "many-to-one",
       joinTable: true,
       joinColumn: {name: "playlist_id", referencedColumnName: "playlist_id"},
-      inverseSide: "playlist_tracks",
-      onDelete: "CASCADE",
+      cascade: true
     },
     track_id: {
       target: "Tracks",
       type: "many-to-one",
-      eager: true,
       joinTable: true,
       joinColumn: {name: "track_id", referencedColumnName: "id"},
-      onDelete: "CASCADE",
       cascade: true
     },
   }

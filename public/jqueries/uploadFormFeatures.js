@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $('#upload_icon').on('click', function (event) {
         event.preventDefault();
-        if ($(upload_icon).hasClass('isDisabled')) {
+        if ($('#upload_icon').hasClass('isDisabled')) {
             console.log('upload icon clicked, uploading...');
         }
         else {
