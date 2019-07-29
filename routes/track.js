@@ -12,8 +12,10 @@ router.get(
     trackController.track_detail_get
 );
 
-
-// router.get('/create',
-//            song_controller.track_create_get);
+router.delete(
+    '/delete/:id',
+    sessionMiddleware.requiredLogin,
+    trackController.track_delete
+);
 
 module.exports = router;
