@@ -78,13 +78,13 @@ $(document).ready(function () {
             // toast show
             $('#spinner').show();
             $('#complete').hide();
-            $('.toast').removeClass('delay-2s fadeOutDown')
-                .addClass('fadeInUp fast');
+            $('.toast').removeClass('delay-2s fadeOutRight')
+                .addClass('fadeInRight fast');
         }
     });
 
     $('.toast').on('animationend', function () {
-        if ($(this).hasClass('fadeInUp')) {
+        if ($(this).hasClass('fadeInRight')) {
             tracks_upload(uploadFiles);
         }
         else {
@@ -120,8 +120,8 @@ $(document).ready(function () {
                 $('#complete').show();
                 $('#upload_icon').removeClass('isDisabled');
                 tracks_page_get('GET');
-                $('.toast').removeClass('fadeInUp fast')
-                    .addClass('fadeOutDown delay-2s');
+                $('.toast').removeClass('fadeInRight fast')
+                    .addClass('fadeOutRight delay-2s');
             },
             error: function (e) {
                 console.log('error: ', e);

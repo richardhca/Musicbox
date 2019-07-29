@@ -23,6 +23,7 @@ $(document).ready(function () {
 
                 $.getScript('/jqueries/toggleIcon.js');
                 $.getScript('/jqueries/loadAlbumDetailContent.js');
+                $.getScript('/jqueries/albumPlaylistEventHandler.js');
             },
             error: function (e) {
                 console.log('error: ', e);

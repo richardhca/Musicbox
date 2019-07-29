@@ -4,7 +4,7 @@ div#playlist_detail
             .d-flex.flex-column
                 .d-flex.justify-content-end
                     .card.mr-3
-                        img.card-img-top(src='/images/test.png')
+                        img.card-img-top(src='/images/music_cover_default_black.png')
 
                 .d-flex.justify-content-end
                     ul.list-group.text-center.w-100.mr-3
@@ -41,7 +41,15 @@ div#playlist_detail
                                 .text-white.noselect Genres
                             .col.d-flex
                                 .text-white.noselect 3:50
-                                i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
+                                .dropdown
+                                    i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
+                                    .dropdown-menu(aria-labelledby="trackDropdownMenu")
+                                        .dropdown-item Add to Playlist
+                                        .dropdown-item Copy Track Link
+                                        .dropdown-item Share to Other
+                                        .dropdown-item Delete Track
+                                //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
 
 
 
