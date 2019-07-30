@@ -278,7 +278,8 @@ exports.playlist_share_delete = async function (req, res, next) {
         await sharesRepo.remove(share);
         res.send("Playlist unshared.");
     } else {
-        res.status(403).send("Action Forbidden");
+        // Technically 403, but we'd rather not let users guess Ids to check if they exist.
+        res.status(404).send("Shared playlist not found.");
     }
 
 };
