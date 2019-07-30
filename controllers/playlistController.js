@@ -81,15 +81,15 @@ exports.playlist_create_get = (req, res, next) => {
 };
 
 exports.playlist_details_get = async function (req, res, next) {
+    const userId = req.session.userId;
 
     // Get playlist and load its tracks
     const playlist = await connection.getRepository("Playlists").findOne(
         {
-            playlist_id: req.params.id,
-            owner_id: req.session.userId
+            playlist_id: req.params.id
         },
         {
-            relations: ['playlist_tracks'],
+            relations: ['owner_id', 'playlist_tracks', 'shared', 'shared.shared_with'],
         }
     );
 
@@ -97,7 +97,14 @@ exports.playlist_details_get = async function (req, res, next) {
         return res.status(404).send();
     }
 
+    if (!playlistUtilities.userHasAccess(playlist, userId)) {
+        return res.status(403).send();
+    }
+
+    playlistUtilities.addCoverArtFromTracks(playlist);
+    playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
+    delete playlist['owner_id'];
 
     res.send(playlist);
 };
