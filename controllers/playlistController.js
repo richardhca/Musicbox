@@ -256,6 +256,29 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     res.send(playlist);
 };
 
+exports.playlist_share_reject_delete = async function (req, res, next) {
+    const shareId = req.params.shareId;
+
+    if (!shareId) {
+        return res.status(404).send("Shared playlist not found.");
+    }
+
+    const sharedPlaylistRepo = connection.getRepository('Shared_Playlist');
+    const sharedPlaylist = await sharedPlaylistRepo
+        .createQueryBuilder("playlist")
+        .where("playlist.id = :shareId", {shareId: shareId})
+        .andWhere("playlist.shared_with = :userId", {userId: req.session.userId})
+        .getOne();
+
+    if (sharedPlaylist) {
+        return res.status(404).send("Shared playlist not found.");
+    }
+
+    await sharedPlaylistRepo.remove(sharedPlaylist);
+
+    res.send("Playlist unshared.");
+};
+
 
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
