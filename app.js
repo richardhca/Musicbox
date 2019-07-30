@@ -37,6 +37,7 @@ const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
 const trackRoute = require('./routes/track');
 const playlistRoute = require('./routes/playlist');
+const playlistsRoute = require('./routes/playlists');
 const uploadRoute = require('./routes/upload');
 const albumRoute = require('./routes/album');
 
@@ -47,6 +48,7 @@ app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
 app.use('/track', trackRoute);
 app.use('/playlist', playlistRoute);
+app.use('/playlists', playlistsRoute);
 // app.use('/user', userRouter);
 app.use('/upload', uploadRoute);
 app.use('/album', albumRoute);
