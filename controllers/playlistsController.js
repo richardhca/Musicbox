@@ -16,14 +16,19 @@ const addCoverArtAndRemoveTracks = function (playlist) {
     delete playlist['playlist_tracks'];
 };
 
-const getShareAcceptStatus = function (shares, userId) {
+const setShareStatuses = function (playlist, userId) {
+    const shares = playlist.shared;
     if (shares && shares.length > 0) {
         for (var i = 0; i < shares.length; i++) {
             if (shares[i].shared_with.id === userId) {
-                return shares[i].is_accepted;
+                playlist['share_id'] = shares[i].id;
+                playlist['is_accepted'] = shares[i].is_accepted;
+                return
             }
         }
     }
+    playlist['share_id'] = null;
+    playlist['is_accepted'] = false;
     return false;
 };
 
@@ -51,17 +56,15 @@ exports.playlists_get = async function (req, res, next) {
 
     // Add field indicating that these playlists are not shared
     userOwnedPlaylists.forEach(playlist => {
-        playlist['is_shared'] = false;
-        playlist['is_accepted'] = false;
         addCoverArtAndRemoveTracks(playlist);
+        setShareStatuses(playlist, userId);
     });
 
     // Add field indicating that these playlists are shared
     userSharedPlaylists.forEach(playlist => {
-        playlist['is_shared'] = true;
-        playlist['is_accepted'] = getShareAcceptStatus(playlist.shared, userId);
-        delete playlist['shared'];
         addCoverArtAndRemoveTracks(playlist);
+        setShareStatuses(playlist, userId);
+        delete playlist['shared'];
     });
 
     res.send({playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
