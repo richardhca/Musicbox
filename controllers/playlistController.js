@@ -168,7 +168,7 @@ exports.playlist_add_post = async function (req, res, next) {
 
     // 404 if playlist doesn't exist
     if (!playlist) {
-        res.status(404).send("Playlist can't be found");
+        return res.status(404).send("Playlist can't be found");
     }
 
     trackIds = trackIds.split(",");
@@ -201,7 +201,7 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     // 404 if either was not provided
     if (!playlistId || !ranks) {
-        res.status(404).send("Playlist or tracks can't be found");
+        return res.status(404).send("Playlist or tracks can't be found");
     }
 
     // Split into array
