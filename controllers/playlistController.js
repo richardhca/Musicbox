@@ -81,15 +81,15 @@ exports.playlist_create_get = (req, res, next) => {
 };
 
 exports.playlist_details_get = async function (req, res, next) {
+    const userId = req.session.userId;
 
     // Get playlist and load its tracks
     const playlist = await connection.getRepository("Playlists").findOne(
         {
-            playlist_id: req.params.id,
-            owner_id: req.session.userId
+            playlist_id: req.params.id
         },
         {
-            relations: ['playlist_tracks'],
+            relations: ['owner_id', 'playlist_tracks', 'shared', 'shared.shared_with'],
         }
     );
 
@@ -97,7 +97,14 @@ exports.playlist_details_get = async function (req, res, next) {
         return res.status(404).send();
     }
 
+    if (!playlistUtilities.userHasAccess(playlist, userId)) {
+        return res.status(403).send();
+    }
+
+    playlistUtilities.addCoverArtFromTracks(playlist);
+    playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
+    delete playlist['owner_id'];
 
     res.send(playlist);
 };
@@ -168,7 +175,7 @@ exports.playlist_add_post = async function (req, res, next) {
 
     // 404 if playlist doesn't exist
     if (!playlist) {
-        res.status(404).send("Playlist can't be found");
+        return res.status(404).send("Playlist can't be found");
     }
 
     trackIds = trackIds.split(",");
@@ -201,7 +208,7 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     // 404 if either was not provided
     if (!playlistId || !ranks) {
-        res.status(404).send("Playlist or tracks can't be found");
+        return res.status(404).send("Playlist or tracks can't be found");
     }
 
     // Split into array
@@ -247,6 +254,29 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     playlistUtilities.transformPlaylistTracks(playlist);
 
     res.send(playlist);
+};
+
+exports.playlist_share_reject_delete = async function (req, res, next) {
+    const shareId = req.params.shareId;
+
+    if (!shareId) {
+        return res.status(404).send("Shared playlist not found.");
+    }
+
+    const sharedPlaylistRepo = connection.getRepository('Shared_Playlist');
+    const sharedPlaylist = await sharedPlaylistRepo
+        .createQueryBuilder("playlist")
+        .where("playlist.id = :shareId", {shareId: shareId})
+        .andWhere("playlist.shared_with = :userId", {userId: req.session.userId})
+        .getOne();
+
+    if (sharedPlaylist) {
+        return res.status(404).send("Shared playlist not found.");
+    }
+
+    await sharedPlaylistRepo.remove(sharedPlaylist);
+
+    res.send("Playlist unshared.");
 };
 
 

@@ -1,31 +1,6 @@
 const connection = require('typeorm').getConnection();
+const playlistUtilities = require('../utilities/playlistUtilities');
 
-// TODO: Hacky solution. Try to figure out a better one if time permits.
-const addCoverArtAndRemoveTracks = function (playlist) {
-    playlist.cover_art_file_name = null;
-    playlist.num_tracks = 0;
-    if (playlist.playlist_tracks && playlist.playlist_tracks.length > 0) {
-        playlist.num_tracks = playlist.playlist_tracks.length;
-        for (var i = 0; i < playlist.playlist_tracks.length; i++) {
-            if (playlist.playlist_tracks[i].track_id.cover_art_file_name) {
-                playlist.cover_art_file_name = playlist.playlist_tracks[i].track_id.cover_art_file_name;
-                break;
-            }
-        }
-    }
-    delete playlist['playlist_tracks'];
-};
-
-const getShareAcceptStatus = function (shares, userId) {
-    if (shares && shares.length > 0) {
-        for (var i = 0; i < shares.length; i++) {
-            if (shares[i].shared_with.id === userId) {
-                return shares[i].is_accepted;
-            }
-        }
-    }
-    return false;
-};
 
 exports.playlists_get = async function (req, res, next) {
     const userId = req.session.userId;
@@ -51,17 +26,16 @@ exports.playlists_get = async function (req, res, next) {
 
     // Add field indicating that these playlists are not shared
     userOwnedPlaylists.forEach(playlist => {
-        playlist['is_shared'] = false;
-        playlist['is_accepted'] = false;
-        addCoverArtAndRemoveTracks(playlist);
+        playlistUtilities.addCoverArtFromTracks(playlist);
+        playlistUtilities.setShareStatuses(playlist, userId);
+        delete playlist['playlist_tracks'];
     });
 
     // Add field indicating that these playlists are shared
     userSharedPlaylists.forEach(playlist => {
-        playlist['is_shared'] = true;
-        playlist['is_accepted'] = getShareAcceptStatus(playlist.shared, userId);
-        delete playlist['shared'];
-        addCoverArtAndRemoveTracks(playlist);
+        playlistUtilities.addCoverArtFromTracks(playlist);
+        playlistUtilities.setShareStatuses(playlist, userId);
+        delete playlist['playlist_tracks'];
     });
 
     res.send({playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
