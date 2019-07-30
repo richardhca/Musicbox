@@ -32,6 +32,15 @@ module.exports = new EntitySchema({
       cascade: true,
       onDelete: "SET NULL"
     },
+    shared: {
+      target: "Shared_Playlist",
+      type: "one-to-many",
+      joinTable: true,
+      joinColumn: {name: "shared", referencedColumnName: "id"},
+      inverseSide: "playlist_id",
+      cascade: true,
+      onDelete: "SET NULL"
+    },
     playlist_tracks: {
       target: "Playlist_to_track",
       type: "one-to-many",
