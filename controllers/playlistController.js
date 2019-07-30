@@ -256,27 +256,31 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     res.send(playlist);
 };
 
-exports.playlist_share_reject_delete = async function (req, res, next) {
+exports.playlist_share_delete = async function (req, res, next) {
     const shareId = req.params.shareId;
 
     if (!shareId) {
         return res.status(404).send("Shared playlist not found.");
     }
 
-    const sharedPlaylistRepo = connection.getRepository('Shared_Playlist');
-    const sharedPlaylist = await sharedPlaylistRepo
-        .createQueryBuilder("playlist")
-        .where("playlist.id = :shareId", {shareId: shareId})
-        .andWhere("playlist.shared_with = :userId", {userId: req.session.userId})
-        .getOne();
+    const sharesRepo = connection.getRepository('Shared_Playlist');
+    const share = await sharesRepo.findOne(
+        {id: shareId},
+        {relations: ['shared_with', 'playlist_id', 'playlist_id.owner_id']}
+    );
 
-    if (sharedPlaylist) {
+    if (!share) {
         return res.status(404).send("Shared playlist not found.");
     }
 
-    await sharedPlaylistRepo.remove(sharedPlaylist);
+    // If user is either owner of playlist or recipient of share, then allow user to delete share
+    if (share.playlist_id.owner_id.id === req.session.userId || share.shared_with.id === req.session.userId) {
+        await sharesRepo.remove(share);
+        res.send("Playlist unshared.");
+    } else {
+        res.status(403).send("Action Forbidden");
+    }
 
-    res.send("Playlist unshared.");
 };
 
 
