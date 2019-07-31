@@ -41,5 +41,17 @@ module.exports = new EntitySchema({
       cascade: true,
       onDelete: "SET NULL"
     },
+
+    comments: {
+      target: "Comments",
+      nullable: true,
+      type: "one-to-many",
+      joinTable: true,
+      joinColumn: {name: "comments", referencedColumnName: "id"},
+      cascade: true,
+      onDelete: "SET NULL",
+      inverseSide: "playlist_id"
+    
+    }
   }
 });

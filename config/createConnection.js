@@ -16,7 +16,7 @@ const createConnection = async function () {
             require("../entity/Tracks"),
             require("../entity/Playlists"),
             require("../entity/Playlist_to_track"),
-
+            require("../entity/Comments"),
         ]
     }).then(async function (connection) {
         const db = connection.options.database;
