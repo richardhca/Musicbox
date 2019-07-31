@@ -4,8 +4,7 @@ const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 const playlistUtilities = require('../utilities/playlistUtilities');
-var uuidvalidate = require('uuid-validate');
-var validator = require('validator');
+const validator = require('validator');
 
 exports.playlist_valid = async (req, res, next) => {
     const playlist_name = req.body.playlist_name;
@@ -82,7 +81,10 @@ exports.playlist_create_get = (req, res, next) => {
 
 exports.playlist_details_get = async function (req, res, next) {
     const userId = req.session.userId;
-
+    var playlistId = playlistId = req.params.id;
+    if(!validator.isUUID(playlistId)){
+        return res.status(400).send();
+    }
     // Get playlist and load its tracks
     const playlist = await connection.getRepository("Playlists").findOne(
         {
@@ -157,7 +159,7 @@ exports.playlist_add_post = async function (req, res, next) {
     var trackIds = req.query.ids;
 
     // 404 if either was not provided
-    if (!playlistId || !trackIds) {
+    if (!playlistId || !trackIds || !validator.isUUID(playlistId)) {
         return res.status(404).send("Playlist or track can't be found");
     }
 
@@ -207,7 +209,7 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     var ranks = req.query.ranks;
 
     // 404 if either was not provided
-    if (!playlistId || !ranks) {
+    if (!playlistId || !ranks || !validator.isUUID(playlistId)) {
         return res.status(404).send("Playlist or tracks can't be found");
     }
 
@@ -257,10 +259,8 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 };
 
 exports.playlist_share_post = async function(req, res, next) {
-    var destUserId = new String();
-    var playlistId = new String();
-    destUserId = req.body.destUserId;
-    playlistId = req.body.playlistId;
+    var destUserId = req.body.destUserId;
+    var playlistId = req.body.playlistId;
     if(!validator.isUUID(playlistId) || !validator.isUUID(destUserId)){
         return res.status(404).send("invalid input!");    
     }
@@ -326,6 +326,10 @@ exports.playlist_share_delete = async function (req, res, next) {
 
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
+    var playlistId = req.body.playlistId;
+    if(!validator.isUUID(playlistId)){
+        return res.status(400).send('Playlist ID Format Incorrect!');
+    }
     const playlist = await connection.getRepository("Playlists").findOne({
         playlist_id: req.body.playlistId,
         owner_id: req.session.userId
@@ -384,3 +388,23 @@ exports.playlist_modify_post = async function (req, res, next) {
     return res.send("Success");
 
 };
+
+exports.playlist_rename_post = async function (req, res, next) {
+    var playlistId = req.params.playlistId;
+    console.log(playlistId);
+    if(!validator.isUUID(playlistId)){
+        return res.status(400).send("Playlist ID Incorrect!");
+    }
+    const playlist = connection.getRepository("Playlists").findOne({playlist_id: playlistId, owner_id: req.session.userId});
+    if(playlist == null){
+        return res.status(404).send("Target Playlist not found!")
+    }
+    await connection.getRepository("Playlists")
+        .createQueryBuilder("Playlists")
+        .update("Playlists")
+        .set({title: req.body.newTitle})
+        .where("playlist_id = :playlistId", {playlistId: playlistId})
+        .andWhere("owner_id = :userId", {userId: req.session.userId})
+        .execute();
+    return res.send("Success");
+}

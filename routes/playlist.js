@@ -22,4 +22,6 @@ router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlist_contr
 
 router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.playlist_modify_post);
 
+router.post('/:playlistId/rename',sessionMiddleware.requiredLogin, playlist_controller.playlist_rename_post);
+
 module.exports = router;
