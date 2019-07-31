@@ -1,5 +1,6 @@
 const path = require('path');
 const pug = require('pug');
+const validator = require('validator');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
@@ -78,11 +79,17 @@ exports.playlist_create_get = (req, res, next) => {
 
 exports.playlist_details_get = async function (req, res, next) {
     const userId = req.session.userId;
+    const playlistId = req.params.id;
+
+    // 404 if playlistId is not provided or is not UUID
+    if (!playlistId || !validator.isUUID(playlistId)) {
+        return res.status(404).send("Playlist or track can't be found");
+    }
 
     // Get playlist and load its tracks
     const playlist = await connection.getRepository("Playlists").findOne(
         {
-            playlist_id: req.params.id
+            playlist_id: playlistId
         },
         {
             relations: ['owner_id', 'playlist_tracks', 'shared', 'shared.shared_with'],
@@ -152,8 +159,8 @@ exports.playlist_add_post = async function (req, res, next) {
     const playlistId = req.params.playlistId;
     var trackIds = req.query.ids;
 
-    // 404 if either was not provided
-    if (!playlistId || !trackIds) {
+    // 404 if either was not provided or playlistId is not UUID
+    if (!playlistId || !trackIds || !validator.isUUID(playlistId)) {
         return res.status(404).send("Playlist or track can't be found");
     }
 
@@ -202,8 +209,8 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     const playlistId = req.params.playlistId;
     var ranks = req.query.ranks;
 
-    // 404 if either was not provided
-    if (!playlistId || !ranks) {
+    // 404 if either was not provided or playlistId is not UUID
+    if (!playlistId || !ranks || !validator.isUUID(playlistId)) {
         return res.status(404).send("Playlist or tracks can't be found");
     }
 
@@ -282,7 +289,7 @@ exports.playlist_shares_get = async function (req, res, next) {
 
     const playlistId = req.params.playlistId;
 
-    if (!playlistId) {
+    if (!playlistId || !validator.isUUID(playlistId)) {
         return res.status(404).send("Playlist not found.");
     }
 
@@ -309,6 +316,11 @@ exports.playlist_shares_get = async function (req, res, next) {
 
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
+
+    if (!req.body.playlistId || !validator.isUUID(playlistId)) {
+        return res.status(404).send("Playlist can't be found");
+    }
+
     const playlist = await connection.getRepository("Playlists").findOne({
         playlist_id: req.body.playlistId,
         owner_id: req.session.userId
