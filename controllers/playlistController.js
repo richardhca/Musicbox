@@ -47,8 +47,7 @@ exports.playlist_page_get = async (req, res, next) => {
         // console.log(html);
 
         res.send(html);
-    }
-    else {
+    } else {
         console.log('server receive a empty req');
         const image_path = path.join('../public/images/test.png');
         res.render('index',
@@ -67,8 +66,7 @@ exports.playlist_create_get = (req, res, next) => {
         console.log(html);
 
         res.send(html);
-    }
-    else {
+    } else {
         console.log('server receive a empty req : /playlist');
         res.render('index',
             {
@@ -249,9 +247,7 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     await playlistRepo.save(playlist);
 
-    playlistUtilities.transformPlaylistTracks(playlist);
-
-    res.send(playlist);
+    res.send("Delete successful.");
 };
 
 exports.playlist_share_delete = async function (req, res, next) {
@@ -282,6 +278,34 @@ exports.playlist_share_delete = async function (req, res, next) {
 
 };
 
+exports.playlist_shares_get = async function (req, res, next) {
+
+    const playlistId = req.params.playlistId;
+
+    if (!playlistId) {
+        return res.status(404).send("Playlist not found.");
+    }
+
+    const playlist = await connection.getRepository('Playlists').findOne(
+        {
+            playlist_id: playlistId,
+            owner_id: req.session.userId
+        },
+        {
+            relations: ['playlist_tracks', 'shared', 'shared.shared_with']
+        }
+    );
+
+    playlistUtilities.addCoverArtFromTracks(playlist);
+    delete playlist['playlist_tracks'];
+
+    playlist.shared.forEach(share => {
+        const shared_with = share.shared_with;
+        share.shared_with = shared_with.username;
+    });
+
+    res.send(playlist);
+};
 
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
