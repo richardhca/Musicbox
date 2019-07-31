@@ -317,7 +317,7 @@ exports.playlist_shares_get = async function (req, res, next) {
 // TODO: Make sure this works and possibly use query string params instead of body params
 exports.playlist_modify_post = async function (req, res, next) {
 
-    if (!req.body.playlistId || !validator.isUUID(playlistId)) {
+    if (!req.body.playlistId || !validator.isUUID(req.body.playlistId)) {
         return res.status(404).send("Playlist can't be found");
     }
 
