@@ -48,9 +48,9 @@ const processTrack = async function (metadata, uploader) {
         owner_id: uploader,
         genres: metadata.common.genre,
     };
-    const tracksRepo = connection.getRepository("Tracks");
+    const tracksRepo = connection.getRepository('Tracks');
     return await tracksRepo.save(newTrackData).catch(error => {
-        console.log(`Failed to save track. Error: ${error}`)
+        console.log(`Failed to save track. Error: ${error}`);
     });
 };
 
@@ -87,15 +87,15 @@ const processAlbum = async function (metadata, track, uploader) {
     if (albumTitle) {
 
         // Get "Albums" repository
-        const albumsRepo = connection.getRepository("Albums");
+        const albumsRepo = connection.getRepository('Albums');
 
         // Find album and load its tracks
         const album = await albumsRepo
-            .createQueryBuilder("album")
-            .where("LOWER(album.title) = LOWER(:albumTitle)", {albumTitle})
-            .andWhere("LOWER(album.artist_name) = LOWER(:artist)", {artist})
-            .andWhere("album.owner_id = :uploaderId", {uploaderId})
-            .leftJoinAndSelect("album.tracks", "tracks")
+            .createQueryBuilder('album')
+            .where('LOWER(album.title) = LOWER(:albumTitle)', {albumTitle})
+            .andWhere('LOWER(album.artist_name) = LOWER(:artist)', {artist})
+            .andWhere('album.owner_id = :uploaderId', {uploaderId})
+            .leftJoinAndSelect('album.tracks', 'tracks')
             .getOne();
 
         // (if) album exists, update it with new track
@@ -105,7 +105,8 @@ const processAlbum = async function (metadata, track, uploader) {
 
             // Save album changes
             await albumsRepo.save(album);
-        } else {
+        }
+        else {
             // (else) create new album
 
             // Set initial track rank
@@ -147,7 +148,7 @@ const processUpload = async function (file, uploader) {
 const processUploads = async function (req, res) {
 
     // Track(s) uploader
-    const uploader = await connection.getRepository("Users").findOne({id: req.session.userId});
+    const uploader = await connection.getRepository('Users').findOne({id: req.session.userId});
 
     const processedTracks = [];
 

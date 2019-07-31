@@ -1,0 +1,14 @@
+#album_page_detail.d-flex.flex-wrap.align-content-start
+    for album in albums
+        - const album_name = (null === album.title ? 'None' : album.title);
+        - const default_cover = '/images/music_cover_default_black.png'
+        - const album_cover = (null === album.cover_art_file_name ? default_cover : '/covers/' + album.cover_art_file_name)
+        - const album_id = (null === album.id ? 'None' : album.id);
+        - const url = '/album/detail/' + album_id;
+        .album_card.card.m-3
+            div.album_cover
+                a.album_cover_image(href=url)
+                    img.card-img-top(src=album_cover)
+                img.card-img-top.album_play_icon(src='/images/circled_play.png' href=url)
+            .card-body.p-0.mt-2
+                a.card-text.mt-1.text-white.noselect.album_text(href=url) #{album.title}

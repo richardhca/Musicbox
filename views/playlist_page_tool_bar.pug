@@ -1,0 +1,11 @@
+div#playlist_page_tool_bar
+    .d-flex.ml-3
+        .cta.mr-3
+            .toggle-btn.change_icon
+            //i.fas.fa-bars.tool-bar-icon.mr-3
+        a(id="add_playlist_icon")
+            i.fas.fa-plus.tool-bar-icon.mr-3(data-toggle="modal"
+        data-target="#mkplaylist" style='cursor: pointer;')
+        i.fas.fa-trash-alt.tool-bar-icon
+
+    include create_playlist

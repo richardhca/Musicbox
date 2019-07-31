@@ -1,0 +1,13 @@
+div#upload_toast_area
+    .toast.animated(role="alert" aria-live="assertive" aria-atomic="true"
+        data-autohide="false")
+        .toast-header
+            div#spinner.mr-auto
+                .spinner-border.spinner-border-sm.text-primary.mr-2(role="status")
+                strong.mr-auto Uploading...
+            div#complete.mr-auto
+                i.fas.fa-check.text-success.mr-2
+                strong.mr-auto Done!
+        .toast-body.p-1(style="height: 25px;")
+            .progress(style="height: 16px; width: 250px;")
+                .progress-bar(role="progressbar" style="width: 50%;")

@@ -25,39 +25,36 @@ exports.playlist_valid = async (req, res, next) => {
 
 };
 
-exports.playlist_detail = async (req, res, next) => {
+exports.playlist_page_get = async (req, res, next) => {
     const info = req.query.info;
     const type = req.query.type;
-    const playlists = await connection.getRepository('Playlists').find({owner_id: req.session.userId});
-    console.log(req.session.userId);
-    console.log(playlists);
+
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_playlist_detail_tool_bar = path.join(__dirname,
-            '../views/playlist_tool_bar.pug');
-        const fn_playlist_detail_tool_bar = pug.compileFile(
-            p_playlist_detail_tool_bar, null);
-        const p_playlist_detail = path.join(__dirname,
-            '../views/playlist_detail.pug');
-        const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
+        const p_playlist_page_tool_bar = path.join(__dirname,
+            '../views/playlist_page_tool_bar.pug');
+        const fn_playlist_page_tool_bar = pug.compileFile(
+            p_playlist_page_tool_bar, null);
+        const p_playlist_page = path.join(__dirname,
+            '../views/playlist_page.pug');
+        const fn_playlist_page = pug.compileFile(p_playlist_page, null);
 
         const image_path = path.join(__dirname,
             '../public/images/test.png');
 
-        const html = fn_playlist_detail_tool_bar() + fn_playlist_detail(
+        const html = fn_playlist_page_tool_bar() + fn_playlist_page(
             {path: image_path});
         // console.log(html);
 
-
         res.send(html);
-    } else {
+    }
+    else {
         console.log('server receive a empty req');
         const image_path = path.join('../public/images/test.png');
         res.render('index',
-            {page: 'playlist_detail', path: image_path});
+            {page: 'playlist_page_get', path: image_path});
     }
 };
-
 
 exports.playlist_create_get = (req, res, next) => {
     const info = req.query.info;
@@ -70,8 +67,9 @@ exports.playlist_create_get = (req, res, next) => {
         console.log(html);
 
         res.send(html);
-    } else {
-        console.log('server receive a empty req');
+    }
+    else {
+        console.log('server receive a empty req : /playlist');
         res.render('index',
             {
                 page: 'playlist_create', title: 'this is playlist'

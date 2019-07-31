@@ -35,7 +35,8 @@ exports.login_post = [
         var where = {};
         if (username.includes('@')) {
             where = {email: username};
-        } else {
+        }
+        else {
             where = {username: username};
         }
         const user = await usersRepo.findOne({where: where});
@@ -50,7 +51,6 @@ exports.login_post = [
                 return res.redirect('/');
             }
         }
-
         return res.render('login_form', {errors: [{msg: 'Incorrect username or password.'}]});
     }
 ];

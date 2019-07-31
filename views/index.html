@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MusicBox</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/aplayerconfig.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/uploadform.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/javascripts/aplayerbehave.js"></script>
+    <script src="/javascripts/show_and_hidden_password.js"></script>
+    <script src="/jqueries/loadIndex.js"></script>
+    <script src="/jqueries/resizeDiv.js"></script>
+    <script src="/jqueries/loadTrackContent.js"></script>
+    <script src="/jqueries/loadPlaylistContent.js"></script>
+    <script src="/jqueries/uploadFormFeatures.js"></script>
+  </head>
+  <body class="fade-out">
+    <div class="container-fluid p-0" id="main-area">
+      <div class="d-flex flex-row" id="container">
+        <!-- sidebar-->
+        <div class="d-flex flex-nowrap">
+          <div class="list-group collapse show width" id="sidebar">
+            <div class="list-group-item d-inline-block" id="sidebaricon"><i class="fas fa-headphones-alt d-none d-lg-inline"></i><span class="d-none d-lg-inline d-md-none text-white">MusicBox</span><span class="d-md-inline d-lg-none text-white text-addrev">MB</span></div><a class="list-group-item d-inline-block mt-3" href="/track" id="track_button"><i class="fas fa-music d-inline"></i><span class="d-none d-lg-inline text-white">Track</span></a><a class="list-group-item d-inline-block" href="/playlist" id="playlist_button"><i class="fas fa-compact-disc d-inline"></i><span class="d-none d-lg-inline text-white">Playlist</span></a><a class="list-group-item d-inline-block"><i class="fas fa-search d-inline"></i><span class="d-none d-lg-inline text-white">Search</span></a><a class="list-group-item d-inline-block mt-auto">
+              <hr><i class="fas fa-user-circle d-inline"></i><span class="d-none d-lg-inline text-white">Profile</span></a><a class="list-group-item d-inline-block mb-4" href="/logout"><i class="fas fa-sign-out-alt d-inline"></i><span class="d-none d-lg-inline text-white">Logout</span></a>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-grow-1" id="app-screen">
+          <!-- tool area-->
+          <div class="position-absolute" id="uploadpane">
+            <div class="upload-form" id="uploader">
+              <h1 class="replace-text">Upload Music</h1>
+              <p class="close" title="Close Window"><img id="closeUploadPane" src="../images/close-button.png" alt="Close"></p>
+              <p>Upload Your mp3 / wav files here!</p>
+              <form id="uf" action="/upload" method="post" enctype="multipart/form-data">
+                <input id="sf" type="file" name="tracks" accept="audio/mp3, audio/wav" style="display: none;" multiple>
+                <input class="button" id="pickfiles" type="button" value="Select" onclick="document.getElementById('sf').click()">
+                <input class="button" id="uploadfiles" type="button" value="Upload">
+              </form>
+              <div id="filelist"></div>
+            </div>
+          </div>
+          <div class="d-flex p-4" id="tool-bar">
+          </div>
+          <!-- content area-->
+          <div id="item-info">
+            <div class="d-flex flex-wrap p-4 align-content-start" id="content-area">
+            </div>
+          </div>
+        </div>
+        <div class="position-absolute music-player-area">
+          <div id="aplayer"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/javascripts/aplayer.js"></script>
+  </body>
+</html>

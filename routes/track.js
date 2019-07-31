@@ -1,21 +1,29 @@
 const express = require('express');
 const router = express.Router();
 
-const trackController = require('../controllers/trackController');
+const track_controller = require('../controllers/trackController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
-router.get('/', trackController.track_detail);
+router.get('/', sessionMiddleware.requiredLogin, track_controller.track_page_get);
+
 
 router.get(
     '/details/:id',
     sessionMiddleware.requiredLogin,
-    trackController.track_detail_get
+    track_controller.track_detail_get
+);
+
+
+router.get(
+    '/details/:id',
+    sessionMiddleware.requiredLogin,
+    track_controller.track_detail_get
 );
 
 router.delete(
     '/delete/:id',
     sessionMiddleware.requiredLogin,
-    trackController.track_delete
+    track_controller.track_detail_get
 );
 
 module.exports = router;

@@ -1,25 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-const playlistController = require('../controllers/playlistController');
+const playlist_controller = require('../controllers/playlistController');
 const sessionMiddleware = require('../middlewares/sessionMiddleware');
 const playlistMiddleware = require('../middlewares/playlistMiddleware');
 
+router.get('/', sessionMiddleware.requiredLogin, playlistMiddleware.getUserPlaylistInfo,
+    playlist_controller.playlist_page_get);
 
-router.get('/', playlistMiddleware.getUserPlaylistInfo, sessionMiddleware.requiredLogin, playlistController.playlist_detail);
+router.get('/create', sessionMiddleware.requiredLogin, playlist_controller.playlist_create_get);
 
-router.post('/create', sessionMiddleware.requiredLogin, playlistController.playlist_create_post);
+router.get('/:id/detail', sessionMiddleware.requiredLogin, playlist_controller.playlist_details_get);
 
-router.get('/create', sessionMiddleware.requiredLogin, playlistController.playlist_create_get);
+router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlist_controller.playlist_add_post);
 
-router.get('/:id/detail', sessionMiddleware.requiredLogin, playlistController.playlist_details_get);
+router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlist_controller.playlist_tracks_delete);
 
-router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlistController.playlist_add_post);
+router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_delete);
 
-router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlistController.playlist_tracks_delete);
-
-router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlistController.playlist_share_reject_delete);
-
-router.post('/modify', sessionMiddleware.requiredLogin, playlistController.playlist_modify_post);
+router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.playlist_modify_post);
 
 module.exports = router;

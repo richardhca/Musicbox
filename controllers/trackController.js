@@ -1,31 +1,45 @@
 const path = require('path');
-const fs = require('fs');
 const pug = require('pug');
 const connection = require('typeorm').getConnection();
 const albumUtilities = require('../utilities/albumUtilities');
+const trackDurationParser = require('../utilities/trackDurationParser.js');
 
-exports.track_detail = (req, res, next) => {
+exports.track_page_get = async function (req, res, next) {
     const info = req.query.info;
     const type = req.query.type;
+    const userId = req.session.userId;
+    const tracks = await connection.getRepository('Tracks')
+        .createQueryBuilder("track")
+        .where("track.owner_id = :userId", {userId})
+        .leftJoinAndSelect("track.album_id", "album_id")
+        .getMany();
+
+    // console.log(tracks[0].duration);
+    var track;
+    for (track of tracks) {
+        track.duration = trackDurationParser.durationParser(track.duration);
+    }
+    console.log(tracks);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_track_detail_tool_bar = path.join(__dirname,
-            '../views/track_tool_bar.pug');
-        const fn_track_detail_tool_bar = pug.compileFile(
-            p_track_detail_tool_bar, null);
-        const p_track_detail = path.join(__dirname,
-            '../views/track_detail.pug');
-        const fn_track_detail = pug.compileFile(p_track_detail, null);
+        const p_track_page_tool_bar = path.join(__dirname,
+            '../views/track_page_tool_bar.pug');
+        const fn_track_page_tool_bar = pug.compileFile(
+            p_track_page_tool_bar, null);
 
-        const html = fn_track_detail_tool_bar() + fn_track_detail(
-            {title: 'this is track page'});
+        const p_track_page = path.join(__dirname,
+            '../views/track_page.pug');
+        const fn_track_page = pug.compileFile(p_track_page, null);
+
+        const html = fn_track_page_tool_bar() + fn_track_page({tracks: tracks});
         // console.log(html);
-
         res.send(html);
-    } else {
-        console.log('server receive a empty req');
+    }
+    else {
+        console.log('server receive a empty req: /track');
+
         res.render('index',
-            {page: 'track_detail', title: 'this is track page'});
+            {page: 'track_page_get', tracks: tracks});
     }
 };
 
@@ -99,3 +113,4 @@ exports.track_delete = async (req, res, next) => {
     return res.send("Success");
 
 };
+

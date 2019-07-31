@@ -2,21 +2,27 @@ extends layout_index
 
 block content
     div#main-area.container-fluid.p-0
-        .d-flex.flex-row
+        #container.d-flex.flex-row
             // sidebar
             .d-flex.flex-nowrap
                 #sidebar.list-group.collapse.show.width
                     #sidebaricon.list-group-item.d-inline-block
                         i.fas.fa-headphones-alt.d-none.d-lg-inline
-                        span.d-none.d-lg-inline.d-md-none.text-white MusicBox
-                        span.d-md-inline.d-lg-none.text-white.text-addrev MB
+                        span.d-none.d-lg-inline.d-md-none.text-white.noselect MusicBox
+                        span.d-md-inline.d-lg-none.text-white.text-addrev.noselect MB
 
                     a.list-group-item.d-inline-block.mt-3(href="/track" id="track_button")
                         i.fas.fa-music.d-inline
                         span.d-none.d-lg-inline.text-white Track
 
-                    a.list-group-item.d-inline-blockid(href="/playlist" id="playlist_button")
+
+                    a.list-group-item.d-inline-block(href="/album" id="album_button")
                         i.fas.fa-compact-disc.d-inline
+                        span.d-none.d-lg-inline.text-white Album
+
+
+                    a.list-group-item.d-inline-block(href="/playlist" id="playlist_button")
+                        i.fas.fa-stream.d-inline
                         span.d-none.d-lg-inline.text-white Playlist
 
                     a.list-group-item.d-inline-block
@@ -34,24 +40,37 @@ block content
 
             #app-screen.d-flex.flex-column.flex-grow-1
                 // tool area
-                #tool-bar.d-flex.p-4
-                    if page === "track_detail" || page === "track_create"
-                        include track_tool_bar
-                    else if page === "playlist_detail" || page === "playlist_create"
-                        include playlist_tool_bar
+                //include upload_form
+                #tool-bar.d-flex.pb-0.pt-4
+                    if page === "track_page_get" || page === "track_create"
+                        include track_page_tool_bar
+                    else if page === "playlist_page_get" || page === "playlist_create"
+                        include playlist_page_tool_bar
+                    else if page === "album_page_get"
+                        include album_page_tool_bar
+                    else if page === "album_detail_get"
+                        include album_detail_tool_bar
+                    else if page === "playlist_detail_get"
+                        include playlist_detail_tool_bar
 
                 // content area
                 #item-info
-                    #content-area.d-flex.p-4.flex-wrap.align-content-start
-                        if page === "track_detail"
-                            include track_detail
-                        else if page === "track_create"
-                            include track_create
-                        else if page === "playlist_detail"
+                    #content-area.d-flex.flex-wrap.p-4.align-content-start
+                        if page === "track_page_get"
+                            include track_page
+                        else if page === "playlist_page_get" || "playlist_create"
+                            include playlist_page
+                        else if page === "album_page_get"
+                            include album_page
+                        else if page === "album_detail_get"
+                            include album_detail
+                        else if page === "playlist_detail_get"
                             include playlist_detail
-                        else if page === "playlist_create"
-                            include playlist_create
+
+
 
             .position-absolute.music-player-area
+                include upload_toast_layout
                 div#aplayer
+                    
     script(type='text/javascript' src='/javascripts/aplayer.js')

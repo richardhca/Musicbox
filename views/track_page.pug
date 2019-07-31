@@ -1,0 +1,42 @@
+#track_page_detail
+    #track_page_track_list.list-group
+        for track in tracks
+            - const track_name = (null === track.title ? 'None' : track.title);
+            - const artist_name = (null === track.artists ? 'None' : track.artists);
+            - const album_name = (null === track.album_id.title ? 'None' : track.album_id.title);
+            - const genres_name = (null === track.genres ? 'None' : track.genres);
+            - const duration = (null === track.duration ? 'None' : track.duration);
+            - const track_url = (null === track.file_name ? 'None' : '/tracks/' + track.file_name);
+            - const track_cover = (null === track.cover_art_file_name ? 'None' : '/covers/' + track.cover_art_file_name);
+            a.list-group-item.track_list(href=track_url + "," + track_cover)
+                .row.flex-nowrap
+                    .col.track_list_music_status_icon_col
+                        i.material-icons.text-white.noselect music_note
+                    .col
+                        .text-white.noselect.track_name.track_hover_arts #{track_name}
+                    .col
+                        .text-white.noselect.track_artist #{artist_name}
+                    .col
+                        .text-white.noselect(href) #{album_name}
+                    .col
+                        .text-white.noselect #{genres_name}
+                    .col.d-flex
+                        .text-white.noselect #{duration}
+                        .dropdown
+                            i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
+                            .dropdown-menu(aria-labelledby="trackDropdownMenu")
+                                .dropdown-item Add to Playlist
+                                .dropdown-item Copy Track Link
+                                .dropdown-item Share to Other
+                                .dropdown-item Delete Track
+
+                    //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
+
+
+
+
+
+
+
+
