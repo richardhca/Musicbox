@@ -16,6 +16,8 @@ router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlist_contro
 
 router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlist_controller.playlist_tracks_delete);
 
+router.post('/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_post);
+
 router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_delete);
 
 router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.playlist_modify_post);

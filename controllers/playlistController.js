@@ -4,6 +4,8 @@ const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 const playlistUtilities = require('../utilities/playlistUtilities');
+var uuidvalidate = require('uuid-validate');
+var validator = require('validator');
 
 exports.playlist_valid = async (req, res, next) => {
     const playlist_name = req.body.playlist_name;
@@ -253,6 +255,45 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     res.send(playlist);
 };
+
+exports.playlist_share_post = async function(req, res, next) {
+    var destUserId = new String();
+    var playlistId = new String();
+    destUserId = req.body.destUserId;
+    playlistId = req.body.playlistId;
+    if(!validator.isUUID(playlistId) || !validator.isUUID(destUserId)){
+        return res.status(404).send("invalid input!");    
+    }
+    const playlist_to_share = await connection.getRepository('Playlists').findOne({playlist_id: playlistId, owner_id: req.session.userId});
+    if(playlist_to_share == undefined){
+        return res.status(404).send("Cannot find the specified playlist");
+    }
+    const destUser = await connection.getRepository('Users').findOne({id: destUserId});
+    if(destUser == null){
+        return res.status(404).send("Cannot find the user to share playlist with");
+    }
+    if(destUserId === req.session.userId){
+        return res.status(403).send("Cannot share playlists to the same person");
+    }
+    const checkRec = await connection.getRepository('Shared_playlist').findOne({playlist_id: playlistId, shared_with: destUserId});
+    if(checkRec != null){
+        res.send('Repeat record exist. Do nothing.');
+    }
+    await connection.getRepository('Shared_playlist')
+        .createQueryBuilder('Shared_playlist')
+        .insert()
+        .into('shared_playlist')
+        .values([
+            {
+                shared_on: new Date(),
+                is_accepted: true,
+                shared_with: destUserId,
+                playlist_id: playlistId
+            }
+        ])
+        .execute();
+    return res.send("Success");
+}
 
 exports.playlist_share_delete = async function (req, res, next) {
     const shareId = req.params.shareId;
