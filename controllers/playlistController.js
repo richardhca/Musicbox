@@ -391,7 +391,6 @@ exports.playlist_modify_post = async function (req, res, next) {
 
 exports.playlist_rename_post = async function (req, res, next) {
     var playlistId = req.params.playlistId;
-    console.log(playlistId);
     if(!validator.isUUID(playlistId)){
         return res.status(400).send("Playlist ID Incorrect!");
     }
