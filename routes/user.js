@@ -8,5 +8,6 @@ router.get('/profile', sessionMiddleware.requiredLogin, userController.profile_g
 
 router.put('/profile', sessionMiddleware.requiredLogin, userController.profile_put);
 
+router.put('/password', sessionMiddleware.requiredLogin, userController.password_put);
 
 module.exports = router;
