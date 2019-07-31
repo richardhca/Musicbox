@@ -18,6 +18,8 @@ router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlist_c
 
 router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_delete);
 
+router.get('/:playlistId/shares', sessionMiddleware.requiredLogin, playlist_controller.playlist_shares_get);
+
 router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.playlist_modify_post);
 
 module.exports = router;

@@ -30,7 +30,8 @@
     "pug": "^2.0.4",
     "socket.io": "^2.2.0",
     "typeorm": "^0.2.18",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "js-beautify": "^1.10.1",
