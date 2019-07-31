@@ -1,11 +1,15 @@
-var express = require('express');
-var multer = require('multer');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const sessionMiddleware = require('../middlewares/sessionMiddleware');
+const {upload} = require('../config/multerConfig');
+const uploadController = require('../controllers/uploadController');
 
-var app = express();
+router.post('/',
+    sessionMiddleware.requiredLogin,
+    upload.array('tracks', 10), // Max upload = 10
+    uploadController.upload_post
+);
 
-router.get('/index', function(req, res, next) {
-  res.redirect('/index');
-});
+router.get('/test', sessionMiddleware.requiredLogin, uploadController.test);
 
 module.exports = router;

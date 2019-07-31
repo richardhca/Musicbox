@@ -6,17 +6,26 @@ const logger = require('morgan');
 const session = require('express-session');
 
 // Create database connection by running this script
-require('./create-connection');
+require('./config/createConnection');
 
 // Init app
 const app = express();
 
+// Init socket.io
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.use(function (req, res, next) {
+    res.io = io;
+    next();
+});
+
 // use express-session
 app.use(session({
-                    secret: 'secret',
-                    resave: true,
-                    saveUninitialized: false,
-                }));
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: false,
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,17 +44,21 @@ const indexRouter = require('./routes/index');
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
-const songRoute = require('./routes/song');
+const trackRoute = require('./routes/track');
+const playlistRoute = require('./routes/playlist');
+const uploadRoute = require('./routes/upload');
 const albumRoute = require('./routes/album');
+
 
 app.use('/', indexRouter);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/logout', logoutRoute);
-app.use('/song', songRoute);
-app.use('/album', albumRoute);
+app.use('/track', trackRoute);
+app.use('/playlist', playlistRoute);
 // app.use('/user', userRouter);
-
+app.use('/upload', uploadRoute);
+app.use('/album', albumRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -63,4 +76,4 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+module.exports = {app, server};

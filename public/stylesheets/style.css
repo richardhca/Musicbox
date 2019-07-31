@@ -6,14 +6,26 @@
 
 /* Login and sign up page */
 
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
 body {
+    opacity: 1;
+    transition: 1s opacity;
     background: black;
     background-size: cover;
 }
 
-body::-webkit-scrollbar { 
-	display: none; 
-} 
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: none;
+}
 
 .icn-style {
     font-size: 60px;
@@ -41,26 +53,33 @@ hr {
 
 /* main page */
 
-.main-area {
-	display: block;
-	position: relative;
+#main-area {
+    display: block;
+    position: relative;
+    width: 100%;
     height: 100%;
-	min-width: 320px;
-	min-height: 480px;
+    min-width: 320px;
+    min-height: 480px;
+}
+
+#container {
+    height: 100%;
 }
 
 .music-player-area {
-	display: block;
-	width: 100%;
-	height: 90px;
-	bottom: 0;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 90px;
+    bottom: 0;
+    background: rgba(66, 66, 00, 0.1);
+    z-index: 3;
 }
 
 div#aplayer {
-	display: block;
-	position: relative;
-	margin: 0px;
-	background:rgba(66, 66, 66, 0.75);
+    display: block;
+    position: relative;
+    margin: 0;
 }
 
 #sidebar.list-group {
@@ -81,7 +100,11 @@ div#aplayer {
     font-size: 20px;
 }
 
-a.list-group-item {
+#sidebar a {
+    text-decoration: none;
+}
+
+#sidebar a.list-group-item {
     font-size: 14pt;
     /*white-space: nowrap;*/
     /*cursor: pointer;*/
@@ -90,21 +113,108 @@ a.list-group-item {
     background: #222222;
 }
 
-#userprofile {
-	margin-bottom: 90px;
+#app-screen {
+    position: relative;
+    height: 100%;
+    background: -webkit-linear-gradient(left, silver, #222222);
+    background: -o-linear-gradient(right, silver, #222222);
+    background: -moz-linear-gradient(right, silver, #222222);
+    background: linear-gradient(to right, silver, #222222);
+    overflow: auto;
 }
 
 #tool-bar {
-	margin: 0px;
-	overflow: hidden;
-	background: -webkit-linear-gradient(left, silver , #222222);
-	background: -o-linear-gradient(right, silver, #222222);
-	background: -moz-linear-gradient(right, silver, #222222);
-	background: linear-gradient(to right, silver, #222222);
+    position: relative;
+    width: 100%;
+    margin: 0;
 }
 
-.tool-bar-area {
-    background: #242424 !important;
+
+/*copy and modify from https://bootsnipp.com/snippets/Wa6zr*/
+.cta {
+    height: 19px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.toggle-btn {
+    height: 3px;
+    border-radius: 10px;
+    width: 20px;
+    background-color: #fff;
+    position: relative;
+    top: 50%;
+    left: 0;
+    margin: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-btn:before {
+    content: "";
+    height: 3px;
+    border-radius: 10px;
+    width: 20px;
+    box-shadow: 0 -8px 0 0 #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-btn:after {
+    content: "";
+    height: 3px;
+    border-radius: 10px;
+    width: 20px;
+    box-shadow: 0 8px 0 0 #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.active .toggle-btn {
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.active .toggle-btn:before {
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.active .toggle-btn:after {
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.active .change_icon:before {
+    left: -5px;
+    top: 3px;
+    transform: translateY(0) rotate(25deg);
+}
+
+.active .change_icon:after {
+    left: -5px;
+    top: -3px;
+    transform: translateY(0) rotate(-25deg);
+}
+
+#item-info, #content-area {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    overflow: auto;
+}
+
+#content-area {
+    height: 90%; /* To shows the bottom content properly if needs to scroll */
+	margin-top: 5px;
+}
+
+#content-area::-webkit-scrollbar {
+    display: none;
 }
 
 .tool-bar-icon {
@@ -132,4 +242,271 @@ a.list-group-item {
     height: 100%;
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
+}
+
+#track_page_detail {
+    width: 100%;
+}
+
+#track_page_track_list {
+    width: 100%;
+}
+
+#track_page_track_list .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+
+#album_page_detail .card {
+    width: 150px;
+    height: 190px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#album_detail {
+    width: 100%;
+}
+
+#album_detail .card {
+    max-height: 320px;
+    max-width: 320px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+
+}
+
+#album_detail ul.list-group {
+    max-height: 300px;
+    max-width: 300px;
+
+}
+
+#album_detail ul.list-group .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#album_detail_play_btn {
+    width: 140px;
+    height: 45px;
+    border-radius: 50px;
+
+}
+
+#album_detail_icon_list {
+    font-size: 24px;
+}
+
+#album_detail_track_list.list-group .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#playlist_page_detail .card {
+    width: 150px;
+    height: 190px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+#playlist_detail {
+    width: 100%;
+}
+
+#playlist_detail_cover, #playlist_detail_intro {
+	display: block;
+	max-width: 320px;
+	padding-bottom: 20px;
+}
+
+#playlist_detail .card {
+    max-height: 320px;
+    max-width: 320px;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+/*
+#playlist_detail ul.list-group {
+    max-height: 300px;
+    max-width: 300px;
+
+}
+
+#playlist_detail ul.list-group .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+*/
+
+#playlist_detail_play_btn {
+    width: 140px;
+    height: 45px;
+    border-radius: 50px;
+
+}
+
+#playlist_detail_icon_list {
+    font-size: 24px;
+}
+
+#playlist_detail_track_list.list-group .list-group-item {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+/*#track_page_track_list.list-group .list-group-item:hover,*/
+/*#album_detail_track_list.list-group .list-group-item:hover,*/
+/*#playlist_detail_track_list.list-group .list-group-item:hover,*/
+.row.flex-nowrap .col {
+	max-height: 30px;
+	overflow: hidden;
+}
+
+.row.flex-nowrap .col.d-flex {
+	overflow: visible;
+}
+
+.track_hover, .playing {
+    background-color: #161618 !important;
+    border-radius: 0 !important;
+}
+
+.track_list_icon, #tracklist_icon_title {
+    max-width: 40px;
+    text-align: center;
+}
+
+.track_list_more_icon {
+	width: 20px;
+	float: right;
+	cursor: pointer;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+#upload_toast_area {
+    z-index: 100;
+    position: fixed;
+    right: 10px;
+    transform: translate(0, -120%);
+}
+
+.toast {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+.hidden_icon {
+    display: none;
+}
+
+.dropdown-menu {
+    background-color: #282828;
+}
+
+.dropdown-item {
+    color: #aeaeae;
+	cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #333333;
+    color: white;
+}
+
+.cover_forced {
+    filter: brightness(50%);
+}
+
+.album_play_icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transform: translate(0, 0);
+    display: none;
+    transition: transform .2s;
+}
+
+.album_play_icon:hover {
+    transform: scale(1.3);
+}
+
+.album_cover {
+    position: absolute;
+    border-radius: 10px;
+    height: 150px;
+    width: 150px;
+	cursor: pointer;
+    box-shadow: 3px 3px 10px #000;
+}
+
+.card-body {
+    position: absolute;
+    top: 155px;
+    width: 150px;
+	cursor: pointer;
+    text-align: center;
+}
+
+.card-body:hover {
+	text-decoration: underline;
+	text-decoration-color: #fff;
+}
+
+.search_area {
+    /*display: none;*/
+    height: 64px;
+    margin-top: 10px;
+    background-color: #282828;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#track_search_input {
+    color: white;
+    font-size: 30px;
+    margin-left: 30px;
+    height: 64px;
+    background-color: #282828;
+    border: 0;
+}
+
+#track_search_input:focus {
+    outline: none !important;
+}
+
+#track_search_close {
+    color: white;
+    font-size: 24px;
+    margin-left: 5px;
+    margin-right: 20px;
 }

@@ -35,7 +35,8 @@ exports.login_post = [
         var where = {};
         if (username.includes('@')) {
             where = {email: username};
-        } else {
+        }
+        else {
             where = {username: username};
         }
         const user = await usersRepo.findOne({where: where});
@@ -46,11 +47,10 @@ exports.login_post = [
                 // If correct, assign session and redirect to home page.
                 req.session.userId = user.id;
                 req.session.isLoggedIn = true;
-                req.session.userConfirmed = user.confirmed;
+                req.session.userConfirmed = user.emailConfirmed;
                 return res.redirect('/');
             }
         }
-
         return res.render('login_form', {errors: [{msg: 'Incorrect username or password.'}]});
     }
 ];

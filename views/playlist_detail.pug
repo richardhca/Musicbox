@@ -1,0 +1,48 @@
+div#playlist_detail
+    .row
+        .col-lg-4
+            .d-flex.flex-column
+                #playlist_detail_cover.position-relative.text-center
+                    .card
+                        img.card-img-top(src='/images/music_cover_default_black.png')
+                    h4.text-white.noselect Playlist
+                    button.btn.btn-secondary(id="playlist_detail_play_btn") PLAY
+
+                #playlist_detail_intro.position-relative.text-center
+                        p.text-white.noselect Never miss a new release! Catch all the latest music from artists you follow, plus new singles picked just for you. Updates every Friday.
+                        p.text-white.noselect 10 TRACKS
+                        .d-inline-block(id="playlist_detail_icon_list")
+                            i.far.fa-heart.text-white.mr-4
+                            //i.fas.fa-heart.text-white
+                            i.fas.fa-share-alt.text-white.mr-4(data-toggle="modal" data-target="#shareplaylist" style='cursor: pointer;')
+                            i.fas.fa-ellipsis-h.text-white
+
+        .col-lg-8
+            #playlist_detail_track_list.list-group
+                - for (var x = 0; x <10; x++)
+                    .list-group-item.track_list
+                        .row.flex-nowrap
+                            .col.track_list_icon
+                                i.material-icons.text-white.noselect music_note
+                            .col
+                                .text-white.noselect Track
+                            .col
+                                .text-white.noselect Artist
+                            .col
+                                .text-white.noselect Album
+                            .col
+                                .text-white.noselect Genres
+                            .col.d-flex
+                                .text-white.noselect 3:50
+                                .dropdown
+                                    i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
+                                    .dropdown-menu(aria-labelledby="trackDropdownMenu")
+                                        .dropdown-item Add to Playlist
+                                        .dropdown-item Copy Track Link
+                                        .dropdown-item Share to Other
+                                        .dropdown-item Delete Track
+                                //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
+
+    include playlist_share
+
