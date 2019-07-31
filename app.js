@@ -31,7 +31,7 @@ app.use('/fontawesome', express.static(
     path.join(__dirname + '/node_modules/@fortawesome/fontawesome-free/')));
 
 const indexRouter = require('./routes/index');
-// const userRouter = require('./routes/user');
+const userRouter = require('./routes/user');
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
@@ -49,7 +49,7 @@ app.use('/logout', logoutRoute);
 app.use('/track', trackRoute);
 app.use('/playlist', playlistRoute);
 app.use('/playlists', playlistsRoute);
-// app.use('/user', userRouter);
+app.use('/user', userRouter);
 app.use('/upload', uploadRoute);
 app.use('/album', albumRoute);
 
