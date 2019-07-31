@@ -26,7 +26,7 @@ exports.login_post = [
 
         // If form fields have validation errors.
         if (!errors.isEmpty()) {
-            return res.render('login_form', {errors: errors.array()});
+            return res.status(400).render('login_form', {errors: errors.array()});
         }
 
         // Authenticate user and create session if successful.
