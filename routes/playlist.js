@@ -16,10 +16,14 @@ router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlist_contro
 
 router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlist_controller.playlist_tracks_delete);
 
+router.post('/:playlistId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_post);
+
 router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_delete);
 
 router.get('/:playlistId/shares', sessionMiddleware.requiredLogin, playlist_controller.playlist_shares_get);
 
 router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.playlist_modify_post);
+
+router.post('/:playlistId/rename',sessionMiddleware.requiredLogin, playlist_controller.playlist_rename_post);
 
 module.exports = router;

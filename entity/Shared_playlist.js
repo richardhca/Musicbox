@@ -1,7 +1,7 @@
 var {EntitySchema} = require("typeorm");
 
 module.exports = new EntitySchema({
-    name: "Shared_Playlist",
+    name: "Shared_playlist",
     columns: {
         id: {
             type: "integer",
