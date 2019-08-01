@@ -1,6 +1,7 @@
 const path = require('path');
 const pug = require('pug');
 const validator = require('validator');
+const fs = require('fs');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
@@ -22,8 +23,6 @@ exports.playlist_valid = async (req, res, next) => {
             //res.render('');
         }
     }
-
-
 };
 
 exports.playlist_page_get = async (req, res, next) => {
@@ -56,25 +55,32 @@ exports.playlist_page_get = async (req, res, next) => {
     }
 };
 
-exports.playlist_create_get = (req, res, next) => {
+//test
+exports.playlist_detail_get = function (req, res, next) {
+
     const info = req.query.info;
     const type = req.query.type;
+
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p = path.join(__dirname, '../views/playlist_create.pug');
-        const fn = pug.compileFile(p, null);
-        const html = fn({title: 'this is playlist create page'});
-        console.log(html);
+        const p_playlist_detail_tool_bar = path.join(__dirname,
+            '../views/playlist_detail_tool_bar.pug');
+        const fn_playlist_detail_tool_bar = pug.compileFile(
+            p_playlist_detail_tool_bar, null);
 
+        const p_playlist_detail = path.join(__dirname,
+            '../views/playlist_detail.pug');
+        const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
+
+        const html = fn_playlist_detail_tool_bar() + fn_playlist_detail();
+        // console.log(html);
         res.send(html);
     } else {
-        console.log('server receive a empty req : /playlist');
+        console.log('server receive a empty req: /playlist/detail');
         res.render('index',
-            {
-                page: 'playlist_create', title: 'this is playlist'
-                    + ' create page'
-            });
+            {page: 'playlist_detail_get'});
     }
+
 };
 
 exports.playlist_details_get = async function (req, res, next) {
@@ -115,26 +121,22 @@ exports.playlist_details_get = async function (req, res, next) {
 exports.playlist_create_post = [
 
     // Validate fields.
-    body('playlistname')
+    body('PlaylistName')
         .trim()
         .exists()
         .isLength({min: 3}).withMessage('Playlist name must be more than 2 characters.')
         .isLength({max: 25}).withMessage('Playlist name cannot be more than 25 characters.'),
-    body('public')
-        .exists(),
 
     // Sanitize input.
-    sanitizeBody('playlistname').escape(),
-    sanitizeBody('public').toBoolean(),
+    sanitizeBody('PlaylistName').escape(),
 
     // Handle request.
     async function (req, res, next) {
-
         const errors = validationResult(req);
 
         var playlistData = {
-            title: req.body.playlistname,
-            is_public: req.body.public,
+            title: req.body.PlaylistName,
+            is_public: false,
             created_on: new Date(),
             owner_id: req.session.userId,
             playlist_tracks: []
@@ -144,6 +146,11 @@ exports.playlist_create_post = [
         if (!errors.isEmpty()) {
             return res.status(400).send({errors: errors.array()});
         }
+
+        fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function (err) {
+            if (err) throw err;
+            console.log('Playlist Created.');
+        });
 
         const playlistRepository = connection.getRepository("Playlists");
 
@@ -257,6 +264,12 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     res.send("Delete successful.");
 };
 
+exports.playlist_share_post = async function (req, res, next) {
+    console.log('Share with ' + req.body.ShareUser);
+    res.status(200).end();
+    res.redirect('/playlist');
+};
+
 exports.playlist_share_delete = async function (req, res, next) {
     const shareId = req.params.shareId;
 
@@ -282,7 +295,6 @@ exports.playlist_share_delete = async function (req, res, next) {
         // Technically 403, but we'd rather not let users guess Ids to check if they exist.
         res.status(404).send("Shared playlist not found.");
     }
-
 };
 
 exports.playlist_shares_get = async function (req, res, next) {

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.playlist_card').on('click', function (event) {
+    $('.card-body').on('click', function (event) {
         event.preventDefault();
         playlist_detail_get('GET');
     });
@@ -22,6 +22,7 @@ $(document).ready(function () {
                     $(result).filter('#playlist_detail'));
 
                 $.getScript('/jqueries/toggleIcon.js');
+				$.getScript('/jqueries/playPlaylistFeatures.js');
                 $.getScript('/jqueries/trackListEventHandler.js');
             },
             error: function (e) {

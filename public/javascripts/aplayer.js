@@ -8,9 +8,9 @@ const ap = new APlayer({
     preload: 'none',
     volume: 0.5,
     mutex: true,
-    // listFolded: true,
-    // listMaxHeight: 90,
-    // lrcType: 3,
+    listFolded: true,
+    listMaxHeight: 90,
+    lrcType: 3,
     audio: []
 });
 
@@ -22,7 +22,12 @@ function loadPlaylist(data){
 	else {
 		ap.list.clear();
 		ap.list.add(playlist);
-		ap.play();
+		if (playlist.length > 1) {
+			ap.play();
+		}
 	}
 }
 
+function playToggle() {
+	ap.toggle();
+}
