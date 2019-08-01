@@ -1,15 +1,18 @@
 $(document).ready(function () {
     $('.album_cover').on('click', function(event) {
-        playlist_send('../playlists/SAO');
+        playlist_send('../playlists/Sample');
     });
-	
-	function playlist_send(url){
-		$.ajax({
-            url: '../playlists/SAO',
+    $('#playlist_detail_play_btn').click(function(event) {
+        playlist_send('../playlists/Sample');
+    });
+    
+    function playlist_send(url){
+        $.ajax({
+            url: url,
             dataType: 'text',
             success : function(data) {
                 loadPlaylist(data);
             }
         });
-	}
+    }
 });

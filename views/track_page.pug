@@ -1,26 +1,43 @@
 #track_page_detail
     #track_page_track_list.list-group
+        .list-group-item.track_list_header
+            .row.flex-nowrap
+                .col.track_list_icon
+                .col
+                    .text-white.noselect Track
+                .col
+                    .text-white.noselect Artist
+                .col
+                    .text-white.noselect Album
+                .col
+                    .text-white.noselect Genres
+                .col
+                    .text-white.noselect Duration
         for track in tracks
-            - const track_name = (null === track.title ? 'None' : track.title);
-            - const artist_name = (null === track.artists ? 'None' : track.artists);
-            - const album_name = (null === track.album_id.title ? 'None' : track.album_id.title);
-            - const genres_name = (null === track.genres ? 'None' : track.genres);
-            - const duration = (null === track.duration ? 'None' : track.duration);
-            - const track_url = (null === track.file_name ? 'None' : '/tracks/' + track.file_name);
-            - const track_cover = (null === track.cover_art_file_name ? 'None' : '/covers/' + track.cover_art_file_name);
-            a.list-group-item.track_list(href=track_url + "," + track_cover)
+            - const track_name = (null === track.title ? 'None' : track.title)
+            - const artist_name = (null === track.artist_name ? 'Anonymous' : track.artist_name)
+            - const track_filename = (null === track.file_name ? '' : track.file_name)
+            - const track_cover = (null === track.cover_art_file_name ? '' : track.cover_art_file_name)
+            - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
+            - const album_name = (undefined === track.album_title ? 'None' : track.album_title)
+            - const genres_name = (null === track.genres ? 'None' : track.genres)
+            - const duration = (undefined === track.duration ? 'None' : track.duration)
+            .list-group-item.track_list
                 .row.flex-nowrap
-                    .col.track_list_music_status_icon_col
-                        i.material-icons.text-white.noselect music_note
-                    .col
-                        .text-white.noselect.track_name.track_hover_arts #{track_name}
-                    .col
-                        .text-white.noselect.track_artist #{artist_name}
-                    .col
-                        .text-white.noselect(href) #{album_name}
-                    .col
+                    span.track_list_filename(style='display: none;') #{track_filename}
+                    span.track_list_cover(style='display: none;') #{track_cover}
+                    span.track_lyric(style='display: none;') #{track_lyric}
+                    .col.track_list_icon
+                        i.material-icons.text-white.noselect(style='cursor: pointer;') music_note
+                    .col.track_list_title
+                        .text-white.noselect #{track_name}
+                    .col.track_list_artist
+                        .text-white.noselect #{artist_name}
+                    .col.track_list_album
+                        .text-white.noselect #{album_name}
+                    .col.track_list_genres
                         .text-white.noselect #{genres_name}
-                    .col.d-flex
+                    .col.d-flex.track_list_duration
                         .text-white.noselect #{duration}
                         .dropdown
                             i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
