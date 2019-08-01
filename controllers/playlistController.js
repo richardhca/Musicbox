@@ -261,8 +261,6 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 exports.playlist_share_post = async function(req, res, next) {
     const destUser = req.body.destUser;
     const playlistId = req.params.playlistId;
-    console.log(destUser);
-    console.log(playlistId);
     if(!validator.isUUID(playlistId)){
         return res.status(404).send("invalid input!");    
     }
@@ -275,7 +273,6 @@ exports.playlist_share_post = async function(req, res, next) {
     if(destUser == null){
         return res.status(404).send("Cannot find the user to share playlist with");
     }
-    console.log(destUserObj);
     const destUserId = destUserObj.id;
     const playlist_to_share = await connection.getRepository('Playlists').findOne({playlist_id: playlistId, owner_id: req.session.userId});
     if(playlist_to_share == undefined){
@@ -286,7 +283,7 @@ exports.playlist_share_post = async function(req, res, next) {
     }
     const checkRec = await connection.getRepository('Shared_playlist').findOne({playlist_id: playlistId, shared_with: destUserId});
     if(checkRec != null){
-        res.send('Repeat record exist. Do nothing.');
+        return res.send('Repeat record exist. Do nothing.');
     }
     await connection.getRepository('Shared_playlist')
         .createQueryBuilder('Shared_playlist')
