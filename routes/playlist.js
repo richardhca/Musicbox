@@ -12,11 +12,13 @@ router.get('/create', sessionMiddleware.requiredLogin, playlist_controller.playl
 
 router.get('/:id/detail', sessionMiddleware.requiredLogin, playlist_controller.playlist_details_get);
 
+router.post('/:id/detail', sessionMiddleware.requiredLogin, playlist_controller.playlist_details_post);
+
 router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlist_controller.playlist_add_post);
 
 router.delete('/:playlistId/delete', sessionMiddleware.requiredLogin, playlist_controller.playlist_tracks_delete);
 
-router.post('/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_post);
+router.post('/:playlistId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_post);
 
 router.delete('/:shareId/share', sessionMiddleware.requiredLogin, playlist_controller.playlist_share_delete);
 
