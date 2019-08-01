@@ -112,6 +112,8 @@ exports.playlist_create_post = [
         .isLength({max: 25}).withMessage('Playlist name cannot be more than 25 characters.'),
     body('public')
         .exists(),
+    body('enable_comments')
+        .exists(),
 
     // Sanitize input.
     sanitizeBody('playlistname').escape(),
@@ -125,6 +127,7 @@ exports.playlist_create_post = [
         var playlistData = {
             title: req.body.playlistname,
             is_public: req.body.public,
+            enable_comments: req.body.enable_comments,
             created_on: new Date(),
             owner_id: req.session.userId,
             playlist_tracks: []

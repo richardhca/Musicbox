@@ -20,6 +20,12 @@ module.exports = new EntitySchema({
     created_on: {
       type: "timestamp",
       nullable: false
+    },
+
+    //enable/disable comments function
+    enable_comments: {
+      type: "boolean",
+      nullable: false
     }
   },
   relations: {
