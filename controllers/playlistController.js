@@ -261,8 +261,8 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 exports.playlist_share_post = async function(req, res, next) {
     const destUser = req.body.destUser;
     const playlistId = req.params.playlistId;
-    if(!validator.isUUID(playlistId)){
-        return res.status(404).send("invalid input!");    
+    if(!destUser || !playlistId || !validator.isUUID(playlistId)){
+        return res.status(404).send("invalid input!");
     }
     var destUserObj = null;
     if(destUser.includes('@')){
@@ -270,12 +270,12 @@ exports.playlist_share_post = async function(req, res, next) {
     } else {
         destUserObj = await connection.getRepository('Users').findOne({username: destUser});
     }
-    if(destUser == null){
+    if(destUserObj === null){
         return res.status(404).send("Cannot find the user to share playlist with");
     }
     const destUserId = destUserObj.id;
     const playlist_to_share = await connection.getRepository('Playlists').findOne({playlist_id: playlistId, owner_id: req.session.userId});
-    if(playlist_to_share == undefined){
+    if(playlist_to_share === undefined){
         return res.status(404).send("Cannot find the specified playlist");
     }
     if(destUserId === req.session.userId){
@@ -299,7 +299,7 @@ exports.playlist_share_post = async function(req, res, next) {
         ])
         .execute();
     return res.send("Success");
-}
+};
 
 exports.playlist_share_delete = async function (req, res, next) {
     const shareId = req.params.shareId;
@@ -426,7 +426,7 @@ exports.playlist_modify_post = async function (req, res, next) {
 
 exports.playlist_rename_post = async function (req, res, next) {
     var playlistId = req.params.playlistId;
-    if(!validator.isUUID(playlistId)){
+    if(!playlistId || !validator.isUUID(playlistId)){
         return res.status(400).send("Playlist ID Incorrect!");
     }
     const playlist = connection.getRepository("Playlists").findOne({playlist_id: playlistId, owner_id: req.session.userId});
@@ -441,4 +441,4 @@ exports.playlist_rename_post = async function (req, res, next) {
         .andWhere("owner_id = :userId", {userId: req.session.userId})
         .execute();
     return res.send("Success");
-}
+};
