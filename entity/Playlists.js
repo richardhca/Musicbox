@@ -33,7 +33,7 @@ module.exports = new EntitySchema({
       onDelete: "SET NULL"
     },
     shared: {
-      target: "Shared_Playlist",
+      target: "Shared_playlist",
       type: "one-to-many",
       joinTable: true,
       joinColumn: {name: "shared", referencedColumnName: "id"},
