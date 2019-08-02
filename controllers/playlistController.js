@@ -92,6 +92,17 @@ exports.playlist_details_get = async function (req, res, next) {
             relations: ['playlist_tracks'],
         }
     );
+    
+    //Get playlist comments
+    const comments = await connection.getRepository("Comments").findOne(
+        {
+            playlist_id: req.params.id,
+            owner_id: req.session.userId
+        },
+        {
+            relations: ['Comments'],
+        }
+    );
 
     if (!playlist) {
         return res.status(404).send();
@@ -118,6 +129,7 @@ exports.playlist_create_post = [
     // Sanitize input.
     sanitizeBody('playlistname').escape(),
     sanitizeBody('public').toBoolean(),
+    sanitizeBody('enable_comments').toBoolean(),
 
     // Handle request.
     async function (req, res, next) {
