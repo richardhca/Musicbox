@@ -1,15 +1,15 @@
-#mkplaylist {
+#mkplaylist, #shareplaylist {
 	background: rgba(0, 0, 0, 0.75);
 }
 
-.mkplaylist-form {
+.mkplaylist-form, .shareplaylist-form {
 	width: 75%;
 	height: 10%;
 	margin: auto;
 	background: url(../images/upload-bg.png);
 }
 
-.mkplaylist-form h1{
+.mkplaylist-form h1, .shareplaylist-form h1 {
 	text-transform: uppercase;
     font-size: 18px;
 	margin: auto;
@@ -17,22 +17,33 @@
     text-shadow: 0px 1px 1px rgba(0, 0, 0, .65);
 }
 
-.mkplaylist-form label {
-	display: inline-block;
+.mkplaylist-form label, .shareplaylist-form label {
+	display: block;
 	color: #fff;
 }
 
-#playlistName {
+#playlistName, #ShareUser {
 	display: inline-block;
 	margin-left: 15px;
 	border-radius: 5px;
 }
 
-.mkplaylist-form .justify-content-around {
+.privacySelect {
+	display: inline-block;
+	position: relative;
+}
+.privacySelect p {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	color: #fff;
+}
+
+.mkplaylist-form .justify-content-around, .shareplaylist-form .justify-content-around {
 	margin-top: 10px;
 }
 
-.mkplaylist-form button {
+.mkplaylist-form button, .shareplaylist-form button {
 	display: inline-block;
 	width: 100px;
 	font-size: 14px;
@@ -48,7 +59,7 @@
 	background: linear-gradient(top, #ffffff 0%, #f6f6f6 100%);
 }
 
-.mkplaylist-form button:hover {
+.mkplaylist-form button:hover, .shareplaylist-form button:hover {
 	background: #f2f2f2;
 	background: -webkit-linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
 	background: -moz-linear-gradient(top, #f2f2f2 0%, #eaeaea 100%);
