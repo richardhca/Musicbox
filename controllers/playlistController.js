@@ -323,7 +323,7 @@ exports.playlist_share_delete = async function (req, res, next) {
         return res.status(404).send("Shared playlist not found.");
     }
 
-    // If user is either owner of playlist or recipient of share, then allow user to delete share
+    // If user is recipient of share, then allow user to accept share
     if (share.playlist_id.owner_id.id === req.session.userId || share.shared_with.id === req.session.userId) {
         await sharesRepo.remove(share);
         res.send("Playlist unshared.");
