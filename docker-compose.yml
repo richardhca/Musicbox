@@ -8,6 +8,8 @@ services:
       - "8080:80"
     depends_on:
       - app
+    volumes:
+      - public:/usr/app/public
   app:
     build:
       context: .
@@ -15,11 +17,11 @@ services:
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
+      - public:/usr/app/public
     depends_on:
       - db
     environment:
       - DOCKER_DB_HOST=db
-    ports:
   db:
     image: "postgres:latest"
     environment:
@@ -27,3 +29,5 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       
+volumes:
+  public:
