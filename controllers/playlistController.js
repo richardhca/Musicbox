@@ -5,7 +5,6 @@ const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 const playlistUtilities = require('../utilities/playlistUtilities');
-const validator = require('validator');
 
 exports.playlist_valid = async (req, res, next) => {
     const playlist_name = req.body.playlist_name;
@@ -258,31 +257,37 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     res.send("Delete successful.");
 };
 
-exports.playlist_share_post = async function(req, res, next) {
+exports.playlist_share_post = async function (req, res, next) {
     const destUser = req.body.destUser;
     const playlistId = req.params.playlistId;
-    if(!destUser || !playlistId || !validator.isUUID(playlistId)){
+    if (!destUser || !playlistId || !validator.isUUID(playlistId)) {
         return res.status(404).send("invalid input!");
     }
     var destUserObj = null;
-    if(destUser.includes('@')){
+    if (destUser.includes('@')) {
         destUserObj = await connection.getRepository('Users').findOne({email: destUser});
     } else {
         destUserObj = await connection.getRepository('Users').findOne({username: destUser});
     }
-    if(destUserObj === null){
+    if (destUserObj === null) {
         return res.status(404).send("Cannot find the user to share playlist with");
     }
     const destUserId = destUserObj.id;
-    const playlist_to_share = await connection.getRepository('Playlists').findOne({playlist_id: playlistId, owner_id: req.session.userId});
-    if(playlist_to_share === undefined){
+    const playlist_to_share = await connection.getRepository('Playlists').findOne({
+        playlist_id: playlistId,
+        owner_id: req.session.userId
+    });
+    if (playlist_to_share === undefined) {
         return res.status(404).send("Cannot find the specified playlist");
     }
-    if(destUserId === req.session.userId){
+    if (destUserId === req.session.userId) {
         return res.status(403).send("Cannot share playlists to the same person");
     }
-    const checkRec = await connection.getRepository('Shared_playlist').findOne({playlist_id: playlistId, shared_with: destUserId});
-    if(checkRec != null){
+    const checkRec = await connection.getRepository('Shared_playlist').findOne({
+        playlist_id: playlistId,
+        shared_with: destUserId
+    });
+    if (checkRec != null) {
         return res.send('Repeat record exist. Do nothing.');
     }
     await connection.getRepository('Shared_playlist')
@@ -308,7 +313,7 @@ exports.playlist_share_delete = async function (req, res, next) {
         return res.status(404).send("Shared playlist not found.");
     }
 
-    const sharesRepo = connection.getRepository('Shared_Playlist');
+    const sharesRepo = connection.getRepository('Shared_playlist');
     const share = await sharesRepo.findOne(
         {id: shareId},
         {relations: ['shared_with', 'playlist_id', 'playlist_id.owner_id']}
@@ -327,6 +332,34 @@ exports.playlist_share_delete = async function (req, res, next) {
         res.status(404).send("Shared playlist not found.");
     }
 
+};
+
+exports.playlist_share_put = async function (req, res, next) {
+    const shareId = req.params.shareId;
+
+    if (!shareId) {
+        return res.status(404).send("Shared playlist not found.");
+    }
+
+    const sharesRepo = connection.getRepository('Shared_playlist');
+    const share = await sharesRepo.findOne(
+        {id: shareId},
+        {relations: ['shared_with', 'playlist_id', 'playlist_id.owner_id']}
+    );
+
+    if (!share) {
+        return res.status(404).send("Shared playlist not found.");
+    }
+
+    // If user is either owner of playlist or recipient of share, then allow user to delete share
+    if (share.shared_with.id === req.session.userId) {
+        share.is_accepted = true;
+        await sharesRepo.save(share);
+        res.send("Playlist share accepted.");
+    } else {
+        // Technically 403, but we'd rather not let users guess Ids to check if they exist.
+        res.status(404).send("Shared playlist not found.");
+    }
 };
 
 exports.playlist_shares_get = async function (req, res, next) {
@@ -426,11 +459,14 @@ exports.playlist_modify_post = async function (req, res, next) {
 
 exports.playlist_rename_post = async function (req, res, next) {
     var playlistId = req.params.playlistId;
-    if(!playlistId || !validator.isUUID(playlistId)){
+    if (!playlistId || !validator.isUUID(playlistId)) {
         return res.status(400).send("Playlist ID Incorrect!");
     }
-    const playlist = connection.getRepository("Playlists").findOne({playlist_id: playlistId, owner_id: req.session.userId});
-    if(playlist == null){
+    const playlist = connection.getRepository("Playlists").findOne({
+        playlist_id: playlistId,
+        owner_id: req.session.userId
+    });
+    if (playlist == null) {
         return res.status(404).send("Target Playlist not found!")
     }
     await connection.getRepository("Playlists")
