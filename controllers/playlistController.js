@@ -83,13 +83,38 @@ exports.playlist_detail_get = function (req, res, next) {
 
 };
 
+exports.playlist_delete = async function (req, res, next) {
+    const userId = req.session.userId;
+    const playlistId = req.params.playlistId;
+
+    // 404 if playlistId is not provided or is not UUID
+    if (!playlistId || !validator.isUUID(playlistId)) {
+        return res.status(404).send("Playlist can't be found");
+    }
+
+    const playlistRepo = connection.getRepository("Playlists");
+    const playlist = await playlistRepo.findOne(
+        {
+            playlist_id: playlistId,
+            owner_id: userId
+        }
+    );
+
+    if (!playlist) {
+        return res.status(404).send("Playlist can't be found");
+    }
+
+    await playlistRepo.remove(playlist);
+    res.send("Playlist deleted.");
+};
+
 exports.playlist_details_get = async function (req, res, next) {
     const userId = req.session.userId;
     const playlistId = req.params.id;
 
     // 404 if playlistId is not provided or is not UUID
     if (!playlistId || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist or track can't be found");
+        return res.status(404).send("Playlist can't be found");
     }
 
     // Get playlist and load its tracks
@@ -155,6 +180,7 @@ exports.playlist_create_post = [
         const playlistRepository = connection.getRepository("Playlists");
 
         const playlist = await playlistRepository.save(playlistData);
+        delete playlist['owner_id'];
 
         res.send(playlist);
     }
