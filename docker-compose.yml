@@ -3,16 +3,23 @@ services:
   web:
     build:
       context: .
+      dockerfile: Dockerfile-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+  app:
+    build:
+      context: .
       dockerfile: Dockerfile
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
-    ports:
-      - "3000:3000"
     depends_on:
       - db
     environment:
       - DOCKER_DB_HOST=db
+    ports:
   db:
     image: "postgres:latest"
     environment:
