@@ -10,6 +10,8 @@ router.get('/', sessionMiddleware.requiredLogin, playlistMiddleware.getUserPlayl
 
 router.post('/create', sessionMiddleware.requiredLogin, playlist_controller.playlist_create_post);
 
+router.delete('/delete/:playlistId', sessionMiddleware.requiredLogin, playlist_controller.playlist_delete);
+
 //test
 router.get('/detail', sessionMiddleware.requiredLogin, playlist_controller.playlist_detail_get);
 
