@@ -6,8 +6,11 @@ const projectRoot = require('./projectRoot');
 
 // Allowed audio mime types
 const audioMimeTypeToExt = {
+    // Chrome/Firefox/Edge
     'audio/wav': '.wav',
     'audio/mp3': '.mp3',
+    // Firefox/Edge
+    'audio/mpeg': '.mp3',
 };
 
 // Allowed image mime types
@@ -22,8 +25,12 @@ const storage = multer.diskStorage({
         cb(null, path.join(projectRoot.path, '/public/tracks/'))
     },
     filename: function (req, file, cb) {
-        // New file name is uuid + extension (i.e. '10ba038e-48da-487b-96e8-8d3b99b6d18a.mp3')
-        cb(null, uuidv4() + audioMimeTypeToExt[file.mimetype])
+        if (file) {
+            // New file name is uuid + extension (i.e. '10ba038e-48da-487b-96e8-8d3b99b6d18a.mp3')
+            cb(null, uuidv4() + audioMimeTypeToExt[file.mimetype])
+        } else {
+            console.log('File missing.');
+        }
     }
 });
 
