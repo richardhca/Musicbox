@@ -6,8 +6,9 @@ const projectRoot = require('./projectRoot');
 
 // Allowed audio mime types
 const audioMimeTypeToExt = {
-    'audio/wav': '.wav',
-    'audio/mp3': '.mp3',
+    'audio/wav': '.wav',    // Chrome/Firefox/Edge
+    'audio/mp3': '.mp3',    // Chrome
+    'audio/mpeg': '.mp3',   // Firefox/Edge
 };
 
 // Allowed image mime types
@@ -22,8 +23,12 @@ const storage = multer.diskStorage({
         cb(null, path.join(projectRoot.path, '/public/tracks/'))
     },
     filename: function (req, file, cb) {
-        // New file name is uuid + extension (i.e. '10ba038e-48da-487b-96e8-8d3b99b6d18a.mp3')
-        cb(null, uuidv4() + audioMimeTypeToExt[file.mimetype])
+        if (file) {
+            // New file name is uuid + extension (i.e. '10ba038e-48da-487b-96e8-8d3b99b6d18a.mp3')
+            cb(null, uuidv4() + audioMimeTypeToExt[file.mimetype])
+        } else {
+            console.log('File missing.');
+        }
     }
 });
 
@@ -38,16 +43,23 @@ const filter = function (req, file, cb) {
     cb(null, true);
 };
 
-
-const upload = multer({
-    storage: storage,
-    fileFilter: filter,
-    limits: {fileSize: 500000000},
-});
-
+const uploadMiddleware = (req, res, next) => {
+    multer(
+        {
+            storage: storage,
+            fileFilter: filter,
+            limits: {fileSize: 50000000} //50mb
+        }
+    ).array('tracks', 10)(req, res, function (err) {
+        if (err && err.code === "LIMIT_FILE_SIZE") {
+            return res.status(413).send(err.message);
+        }
+        next();
+    });
+};
 
 module.exports = {
     audioMimeTypeToExt,
     imageMimeTypeToExt,
-    upload,
+    uploadMiddleware: uploadMiddleware,
 };
