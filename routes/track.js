@@ -6,14 +6,6 @@ const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
 router.get('/', sessionMiddleware.requiredLogin, track_controller.track_page_get);
 
-
-router.get(
-    '/details/:id',
-    sessionMiddleware.requiredLogin,
-    track_controller.track_detail_get
-);
-
-
 router.get(
     '/details/:id',
     sessionMiddleware.requiredLogin,

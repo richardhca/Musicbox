@@ -3,6 +3,8 @@ const pug = require('pug');
 const connection = require('typeorm').getConnection();
 const albumUtilities = require('../utilities/albumUtilities');
 const trackDurationParser = require('../utilities/trackDurationParser.js');
+const {body, validationResult} = require('express-validator');
+const {sanitizeBody} = require('express-validator');
 
 exports.track_page_get = async function (req, res, next) {
     const info = req.query.info;
@@ -116,15 +118,12 @@ exports.track_delete = async (req, res, next) => {
 exports.track_modify_put = [
     // Validate fields.
     body('title')
-        .trim()
-        .exists()
-        .withMessage('Invalid track title.'),
+        .trim().optional(),
     body('published_on', 'Invalid published date')
-        .isISO8601(),
+        .isISO8601().optional(),
     body('artist')
         .trim()
-        .exists()
-        .isLength({max: 70}).withMessage('Artist name cannot be longer than 70 characters'),
+        .isLength({max: 70}).withMessage('Artist name cannot be longer than 70 characters').optional(),
 
     // Sanitize input.
     sanitizeBody('title').escape(),
@@ -135,24 +134,33 @@ exports.track_modify_put = [
     // Handle request.
     async function (req, res, next) {
         const errors = validationResult(req);
-
-        var newTrackData = {
-            title: req.body.title,
-            published_on: req.body.published_on,
-            last_name: req.body.artist,
-        };
-
+        var newTrackData = {};
+        if(req.body.title != null){
+            newTrackData['title'] = req.body.title;
+        }
+        if(req.body.published_on != null){
+            newTrackData['published_on'] = req.body.published_on;
+        }
+        if(req.body.artist != null){
+            newTrackData['artist_name'] = req.body.artist;
+        }
         // If form fields have validation errors.
         if (!errors.isEmpty()) {
-            return res.status(400).send({submittedData: newUserData, errors: errors.array()});
+            return res.status(400).send({submittedData: newTrackData, errors: errors.array()});
         }
+        
+        console.log(newTrackData);
 
         const tracksRepo = connection.getRepository('Tracks');
-        var track = await usersRepo.findOne({id: req.session.trackId});
-
+        var track = await tracksRepo.findOne({id: req.params.trackId, owner_id: req.session.userId});
+        if(track == null){
+            return res.status(404).send("Cannot find the track to be modified");
+        }
+        console.log(track);
+        console.log(newTrackData);
         // Merge new data (new fields replace old ones)
         track = Object.assign(track, newTrackData);
-        await trackRepo.save(track);
+        await tracksRepo.save(track);
 
         res.send("Track updated.");
     }
