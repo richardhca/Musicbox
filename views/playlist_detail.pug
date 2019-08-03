@@ -15,7 +15,12 @@ div#playlist_detail
                             i.far.fa-heart.text-white.mr-4
                             //i.fas.fa-heart.text-white
                             i.fas.fa-share-alt.text-white.mr-4(data-toggle="modal" data-target="#shareplaylist" style='cursor: pointer;')
-                            i.fas.fa-ellipsis-h.text-white
+                            i.fas.fa-ellipsis-h.text-white(id="playlistDropdownMenu" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style='cursor: pointer;')
+                                .dropdown-menu(aria-labelledby="playlistDropdownMenu")
+                                        .dropdown-item View share users
+                                        .dropdown-item Cancel Share
+                                        .dropdown-item Delete Playlist/Reject Share
 
         .col-lg-8
             #playlist_detail_track_list.list-group

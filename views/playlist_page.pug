@@ -1,12 +1,23 @@
 #playlist_page_detail.d-flex.flex-wrap.align-content-start
-    - for (var x = 0; x <5; x++)
+    for playlist in playlists
+        - const playlist_name = (null === playlist.title ? 'Untitled' : playlist.title)
+        - const playlist_path = '/playlists/' + playlist.title
+        - const playlist_id = (null === playlist.playlist_id ? '' : playlist.playlist_id)
         .playlist_card.card.m-3
             div.album_cover
-                if x % 2 === 0
-                    img.card-img-top.album_cover_image(src='/images/music_cover_default_black.png')
-                else
-                    img.card-img-top.album_cover_image(src='/images/music_cover_default_white.png')
-
+                img.card-img-top.album_cover_image(src='/images/music_cover_default_white.png')
                 img.card-img-top.album_play_icon(src='/images/circled_play.png')
             .card-body.p-0
-                .card-text.mt-1.text-white.noselect Album &#183; Artists
+                .card-text.mt-1.text-white.noselect #{playlist_name}
+
+//    - for (var x = 0; x <5; x++)
+//        .playlist_card.card.m-3
+//            div.album_cover
+//                if x % 2 === 0
+//                    img.card-img-top.album_cover_image(src='/images/music_cover_default_black.png')
+//                else
+//                    img.card-img-top.album_cover_image(src='/images/music_cover_default_white.png')
+//
+//                img.card-img-top.album_play_icon(src='/images/circled_play.png')
+//            .card-body.p-0
+//                .card-text.mt-1.text-white.noselect Album &#183; Artists

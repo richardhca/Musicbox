@@ -28,7 +28,13 @@ exports.playlist_valid = async (req, res, next) => {
 exports.playlist_page_get = async (req, res, next) => {
     const info = req.query.info;
     const type = req.query.type;
+    const userId = req.session.userId;
+    const playlists = await connection.getRepository('Playlists')
+        .createQueryBuilder('playlist')
+        .where('playlist.owner_id = :userId', {userId})
+        .getMany();
 
+    console.log(playlists);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_playlist_page_tool_bar = path.join(__dirname,
@@ -39,27 +45,33 @@ exports.playlist_page_get = async (req, res, next) => {
             '../views/playlist_page.pug');
         const fn_playlist_page = pug.compileFile(p_playlist_page, null);
 
-        const image_path = path.join(__dirname,
-            '../public/images/test.png');
+        //const image_path = path.join(__dirname,
+        //    '../public/images/test.png');
 
-        const html = fn_playlist_page_tool_bar() + fn_playlist_page(
-            {path: image_path});
+        //const html = fn_playlist_page_tool_bar() + fn_playlist_page(
+        //    {path: image_path});
+        const html = fn_playlist_page_tool_bar() + fn_playlist_page({playlists: playlists})
         // console.log(html);
 
         res.send(html);
     } else {
         console.log('server receive a empty req');
-        const image_path = path.join('../public/images/test.png');
+        //const image_path = path.join('../public/images/test.png');
         res.render('index',
-            {page: 'playlist_page_get', path: image_path});
+            {page: 'playlist_page_get', playlists: playlists});
     }
 };
 
 //test
-exports.playlist_detail_get = function (req, res, next) {
+exports.playlist_detail_get = async (req, res, next) => {
 
     const info = req.query.info;
     const type = req.query.type;
+	const userId = req.session.userId;
+	const playlists = await connection.getRepository('Playlists')
+        .createQueryBuilder('playlist')
+        .where('playlist.owner_id = :userId', {userId})
+        .getMany();
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
@@ -78,7 +90,7 @@ exports.playlist_detail_get = function (req, res, next) {
     } else {
         console.log('server receive a empty req: /playlist/detail');
         res.render('index',
-            {page: 'playlist_detail_get'});
+            {page: 'playlist_detail_get', playlists: playlists});
     }
 
 };
@@ -171,6 +183,11 @@ exports.playlist_create_post = [
         if (!errors.isEmpty()) {
             return res.status(400).send({errors: errors.array()});
         }
+        
+        fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function(err) {
+            if (err) throw err;
+            console.log('Playlist Created.');
+        });
 
         const playlistRepository = connection.getRepository("Playlists");
 
