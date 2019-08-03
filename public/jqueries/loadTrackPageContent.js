@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#track_button').click(function (event) {
         event.preventDefault();
         tracks_page_get('GET');
@@ -25,13 +26,14 @@ $(document).ready(function () {
 
                 $.getScript('/jqueries/uploadFormFeatures.js');
                 $.getScript('/jqueries/trackListEventHandler.js');
-                $.getScript('/jqueries/searchHandler.js');
                 $.getScript('/jqueries/toggleIcon.js');
+                $.getScript('/jqueries/searchBundle.js');
             },
             error: function (e) {
                 console.log('error: ', e);
             }
         });
     }
+
 
 });
