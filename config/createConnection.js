@@ -15,7 +15,7 @@ const createConnection = async function () {
             require("../entity/Albums"),
             require("../entity/Tracks"),
             require("../entity/Playlists"),
-            require("../entity/Shared_Playlist"),
+            require("../entity/Shared_playlist"),
             require("../entity/Playlist_to_track"),
 
         ]
