@@ -54,32 +54,44 @@ $(document).ready(function () {
             alert('Please select some tracks');
         }
         else {
-            $('#upload_icon').addClass('isDisabled');
-            var formData = new FormData();
-            for (var i = 0; i < files_len; i++) {
-                const file = files[i];
-                // !important, name must be tracks!!
-                formData.append('tracks', file);
-            }
-            // keep play icon
-            var idx = 0;
-            $('.tracklist_icon').each(function (index) {
-                if ($(this).html().includes('play_arrow')) {
-                    idx = index;
-                }
+            var fileSizesWithinLimits = true;
+
+            $.each(files, (index, file) => {
+                // If file size > 50mb
+               if (file.size > 50000000) fileSizesWithinLimits = false;
             });
 
-            uploadFiles = formData;
+            // If one of files > 50mb, alert user and don't upload.
+            if (fileSizesWithinLimits) {
+                $('#upload_icon').addClass('isDisabled');
+                var formData = new FormData();
+                for (var i = 0; i < files_len; i++) {
+                    const file = files[i];
+                    // !important, name must be tracks!!
+                    formData.append('tracks', file);
+                }
+                // keep play icon
+                var idx = 0;
+                $('.tracklist_icon').each(function (index) {
+                    if ($(this).html().includes('play_arrow')) {
+                        idx = index;
+                    }
+                });
 
-            $('#uploadpane').modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
+                uploadFiles = formData;
 
-            // toast show
-            $('#spinner').show();
-            $('#complete').hide();
-            $('.toast').removeClass('delay-2s fadeOutRight')
-                .addClass('fadeInRight fast');
+                $('#uploadpane').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+
+                // toast show
+                $('#spinner').show();
+                $('#complete').hide();
+                $('.toast').removeClass('delay-2s fadeOutRight')
+                    .addClass('fadeInRight fast');
+            } else {
+                alert('Max file size is 50mb per file.');
+            }
         }
     });
 

@@ -38,16 +38,23 @@ const filter = function (req, file, cb) {
     cb(null, true);
 };
 
-
-const upload = multer({
-    storage: storage,
-    fileFilter: filter,
-    limits: {fileSize: 500000000},
-});
-
+const uploadMiddleware = (req, res, next) => {
+    multer(
+        {
+            storage: storage,
+            fileFilter: filter,
+            limits: {fileSize: 50000000} //50mb
+        }
+    ).array('tracks', 10)(req, res, function (err) {
+        if (err && err.code === "LIMIT_FILE_SIZE") {
+            return res.status(413).send(err.message);
+        }
+        next();
+    });
+};
 
 module.exports = {
     audioMimeTypeToExt,
     imageMimeTypeToExt,
-    upload,
+    uploadMiddleware: uploadMiddleware,
 };
