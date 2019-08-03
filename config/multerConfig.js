@@ -6,11 +6,9 @@ const projectRoot = require('./projectRoot');
 
 // Allowed audio mime types
 const audioMimeTypeToExt = {
-    // Chrome/Firefox/Edge
-    'audio/wav': '.wav',
-    'audio/mp3': '.mp3',
-    // Firefox/Edge
-    'audio/mpeg': '.mp3',
+    'audio/wav': '.wav',    // Chrome/Firefox/Edge
+    'audio/mp3': '.mp3',    // Chrome
+    'audio/mpeg': '.mp3',   // Firefox/Edge
 };
 
 // Allowed image mime types
