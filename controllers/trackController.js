@@ -32,7 +32,6 @@ exports.track_page_get = async function (req, res, next) {
         const fn_track_page = pug.compileFile(p_track_page, null);
 
         const html = fn_track_page_tool_bar() + fn_track_page({tracks: tracks});
-        // console.log(html);
         res.send(html);
     }
     else {
@@ -114,3 +113,47 @@ exports.track_delete = async (req, res, next) => {
 
 };
 
+exports.track_modify_put = [
+    // Validate fields.
+    body('title')
+        .trim()
+        .exists()
+        .withMessage('Invalid track title.'),
+    body('published_on', 'Invalid published date')
+        .isISO8601(),
+    body('artist')
+        .trim()
+        .exists()
+        .isLength({max: 70}).withMessage('Artist name cannot be longer than 70 characters'),
+
+    // Sanitize input.
+    sanitizeBody('title').escape(),
+    sanitizeBody('published_on').toDate(),
+    sanitizeBody('artist').escape(),
+
+
+    // Handle request.
+    async function (req, res, next) {
+        const errors = validationResult(req);
+
+        var newTrackData = {
+            title: req.body.title,
+            published_on: req.body.published_on,
+            last_name: req.body.artist,
+        };
+
+        // If form fields have validation errors.
+        if (!errors.isEmpty()) {
+            return res.status(400).send({submittedData: newUserData, errors: errors.array()});
+        }
+
+        const tracksRepo = connection.getRepository('Tracks');
+        var track = await usersRepo.findOne({id: req.session.trackId});
+
+        // Merge new data (new fields replace old ones)
+        track = Object.assign(track, newTrackData);
+        await trackRepo.save(track);
+
+        res.send("Track updated.");
+    }
+];

@@ -26,4 +26,10 @@ router.delete(
     track_controller.track_detail_get
 );
 
+router.put(
+    '/modify/:trackId',
+    sessionMiddleware.requiredLogin,
+    track_controller.track_modify_put
+);
+
 module.exports = router;
