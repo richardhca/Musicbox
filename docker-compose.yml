@@ -3,12 +3,21 @@ services:
   web:
     build:
       context: .
+      dockerfile: Dockerfile-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    volumes:
+      - public:/usr/app/public
+  app:
+    build:
+      context: .
       dockerfile: Dockerfile
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
-    ports:
-      - "3000:3000"
+      - public:/usr/app/public
     depends_on:
       - db
     environment:
@@ -20,3 +29,5 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       
+volumes:
+  public:
