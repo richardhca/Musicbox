@@ -121,15 +121,16 @@ exports.playlist_create_post = [
         .exists()
         .isLength({min: 3}).withMessage('Playlist name must be more than 2 characters.')
         .isLength({max: 25}).withMessage('Playlist name cannot be more than 25 characters.'),
+    /* Use it later since frontend issue
     body('public')
         .exists(),
     body('enable_comments')
         .exists(),
-
+    */
     // Sanitize input.
     sanitizeBody('playlistname').escape(),
-    sanitizeBody('public').toBoolean(),
-    sanitizeBody('enable_comments').toBoolean(),
+    //sanitizeBody('public').toBoolean(),
+    //sanitizeBody('enable_comments').toBoolean(),
 
     // Handle request.
     async function (req, res, next) {
@@ -138,8 +139,8 @@ exports.playlist_create_post = [
 
         var playlistData = {
             title: req.body.playlistname,
-            is_public: req.body.public,
-            enable_comments: req.body.enable_comments,
+            //is_public: req.body.public,
+            //enable_comments: req.body.enable_comments,
             created_on: new Date(),
             owner_id: req.session.userId,
             playlist_tracks: []

@@ -5,7 +5,7 @@ const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 const playlistUtilities = require('../utilities/playlistUtilities');
 
-//Delete comment for my playlist
+//Delete comments for my playlist
 //two scenarios：
 //1. User can delete any comment as long as user own the playlist.
 //2. User can only delete his/her comments in any playlist.

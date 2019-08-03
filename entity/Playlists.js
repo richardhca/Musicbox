@@ -13,20 +13,26 @@ module.exports = new EntitySchema({
       length: 70,
       nullable: false
     },
+
+    /* Use it later, since frontend issue
     is_public: {
       type: "boolean",
       default: false
     },
+    */
+
     created_on: {
       type: "timestamp",
       nullable: false
-    },
+    }
 
     //enable/disable comments function
+    /* Use it later, since frontend issue
     enable_comments: {
       type: "boolean",
       nullable: false
     }
+    */
   },
   relations: {
     owner_id: {
