@@ -172,11 +172,6 @@ exports.playlist_create_post = [
             return res.status(400).send({errors: errors.array()});
         }
 
-        fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function (err) {
-            if (err) throw err;
-            console.log('Playlist Created.');
-        });
-
         const playlistRepository = connection.getRepository("Playlists");
 
         const playlist = await playlistRepository.save(playlistData);
