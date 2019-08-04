@@ -1,3 +1,6 @@
+const trackDurationParser = require('./trackDurationParser');
+
+
 // playlist -> playlist_tracks -> tracks TO playlist -> tracks
 const transformPlaylistTracks = function (playlist) {
     const tracks = [];
@@ -5,6 +8,8 @@ const transformPlaylistTracks = function (playlist) {
         const track = playlistTrack.track_id;
         if (track) {
             track.rank_in_playlist = playlistTrack.rank;
+            track.duration = trackDurationParser.durationParser(track.duration);
+            delete track['owner_id'];
             tracks.push(track);
         }
     });

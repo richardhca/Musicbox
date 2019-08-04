@@ -53,6 +53,7 @@ exports.album_detail_get = async function (req, res, next) {
     var track;
     for (track of album.tracks) {
         track.duration = trackDurationParser.durationParser(track.duration);
+        delete track['owner_id'];
     }
     console.log(album);
 

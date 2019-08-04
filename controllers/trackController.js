@@ -20,6 +20,7 @@ exports.track_page_get = async function (req, res, next) {
     var track;
     for (track of tracks) {
         track.duration = trackDurationParser.durationParser(track.duration);
+        delete track['owner_id'];
     }
     console.log(tracks);
     if (info && type) {
@@ -35,8 +36,7 @@ exports.track_page_get = async function (req, res, next) {
 
         const html = fn_track_page_tool_bar() + fn_track_page({tracks: tracks});
         res.send(html);
-    }
-    else {
+    } else {
         console.log('server receive a empty req: /track');
 
         res.render('index',
@@ -56,8 +56,14 @@ exports.track_detail_get = async (req, res, next) => {
     // Find track
     const track = await connection.getRepository('Tracks').findOne({id: id}, {relations: ['album_id']});
 
+    if (track) {
+        track.duration = trackDurationParser.durationParser(track.duration);
+        delete track['owner_id'];
+        return res.send(track);
+    }
+
     // If no track found, return empty object
-    res.send(track || {});
+    res.status(404).send('Track not found');
 };
 
 exports.track_delete = async (req, res, next) => {
