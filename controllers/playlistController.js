@@ -12,13 +12,15 @@ exports.playlist_valid = async (req, res, next) => {
     if (!playlist_name) {
         console.log('playlist name is empty.');
         //return res.render('');
-    } else {
+    }
+    else {
         const playlist_name_from_db = connection.getRepository('Playlists');
         const compare = await playlist_name_from_db.findOne(playlist_name);
         if (compare) {
             console.log('Invalid playlist name.');
             //res.render('');
-        } else {
+        }
+        else {
             console.log('Valid playlist name.');
             //res.render('');
         }
@@ -50,49 +52,17 @@ exports.playlist_page_get = async (req, res, next) => {
 
         //const html = fn_playlist_page_tool_bar() + fn_playlist_page(
         //    {path: image_path});
-        const html = fn_playlist_page_tool_bar() + fn_playlist_page({playlists: playlists})
+        const html = fn_playlist_page_tool_bar() + fn_playlist_page({playlists: playlists});
         // console.log(html);
 
         res.send(html);
-    } else {
+    }
+    else {
         console.log('server receive a empty req');
         //const image_path = path.join('../public/images/test.png');
         res.render('index',
             {page: 'playlist_page_get', playlists: playlists});
     }
-};
-
-//test
-exports.playlist_detail_get = async (req, res, next) => {
-
-    const info = req.query.info;
-    const type = req.query.type;
-	const userId = req.session.userId;
-	const playlists = await connection.getRepository('Playlists')
-        .createQueryBuilder('playlist')
-        .where('playlist.owner_id = :userId', {userId})
-        .getMany();
-
-    if (info && type) {
-        console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_playlist_detail_tool_bar = path.join(__dirname,
-            '../views/playlist_detail_tool_bar.pug');
-        const fn_playlist_detail_tool_bar = pug.compileFile(
-            p_playlist_detail_tool_bar, null);
-
-        const p_playlist_detail = path.join(__dirname,
-            '../views/playlist_detail.pug');
-        const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
-
-        const html = fn_playlist_detail_tool_bar() + fn_playlist_detail();
-        // console.log(html);
-        res.send(html);
-    } else {
-        console.log('server receive a empty req: /playlist/detail');
-        res.render('index',
-            {page: 'playlist_detail_get', playlists: playlists});
-    }
-
 };
 
 exports.playlist_delete = async function (req, res, next) {
@@ -101,10 +71,10 @@ exports.playlist_delete = async function (req, res, next) {
 
     // 404 if playlistId is not provided or is not UUID
     if (!playlistId || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
 
-    const playlistRepo = connection.getRepository("Playlists");
+    const playlistRepo = connection.getRepository('Playlists');
     const playlist = await playlistRepo.findOne(
         {
             playlist_id: playlistId,
@@ -113,11 +83,11 @@ exports.playlist_delete = async function (req, res, next) {
     );
 
     if (!playlist) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
 
     await playlistRepo.remove(playlist);
-    res.send("Playlist deleted.");
+    res.send('Playlist deleted.');
 };
 
 exports.playlist_details_get = async function (req, res, next) {
@@ -126,11 +96,11 @@ exports.playlist_details_get = async function (req, res, next) {
 
     // 404 if playlistId is not provided or is not UUID
     if (!playlistId || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
 
     // Get playlist and load its tracks
-    const playlist = await connection.getRepository("Playlists").findOne(
+    const playlist = await connection.getRepository('Playlists').findOne(
         {
             playlist_id: playlistId
         },
@@ -183,13 +153,13 @@ exports.playlist_create_post = [
         if (!errors.isEmpty()) {
             return res.status(400).send({errors: errors.array()});
         }
-        
-        fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function(err) {
+
+        fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function (err) {
             if (err) throw err;
             console.log('Playlist Created.');
         });
 
-        const playlistRepository = connection.getRepository("Playlists");
+        const playlistRepository = connection.getRepository('Playlists');
 
         const playlist = await playlistRepository.save(playlistData);
         delete playlist['owner_id'];
@@ -206,7 +176,7 @@ exports.playlist_add_post = async function (req, res, next) {
 
     // 404 if either was not provided or playlistId is not UUID
     if (!playlistId || !trackIds || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist or track can't be found");
+        return res.status(404).send('Playlist or track can\'t be found');
     }
 
     // Load playlist and track
@@ -223,10 +193,10 @@ exports.playlist_add_post = async function (req, res, next) {
 
     // 404 if playlist doesn't exist
     if (!playlist) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
 
-    trackIds = trackIds.split(",");
+    trackIds = trackIds.split(',');
 
     // Add tracks to playlist
     for (var i = 0; i < trackIds.length; i++) {
@@ -256,11 +226,11 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     // 404 if either was not provided or playlistId is not UUID
     if (!playlistId || !ranks || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist or tracks can't be found");
+        return res.status(404).send('Playlist or tracks can\'t be found');
     }
 
     // Split into array
-    ranks = ranks.split(",");
+    ranks = ranks.split(',');
 
     const playlistRepo = connection.getRepository('Playlists');
     const playlist = await playlistRepo.findOne(
@@ -275,7 +245,7 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     // 404 if playlist does not exist
     if (!playlist) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
 
     const ptRepo = connection.getRepository('Playlist_to_track');
@@ -287,9 +257,9 @@ exports.playlist_tracks_delete = async function (req, res, next) {
     playlist.playlist_tracks = playlist.playlist_tracks.filter(pt => {
         if (ranks.includes(pt.rank.toString())) {
             ptToRemove.push(pt);
-            return false
+            return false;
         }
-        return true
+        return true;
     });
 
     // Delete player_to_track records from database
@@ -299,23 +269,24 @@ exports.playlist_tracks_delete = async function (req, res, next) {
 
     await playlistRepo.save(playlist);
 
-    res.send("Delete successful.");
+    res.send('Delete successful.');
 };
 
 exports.playlist_share_post = async function (req, res, next) {
     const destUser = req.body.destUser;
     const playlistId = req.params.playlistId;
     if (!destUser || !playlistId || !validator.isUUID(playlistId)) {
-        return res.status(404).send("invalid input!");
+        return res.status(404).send('invalid input!');
     }
     var destUserObj = null;
     if (destUser.includes('@')) {
         destUserObj = await connection.getRepository('Users').findOne({email: destUser});
-    } else {
+    }
+    else {
         destUserObj = await connection.getRepository('Users').findOne({username: destUser});
     }
     if (destUserObj === null) {
-        return res.status(404).send("Cannot find the user to share playlist with");
+        return res.status(404).send('Cannot find the user to share playlist with');
     }
     const destUserId = destUserObj.id;
     const playlist_to_share = await connection.getRepository('Playlists').findOne({
@@ -323,10 +294,10 @@ exports.playlist_share_post = async function (req, res, next) {
         owner_id: req.session.userId
     });
     if (playlist_to_share === undefined) {
-        return res.status(404).send("Cannot find the specified playlist");
+        return res.status(404).send('Cannot find the specified playlist');
     }
     if (destUserId === req.session.userId) {
-        return res.status(403).send("Cannot share playlists to the same person");
+        return res.status(403).send('Cannot share playlists to the same person');
     }
     const checkRec = await connection.getRepository('Shared_playlist').findOne({
         playlist_id: playlistId,
@@ -348,14 +319,14 @@ exports.playlist_share_post = async function (req, res, next) {
             }
         ])
         .execute();
-    return res.send("Success");
+    return res.send('Success');
 };
 
 exports.playlist_share_delete = async function (req, res, next) {
     const shareId = req.params.shareId;
 
     if (!shareId) {
-        return res.status(404).send("Shared playlist not found.");
+        return res.status(404).send('Shared playlist not found.');
     }
 
     const sharesRepo = connection.getRepository('Shared_playlist');
@@ -365,16 +336,17 @@ exports.playlist_share_delete = async function (req, res, next) {
     );
 
     if (!share) {
-        return res.status(404).send("Shared playlist not found.");
+        return res.status(404).send('Shared playlist not found.');
     }
 
     // If user is recipient of share, then allow user to accept share
     if (share.playlist_id.owner_id.id === req.session.userId || share.shared_with.id === req.session.userId) {
         await sharesRepo.remove(share);
-        res.send("Playlist unshared.");
-    } else {
+        res.send('Playlist unshared.');
+    }
+    else {
         // Technically 403, but we'd rather not let users guess Ids to check if they exist.
-        res.status(404).send("Shared playlist not found.");
+        res.status(404).send('Shared playlist not found.');
     }
 };
 
@@ -382,7 +354,7 @@ exports.playlist_share_put = async function (req, res, next) {
     const shareId = req.params.shareId;
 
     if (!shareId) {
-        return res.status(404).send("Shared playlist not found.");
+        return res.status(404).send('Shared playlist not found.');
     }
 
     const sharesRepo = connection.getRepository('Shared_playlist');
@@ -392,17 +364,18 @@ exports.playlist_share_put = async function (req, res, next) {
     );
 
     if (!share) {
-        return res.status(404).send("Shared playlist not found.");
+        return res.status(404).send('Shared playlist not found.');
     }
 
     // If user is either owner of playlist or recipient of share, then allow user to delete share
     if (share.shared_with.id === req.session.userId) {
         share.is_accepted = true;
         await sharesRepo.save(share);
-        res.send("Playlist share accepted.");
-    } else {
+        res.send('Playlist share accepted.');
+    }
+    else {
         // Technically 403, but we'd rather not let users guess Ids to check if they exist.
-        res.status(404).send("Shared playlist not found.");
+        res.status(404).send('Shared playlist not found.');
     }
 };
 
@@ -411,7 +384,7 @@ exports.playlist_shares_get = async function (req, res, next) {
     const playlistId = req.params.playlistId;
 
     if (!playlistId || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist not found.");
+        return res.status(404).send('Playlist not found.');
     }
 
     const playlist = await connection.getRepository('Playlists').findOne(
@@ -439,86 +412,88 @@ exports.playlist_shares_get = async function (req, res, next) {
 exports.playlist_modify_post = async function (req, res, next) {
 
     if (!req.body.playlistId || !validator.isUUID(req.body.playlistId)) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
 
-    const playlist = await connection.getRepository("Playlists").findOne({
+    const playlist = await connection.getRepository('Playlists').findOne({
         playlist_id: req.body.playlistId,
         owner_id: req.session.userId
     });
-    const track_record = await connection.getRepository("Playlist_to_track").findOne({
+    const track_record = await connection.getRepository('Playlist_to_track').findOne({
         playlist_id: req.body.playlistId,
         track_id: req.body.updateId
     });
     console.log(track_record);
     var newRank = null;
     if (playlist == null || track_record == null) {
-        return res.status(404).send("404 Not Found");
+        return res.status(404).send('404 Not Found');
     }//If no playlist found, return 404
     //handle the two cases where there is no tracks before or after the track (i.e. move to the top or bottom of the playlist)
     if (req.body.beforeId == -1) { //If beforeId in the request is -1, that means no track should be before this track (i.e. top of the playlist). Please set the afterId to anything that is not -1
-        const smallestRank = await connection.getRepository("Playlists")
-            .createQueryBuilder("Playlist_to_track")
-            .select("MIN(Playlist_to_track.rank)")
-            .from("playlist_to_track")
-            .where("playlist_to_track.playlist_id = :playlistId", {playlistId: req.body.playlistId})
+        const smallestRank = await connection.getRepository('Playlists')
+            .createQueryBuilder('Playlist_to_track')
+            .select('MIN(Playlist_to_track.rank)')
+            .from('playlist_to_track')
+            .where('playlist_to_track.playlist_id = :playlistId', {playlistId: req.body.playlistId})
             .getRawOne();
         if (track_record.rank == smallestRank.min) {
-            return res.send("Success");
+            return res.send('Success');
         }
         newRank = smallestRank.min / 2;
-    } else if (req.body.afterId == -1) { //If beforeId in the request is -1, that means no track should be after this track (i.e. bottom of the playlist). Please set the beforeId to anything that is not -1
-        const largestRank = await connection.getRepository("Playlists")
-            .createQueryBuilder("Playlist_to_track")
-            .select("MAX(Playlist_to_track.rank)")
-            .from("playlist_to_track")
-            .where("playlist_to_track.playlist_id = :playlistId", {playlistId: req.body.playlistId})
+    }
+    else if (req.body.afterId == -1) { //If beforeId in the request is -1, that means no track should be after this track (i.e. bottom of the playlist). Please set the beforeId to anything that is not -1
+        const largestRank = await connection.getRepository('Playlists')
+            .createQueryBuilder('Playlist_to_track')
+            .select('MAX(Playlist_to_track.rank)')
+            .from('playlist_to_track')
+            .where('playlist_to_track.playlist_id = :playlistId', {playlistId: req.body.playlistId})
             .getRawOne();
         if (track_record.rank == largestRank.max) {//if the current track is already at the bottom of the playlist. do nothing.
-            return res.send("Success");
+            return res.send('Success');
         }
         newRank = largestRank.max + 1;
-    } else { //If nothing else, put the track between the track indicated in beforeId and afterId
-        const trackBefore = await connection.getRepository("Playlist_to_track").findOne({
+    }
+    else { //If nothing else, put the track between the track indicated in beforeId and afterId
+        const trackBefore = await connection.getRepository('Playlist_to_track').findOne({
             playlist_id: req.body.playlistId,
             track_id: req.body.beforeId
         });
-        const trackAfter = await connection.getRepository("Playlist_to_track").findOne({
+        const trackAfter = await connection.getRepository('Playlist_to_track').findOne({
             playlist_id: req.body.playlistId,
             track_id: req.body.afterId
         });
         newRank = (trackBefore.rank + trackAfter.rank) / 2;
     }
 
-    await connection.getRepository("Playlist_to_track")
-        .createQueryBuilder("Playlist_to_track")
-        .update("Playlist_to_track")
+    await connection.getRepository('Playlist_to_track')
+        .createQueryBuilder('Playlist_to_track')
+        .update('Playlist_to_track')
         .set({rank: newRank})
-        .where("track_id = :updateId", {updateId: req.body.updateId})
-        .andWhere("playlist_id = :playlistId", {playlistId: req.body.playlistId})
+        .where('track_id = :updateId', {updateId: req.body.updateId})
+        .andWhere('playlist_id = :playlistId', {playlistId: req.body.playlistId})
         .execute();
-    return res.send("Success");
+    return res.send('Success');
 
 };
 
 exports.playlist_rename_post = async function (req, res, next) {
     var playlistId = req.params.playlistId;
     if (!playlistId || !validator.isUUID(playlistId)) {
-        return res.status(400).send("Playlist ID Incorrect!");
+        return res.status(400).send('Playlist ID Incorrect!');
     }
-    const playlist = connection.getRepository("Playlists").findOne({
+    const playlist = connection.getRepository('Playlists').findOne({
         playlist_id: playlistId,
         owner_id: req.session.userId
     });
     if (playlist == null) {
-        return res.status(404).send("Target Playlist not found!")
+        return res.status(404).send('Target Playlist not found!');
     }
-    await connection.getRepository("Playlists")
-        .createQueryBuilder("Playlists")
-        .update("Playlists")
+    await connection.getRepository('Playlists')
+        .createQueryBuilder('Playlists')
+        .update('Playlists')
         .set({title: req.body.newTitle})
-        .where("playlist_id = :playlistId", {playlistId: playlistId})
-        .andWhere("owner_id = :userId", {userId: req.session.userId})
+        .where('playlist_id = :playlistId', {playlistId: playlistId})
+        .andWhere('owner_id = :userId', {userId: req.session.userId})
         .execute();
-    return res.send("Success");
+    return res.send('Success');
 };

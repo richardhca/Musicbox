@@ -13,13 +13,6 @@ router.get(
     track_controller.track_detail_get
 );
 
-
-router.get(
-    '/details/:id',
-    sessionMiddleware.requiredLogin,
-    track_controller.track_detail_get
-);
-
 router.delete(
     '/delete/:id',
     sessionMiddleware.requiredLogin,
