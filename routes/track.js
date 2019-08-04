@@ -6,7 +6,6 @@ const sessionMiddleware = require('../middlewares/sessionMiddleware');
 
 router.get('/', sessionMiddleware.requiredLogin, track_controller.track_page_get);
 
-
 router.get(
     '/details/:id',
     sessionMiddleware.requiredLogin,
@@ -17,6 +16,12 @@ router.delete(
     '/delete/:id',
     sessionMiddleware.requiredLogin,
     track_controller.track_delete
+);
+
+router.put(
+    '/modify/:trackId',
+    sessionMiddleware.requiredLogin,
+    track_controller.track_modify_put
 );
 
 module.exports = router;
