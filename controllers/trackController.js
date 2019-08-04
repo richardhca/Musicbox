@@ -9,9 +9,9 @@ exports.track_page_get = async function (req, res, next) {
     const type = req.query.type;
     const userId = req.session.userId;
     const tracks = await connection.getRepository('Tracks')
-        .createQueryBuilder("track")
-        .where("track.owner_id = :userId", {userId})
-        .leftJoinAndSelect("track.album_id", "album_id")
+        .createQueryBuilder('track')
+        .where('track.owner_id = :userId', {userId})
+        .leftJoinAndSelect('track.album_id', 'album_id')
         .getMany();
 
     // console.log(tracks[0].duration);
@@ -19,7 +19,7 @@ exports.track_page_get = async function (req, res, next) {
     for (track of tracks) {
         track.duration = trackDurationParser.durationParser(track.duration);
     }
-    console.log(tracks);
+    // console.log(tracks);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_track_page_tool_bar = path.join(__dirname,
@@ -75,7 +75,7 @@ exports.track_delete = async (req, res, next) => {
     );
 
     if (track == null) {
-        return res.status(404).send("404 Not Found!")
+        return res.status(404).send('404 Not Found!');
     }
 
     const album = track.album_id;
@@ -110,7 +110,7 @@ exports.track_delete = async (req, res, next) => {
     // Update album cover art
     albumUtilities.updateAlbumCover(album, cover_art_file_name);
 
-    return res.send("Success");
+    return res.send('Success');
 
 };
 

@@ -18,8 +18,6 @@ function debounce(func, wait, immediate) {
 }
 
 $(document).ready(function () {
-    $.ajaxSetup({cache: true});
-
     $(function () {
         tracks_data_get();
     });
@@ -43,7 +41,7 @@ $(document).ready(function () {
             $(this).addClass('hidden');
             $('#track_search_input').val('');
         });
-        
+
         const all_tracks = sessionStorageHandler.get_tracks();
         $.get('/views/track_page.pug', function (data) {
             const fn_track_page = pug.compile(data, {pretty: true});
