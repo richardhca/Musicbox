@@ -61,8 +61,6 @@ $(document).ready(function () {
     $('.track_list').on('dblclick', function (event) {
         event.preventDefault();
 
-        // replace icon
-        const forced_music_icon = $(this).find('.track_list_icon');
 		// var trackIndex = $('.track_list').index(this);
 		// sameTrack = (trackIndex === prevIndex);
 		// prevIndex = trackIndex;
@@ -82,16 +80,19 @@ $(document).ready(function () {
 		// if (!sameTrack){
 		// 	loadPlaylist(trackObject);
 		// }
+
+        // replace icon
+        const forced_music_icon = $(this).find('.track_list_icon');
 		
         // stop to playing
         if (forced_music_icon.html().includes('play_arrow')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">pause</i>');
-			playToggle();
+			// playToggle();
         }
         // pause to playing
         else if (forced_music_icon.html().includes('pause')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">play_arrowe</i>');
-			playToggle();
+			// playToggle();
         }
         // else {
         //     forced_music_icon.html('<i class="material-icons text-white noselect">music_note</i>');

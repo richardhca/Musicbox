@@ -4,9 +4,9 @@ const pug = require('pug');
 // copy from https://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait, immediate) {
     var timeout;
-    return function() {
+    return function () {
         var context = this, args = arguments;
-        var later = function() {
+        var later = function () {
             timeout = null;
             if (!immediate) func.apply(context, args);
         };
@@ -18,6 +18,8 @@ function debounce(func, wait, immediate) {
 }
 
 $(document).ready(function () {
+    $.ajaxSetup({cache: true});
+
     $(function () {
         tracks_data_get();
     });
@@ -34,23 +36,32 @@ $(document).ready(function () {
                 $(this).addClass('hidden');
             });
         }
-        // $('.search_area');
     });
 
     $('#track_search_close').on('click', function () {
         $('.search_area').slideUp('slow', function () {
             $(this).addClass('hidden');
+            $('#track_search_input').val('');
         });
+        
+        const all_tracks = sessionStorageHandler.get_tracks();
+        $.get('/views/track_page.pug', function (data) {
+            const fn_track_page = pug.compile(data, {pretty: true});
+            const html = fn_track_page({tracks: all_tracks});
+            $('#content-area').html(html);
+        });
+        $.getScript('/jqueries/uploadFormFeatures.js');
+        $.getScript('/jqueries/trackListEventHandler.js');
+        $.getScript('/jqueries/toggleIcon.js');
     });
 
     $('#track_search_input').on('keyup', debounce(function () {
-        console.log($(this).val());
+        // console.log($(this).val());
         const result = sessionStorageHandler.get_searched_tracks($(this).val());
-        console.log(result);
+        // console.log(result);
         $.get('/views/track_page.pug', function (data) {
             const fn_track_page = pug.compile(data, {pretty: true});
             const html = fn_track_page({tracks: result});
-            // console.log(html);
             $('#content-area').html(html);
         });
         $.getScript('/jqueries/uploadFormFeatures.js');
@@ -60,12 +71,11 @@ $(document).ready(function () {
     }, 250));
 
     function tracks_data_get() {
-        $.getJSON("/tracks", function (data) {
+        $.getJSON('/tracks', function (data) {
             sessionStorageHandler.insert_tracks(data);
         });
 
     }
-
 
 
 });

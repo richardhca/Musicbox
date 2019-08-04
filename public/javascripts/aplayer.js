@@ -15,7 +15,7 @@ const ap = new APlayer({
 });
 
 function loadPlaylist(data){
-	var playlist = JSON.parse(data);
+	// var playlist = JSON.parse(data);
 	if (playlist.length === 0) {
 		alert("You have loaded an empty playlist");
 	}
