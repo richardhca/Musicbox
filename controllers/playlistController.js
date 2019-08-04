@@ -104,7 +104,6 @@ exports.playlist_details_get = async function (req, res, next) {
     playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
     delete playlist['owner_id'];
-    console.log(playlist);
 
     const info = req.query.info;
     const type = req.query.type;

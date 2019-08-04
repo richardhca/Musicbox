@@ -9,15 +9,10 @@ window.format_tracks_data = function (data) {
     data.tracks.forEach(track => {
         jsonData.push({
             id: track.id,
-            title: track.title,
-            album_id: {
-                title: track.album_id.title
-            },
-            artists: track.artists,
-            genres: track.genres,
-            duration: track.duration,
-            file_name: '/tracks/' + track.file_name,
-            cover_art_file_name: track.cover_art_file_name
+            name: track.title,
+            artist: track.artists,
+            url: '/tracks/' + track.file_name,
+            cover: '/covers/' + track.cover_art_file_name
         });
     });
     return jsonData;
@@ -30,7 +25,7 @@ window.format_albums_data = function (data) {
             id: album.id,
             title: album.title,
             artists: album.artists,
-            cover_art_file_name: album.cover_art_file_name
+            cover: album.cover_art_file_name
         });
     });
     return jsonData;

@@ -1,5 +1,6 @@
 const path = require('path');
 const pug = require('pug');
+const fs = require('fs');
 const connection = require('typeorm').getConnection();
 const albumUtilities = require('../utilities/albumUtilities');
 const trackDurationParser = require('../utilities/trackDurationParser.js');
@@ -105,7 +106,7 @@ exports.track_delete = async (req, res, next) => {
     // Update album cover art
     albumUtilities.updateAlbumCover(album, cover_art_file_name);
 
-    return res.send("Success");
+    return res.send('Success');
 
 };
 
@@ -129,13 +130,13 @@ exports.track_modify_put = [
     async function (req, res, next) {
         const errors = validationResult(req);
         var newTrackData = {};
-        if(req.body.title != null){
+        if (req.body.title != null) {
             newTrackData['title'] = req.body.title;
         }
-        if(req.body.published_on != null){
+        if (req.body.published_on != null) {
             newTrackData['published_on'] = req.body.published_on;
         }
-        if(req.body.artist != null){
+        if (req.body.artist != null) {
             newTrackData['artist_name'] = req.body.artist;
         }
         // If form fields have validation errors.
@@ -147,8 +148,8 @@ exports.track_modify_put = [
 
         const tracksRepo = connection.getRepository('Tracks');
         var track = await tracksRepo.findOne({id: req.params.trackId, owner_id: req.session.userId});
-        if(track == null){
-            return res.status(404).send("Cannot find the track to be modified");
+        if (track == null) {
+            return res.status(404).send('Cannot find the track to be modified');
         }
         console.log(track);
         console.log(newTrackData);
@@ -156,6 +157,6 @@ exports.track_modify_put = [
         track = Object.assign(track, newTrackData);
         await tracksRepo.save(track);
 
-        res.send("Track updated.");
+        res.send('Track updated.');
     }
 ];

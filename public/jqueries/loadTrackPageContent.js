@@ -8,6 +8,7 @@ $(document).ready(function () {
 
     $('#content-area').on('click', '#tack_page_delete_track', function (event) {
         event.preventDefault();
+        alert('Delete this track?');
         const url = $(this).attr('href');
         console.log(url);
         track_delete(url);
@@ -43,6 +44,7 @@ function track_delete(url) {
         data: {info: 'ajax, tracks page', type: 'GET'},
         success: function (data) {
             console.log(data);
+            track_page_get();
         },
         error: function (e) {
             console.log('error: ', e);
