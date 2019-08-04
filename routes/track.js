@@ -16,7 +16,7 @@ router.get(
 router.delete(
     '/delete/:id',
     sessionMiddleware.requiredLogin,
-    track_controller.track_detail_get
+    track_controller.track_delete
 );
 
 module.exports = router;
