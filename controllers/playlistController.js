@@ -509,8 +509,6 @@ exports.playlist_rename_post = async function (req, res, next) {
 exports.playlist_export_get = async function (req, res, next) {
     const userId = req.session.userId;
     const playlistId = req.params.playlistId;
-    console.log(req.protocol + '://' + req.get('Host') + req.url);
-
     // 404 if playlistId is not provided or is not UUID
     if (!playlistId || !validator.isUUID(playlistId)) {
         return res.status(404).send("Playlist can't be found");
@@ -544,12 +542,12 @@ exports.playlist_export_get = async function (req, res, next) {
     }
     for (let i = 0; i < playlist.tracks.length; i++) {
         if (playlist.tracks[i].artist_name != null) {
-            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + " - " + playlist.tracks[i].artist_name + "\n" + "http://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
+            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].artist_name + " - " + playlist.tracks[i].title + "\n" + req.protocol + "://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
         } else {
-            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + "\n" + "http://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
+            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + "\n" + req.protocol + "://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
         }
     }
-    var playlist_filename = playlist.title + "_" + user.username + ".m3u";
+    var playlist_filename = playlist.title + "_" + user.username + "_" + (Math.floor(Math.random() * (10000 - 1000) + 1000)).toString() + ".m3u";
     playlist_filename = playlist_filename.replace(" ", "_");
     fs.writeFile("./public/playlist_m3u/" + playlist_filename, exportdata, (err) => {
         if (err) console.log(err);
