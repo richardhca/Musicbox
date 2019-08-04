@@ -439,7 +439,9 @@ div#aplayer {
     text-decoration-color: #fff;
 }
 
-.search_area {
+.track_page_search_area,
+.album_page_search_area,
+.playlist_page_search_area {
     /*display: none;*/
     height: 64px;
     margin-top: 10px;
@@ -450,7 +452,9 @@ div#aplayer {
     display: none !important;
 }
 
-#track_search_input {
+#track_search_input,
+#album_search_input,
+#playlist_search_input {
     color: white;
     font-size: 30px;
     margin-left: 30px;
@@ -459,11 +463,15 @@ div#aplayer {
     border: 0;
 }
 
-#track_search_input:focus {
+#track_search_input:focus,
+#album_search_input:focus,
+#playlist_search_input:focus {
     outline: none !important;
 }
 
-#track_search_close {
+#track_search_close,
+#album_search_close,
+#playlist_search_close {
     color: white;
     font-size: 24px;
     margin-left: 5px;

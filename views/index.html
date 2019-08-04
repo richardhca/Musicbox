@@ -5,22 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>MusicBox</title>
+    <!-- CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/aplayerconfig.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/uploadform.css">
+    <link rel="stylesheet" href="/stylesheets/operateplaylist.css">
     <link rel="stylesheet" href="/fontawesome/css/all.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="/javascripts/aplayerbehave.js"></script>
+    <!-- javscript and jquery-->
     <script src="/javascripts/show_and_hidden_password.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
     <script src="/jqueries/loadIndex.js"></script>
     <script src="/jqueries/resizeDiv.js"></script>
-    <script src="/jqueries/loadTrackContent.js"></script>
-    <script src="/jqueries/loadPlaylistContent.js"></script>
+    <script src="/jqueries/loadTrackPageContent.js"></script>
+    <script src="/jqueries/loadPlaylistPageContent.js"></script>
+    <script src="/jqueries/loadAlbumPageContent.js"></script>
+    <script src="/jqueries/loadAlbumDetailContent.js"></script>
+    <script src="/jqueries/loadPlaylistDetailContent.js"></script>
     <script src="/jqueries/uploadFormFeatures.js"></script>
+    <script src="/jqueries/playPlaylistFeatures.js"></script>
+    <script src="/jqueries/trackListEventHandler.js"></script>
+    <script src="/jqueries/albumPlaylistEventHandler.js"></script>
+    <script src="/jqueries/playlistPageActionHandler.js"></script>
+    <script src="/jqueries/toggleIcon.js"></script>
+    <script src="/jqueries/searchHandler.js"></script>
+    <script src="/bundles/sessionStorageBundle.js"></script>
+    <!-- pug template-->
+    <script src="/views/track_page.js"></script>
+    <script src="/views/track_page_tool_bar.js"></script>
+    <script src="/views/album_page.js"></script>
+    <script src="/views/album_page_tool_bar.js"></script>
+    <script src="/views/album_detail.js"></script>
+    <script src="/views/album_detail_tool_bar.js"></script>
+    <script src="/views/playlist_page.js"></script>
+    <script src="/views/playlist_page_tool_bar.js"></script>
+    <script src="/views/playlist_detail.js"></script>
+    <script src="/views/playlist_detail_tool_bar.js"></script>
+    <!-- dev lib-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.1/beautify-html.js"></script>
   </head>
   <body class="fade-out">
     <div class="container-fluid p-0" id="main-area">
@@ -28,26 +56,14 @@
         <!-- sidebar-->
         <div class="d-flex flex-nowrap">
           <div class="list-group collapse show width" id="sidebar">
-            <div class="list-group-item d-inline-block" id="sidebaricon"><i class="fas fa-headphones-alt d-none d-lg-inline"></i><span class="d-none d-lg-inline d-md-none text-white">MusicBox</span><span class="d-md-inline d-lg-none text-white text-addrev">MB</span></div><a class="list-group-item d-inline-block mt-3" href="/track" id="track_button"><i class="fas fa-music d-inline"></i><span class="d-none d-lg-inline text-white">Track</span></a><a class="list-group-item d-inline-block" href="/playlist" id="playlist_button"><i class="fas fa-compact-disc d-inline"></i><span class="d-none d-lg-inline text-white">Playlist</span></a><a class="list-group-item d-inline-block"><i class="fas fa-search d-inline"></i><span class="d-none d-lg-inline text-white">Search</span></a><a class="list-group-item d-inline-block mt-auto">
+            <div class="list-group-item d-inline-block" id="sidebaricon"><i class="fas fa-headphones-alt d-none d-lg-inline"></i><span class="d-none d-lg-inline d-md-none text-white noselect">MusicBox</span><span class="d-md-inline d-lg-none text-white text-addrev noselect">MB</span></div><a class="list-group-item d-inline-block mt-3" href="/track" id="track_button"><i class="fas fa-music d-inline"></i><span class="d-none d-lg-inline text-white">Track</span></a><a class="list-group-item d-inline-block" href="/album" id="album_button"><i class="fas fa-compact-disc d-inline"></i><span class="d-none d-lg-inline text-white">Album</span></a><a class="list-group-item d-inline-block" href="/playlist" id="playlist_button"><i class="fas fa-stream d-inline"></i><span class="d-none d-lg-inline text-white">Playlist</span></a><a class="list-group-item d-inline-block mt-auto">
               <hr><i class="fas fa-user-circle d-inline"></i><span class="d-none d-lg-inline text-white">Profile</span></a><a class="list-group-item d-inline-block mb-4" href="/logout"><i class="fas fa-sign-out-alt d-inline"></i><span class="d-none d-lg-inline text-white">Logout</span></a>
           </div>
         </div>
         <div class="d-flex flex-column flex-grow-1" id="app-screen">
           <!-- tool area-->
-          <div class="position-absolute" id="uploadpane">
-            <div class="upload-form" id="uploader">
-              <h1 class="replace-text">Upload Music</h1>
-              <p class="close" title="Close Window"><img id="closeUploadPane" src="../images/close-button.png" alt="Close"></p>
-              <p>Upload Your mp3 / wav files here!</p>
-              <form id="uf" action="/upload" method="post" enctype="multipart/form-data">
-                <input id="sf" type="file" name="tracks" accept="audio/mp3, audio/wav" style="display: none;" multiple>
-                <input class="button" id="pickfiles" type="button" value="Select" onclick="document.getElementById('sf').click()">
-                <input class="button" id="uploadfiles" type="button" value="Upload">
-              </form>
-              <div id="filelist"></div>
-            </div>
-          </div>
-          <div class="d-flex p-4" id="tool-bar">
+          <!--include upload_form-->
+          <div class="d-flex pb-0 pt-4" id="tool-bar">
           </div>
           <!-- content area-->
           <div id="item-info">
@@ -56,6 +72,21 @@
           </div>
         </div>
         <div class="position-absolute music-player-area">
+          <div id="upload_toast_area">
+            <div class="toast animated" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+              <div class="toast-header">
+                <div class="mr-auto" id="spinner">
+                  <div class="spinner-border spinner-border-sm text-primary mr-2" role="status"></div><strong class="mr-auto">Uploading...</strong>
+                </div>
+                <div class="mr-auto" id="complete"><i class="fas fa-check text-success mr-2"></i><strong class="mr-auto">Done!</strong></div>
+              </div>
+              <div class="toast-body p-1" style="height: 25px;">
+                <div class="progress" style="height: 16px; width: 250px;">
+                  <div class="progress-bar" role="progressbar" style="width: 50%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div id="aplayer"></div>
         </div>
       </div>

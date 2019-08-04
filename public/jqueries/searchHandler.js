@@ -1,6 +1,3 @@
-var sessionStorageHandler = require('../javascripts/sessionStorageHandler.js');
-const pug = require('pug');
-
 // copy from https://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait, immediate) {
     var timeout;
@@ -18,59 +15,106 @@ function debounce(func, wait, immediate) {
 }
 
 $(document).ready(function () {
-    $(function () {
-        tracks_data_get();
-    });
 
-
-    // $('.search_area').toggle();
-    $('#track_search').on('click', function () {
-        const search_area = $('.search_area');
+    $('#tool-bar').on('click', '#track_search', function () {
+        const search_area = $('.track_page_search_area');
         if (search_area.hasClass('hidden')) {
             search_area.slideDown('slow').removeClass('hidden');
         }
         else {
             search_area.slideUp('slow', function () {
                 $(this).addClass('hidden');
+                track_page_clean_serach();
             });
         }
     });
 
-    $('#track_search_close').on('click', function () {
-        $('.search_area').slideUp('slow', function () {
+    $('#tool-bar').on('click', '#track_search_close', function () {
+        $('.track_page_search_area').slideUp('slow', function () {
             $(this).addClass('hidden');
-            $('#track_search_input').val('');
+            track_page_clean_serach();
         });
-
-        const all_tracks = sessionStorageHandler.get_tracks();
-        $.get('/views/track_page.pug', function (data) {
-            const fn_track_page = pug.compile(data, {pretty: true});
-            const html = fn_track_page({tracks: all_tracks});
-            $('#content-area').html(html);
-        });
-        $.getScript('/jqueries/uploadFormFeatures.js');
-        $.getScript('/jqueries/trackListEventHandler.js');
-        $.getScript('/jqueries/toggleIcon.js');
     });
 
-    $('#track_search_input').on('keyup', debounce(function () {
+    $('#tool-bar').on('keyup', '#track_search_input', debounce(function () {
         // console.log($(this).val());
-        const result = sessionStorageHandler.get_searched_tracks($(this).val());
-        // console.log(result);
-        $.get('/views/track_page.pug', function (data) {
-            const fn_track_page = pug.compile(data, {pretty: true});
-            const html = fn_track_page({tracks: result});
-            $('#content-area').html(html);
-        });
-
+        const result = get_searched_tracks($(this).val());
+        const html = trackPageTemplate({tracks: result});
+        $('#content-area').html(html);
     }, 250));
 
-    function tracks_data_get() {
-        $.getJSON('/tracks', function (data) {
-            sessionStorageHandler.insert_tracks(data);
-        });
-
+    function track_page_clean_serach() {
+        $('#track_search_input').val('');
+        const all_tracks = get_tracks();
+        const html = trackPageTemplate({tracks: all_tracks});
+        $('#content-area').html(html);
     }
 
+    $('#tool-bar').on('click', '#album_search', function () {
+        const search_area = $('.album_page_search_area');
+        if (search_area.hasClass('hidden')) {
+            search_area.slideDown('slow').removeClass('hidden');
+        }
+        else {
+            search_area.slideUp('slow', function () {
+                $(this).addClass('hidden');
+                album_page_clean_serach();
+            });
+        }
+    });
 
+    $('#tool-bar').on('click', '#album_search_close', function () {
+        $('.album_page_search_area').slideUp('slow', function () {
+            $(this).addClass('hidden');
+            album_page_clean_serach();
+        });
+    });
+
+    $('#tool-bar').on('keyup', '#album_search_input', debounce(function () {
+        // console.log($(this).val());
+        const result = get_searched_albums($(this).val());
+        const html = albumPageTemplate({albums: result});
+        $('#content-area').html(html);
+    }, 250));
+
+    function album_page_clean_serach() {
+        $('#album_search_input').val('');
+        const all_albums = get_albums();
+        const html = albumPageTemplate({albums: all_albums});
+        $('#content-area').html(html);
+    }
+
+    $('#tool-bar').on('click', '#playlist_search', function () {
+        const search_area = $('.playlist_page_search_area');
+        if (search_area.hasClass('hidden')) {
+            search_area.slideDown('slow').removeClass('hidden');
+        }
+        else {
+            search_area.slideUp('slow', function () {
+                $(this).addClass('hidden');
+                playlist_page_clean_serach();
+            });
+        }
+    });
+
+    $('#tool-bar').on('click', '#playlist_search_close', function () {
+        $('.playlist_page_search_area').slideUp('slow', function () {
+            $(this).addClass('hidden');
+            playlist_page_clean_serach();
+        });
+    });
+
+    $('#tool-bar').on('keyup', '#playlist_search_input', debounce(function () {
+        // console.log($(this).val());
+        const result = get_searched_playlists($(this).val());
+        const html = playlistPageTemplate({playlists: result});
+        $('#content-area').html(html);
+    }, 250));
+
+    function playlist_page_clean_serach() {
+        $('#playlist_search_input').val('');
+        const all_playlists = get_playlists();
+        const html = playlistPageTemplate({playlists: all_playlists});
+        $('#content-area').html(html);
+    }
 });

@@ -2,31 +2,30 @@ $(document).ready(function () {
 
     $('#content-area').on('click', '.playlist_cover_image', function (event) {
         event.preventDefault();
+        const html = playlistDetailToolBarTemplate({});
+        $('#tool-bar').html(html);
         const url = $(this).attr('href');
-        playlist_detail_get('GET', url);
+        playlist_detail_get(url);
     });
 
     $('#content-area').on('click', '.playlist_text', function (event) {
         event.preventDefault();
+        const html = playlistDetailToolBarTemplate({});
+        $('#tool-bar').html(html);
         const url = $(this).attr('href');
-        playlist_detail_get('GET', url);
+        playlist_detail_get(url);
     });
 
-    function playlist_detail_get(type, url) {
+    function playlist_detail_get(url) {
         $.ajax({
             type: 'GET',
             url: url,
-            dataType: 'html',
-            data: {info: 'ajax, playlist detail', type: type},
-            success: function (result) {
-                // console.log(result);
-                // const pretty = html_beautify(result);
-                // console.log(pretty);
-                // window.history.pushState(null, null, '/playlist/detail');
-                $('#tool-bar').html(
-                    $(result).filter('#playlist_detail_tool_bar'));
-                $('#content-area').html(
-                    $(result).filter('#playlist_detail'));
+            dataType: 'json',
+            data: {info: 'ajax, playlist detail', type: 'GET'},
+            success: function (data) {
+                const html = playlistDetailTemplate({playlist: data.playlist});
+                $('#content-area').html(html);
+                window.history.pushState(null, null, '/playlist/detail');
             },
             error: function (e) {
                 console.log('error: ', e);

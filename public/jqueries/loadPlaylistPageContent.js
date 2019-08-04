@@ -1,7 +1,9 @@
 $(document).ready(function () {
     $('#playlist_button').on('click', function (event) {
         event.preventDefault();
-        playlist_page_get('GET');
+        const html = playlistPageToolBarTemplate({});
+        $('#tool-bar').html(html);
+        playlist_page_get();
     });
 
     $('#content-area').on('click', '.playlist_play_icon', function (event) {
@@ -10,27 +12,23 @@ $(document).ready(function () {
         console.log($(this).attr('href'));
 
     });
-
-    function playlist_page_get(type) {
-        $.ajax({
-            type: 'GET',
-            url: '/playlist',
-            dataType: 'html',
-            data: {info: 'ajax, playlist page', type: type},
-            success: function (result) {
-                console.log(window.location.href);
-                // const pretty = html_beautify(result);
-                // console.log(pretty);
-                window.history.pushState(null, null, '/playlist');
-                $('#tool-bar').html(
-                    $(result).filter('#playlist_page_tool_bar'));
-                $('#content-area').html(
-                    $(result).filter('#playlist_page_detail'));
-
-            },
-            error: function (e) {
-                console.log('error: ', e);
-            }
-        });
-    }
 });
+
+function playlist_page_get() {
+    $.ajax({
+        type: 'GET',
+        url: '/playlist',
+        dataType: 'json',
+        data: {info: 'ajax, playlist page', type: 'GET'},
+        success: function (data) {
+            insert_playlists(data);
+            const playlists = get_playlists();
+            const html = playlistPageTemplate({playlists: data.playlists});
+            $('#content-area').html(html);
+            window.history.pushState(null, null, '/playlist');
+        },
+        error: function (e) {
+            console.log('error: ', e);
+        }
+    });
+}

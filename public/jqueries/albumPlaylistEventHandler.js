@@ -39,7 +39,6 @@ $(document).ready(function () {
         }
     });
 
-
     $('#content-area').on('mouseenter', '.playlist_cover', function () {
         const forced_playlist_cover_image = $(this).find('.playlist_cover_image');
         const forced_playlist_cover_play_icon = $(this).find('.playlist_play_icon');

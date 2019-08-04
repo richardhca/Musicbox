@@ -35,27 +35,10 @@ exports.playlist_page_get = async (req, res, next) => {
         .createQueryBuilder('playlist')
         .where('playlist.owner_id = :userId', {userId})
         .getMany();
-
-    console.log(playlists);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_playlist_page_tool_bar = path.join(__dirname,
-            '../views/playlist_page_tool_bar.pug');
-        const fn_playlist_page_tool_bar = pug.compileFile(
-            p_playlist_page_tool_bar, null);
-        const p_playlist_page = path.join(__dirname,
-            '../views/playlist_page.pug');
-        const fn_playlist_page = pug.compileFile(p_playlist_page, null);
 
-        //const image_path = path.join(__dirname,
-        //    '../public/images/test.png');
-
-        //const html = fn_playlist_page_tool_bar() + fn_playlist_page(
-        //    {path: image_path});
-        const html = fn_playlist_page_tool_bar() + fn_playlist_page({playlists: playlists});
-        // console.log(html);
-
-        res.send(html);
+        res.send({playlists: playlists});
     }
     else {
         console.log('server receive a empty req');
@@ -128,19 +111,7 @@ exports.playlist_details_get = async function (req, res, next) {
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_playlist_detail_tool_bar = path.join(__dirname,
-            '../views/playlist_detail_tool_bar.pug');
-        console.log(p_playlist_detail_tool_bar);
-        const fn_playlist_detail_tool_bar = pug.compileFile(
-            p_playlist_detail_tool_bar, null);
-
-        const p_playlist_detail = path.join(__dirname,
-            '../views/playlist_detail.pug');
-        const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
-
-        const html = fn_playlist_detail_tool_bar() + fn_playlist_detail({playlist: playlist});
-        // console.log(html);
-        res.send(html);
+        res.send({playlist: playlist});
     }
     else {
         console.log('server receive a empty req: /playlist/detail');

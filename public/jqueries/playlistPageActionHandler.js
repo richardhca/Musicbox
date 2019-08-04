@@ -10,43 +10,14 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/playlist/create',
-            dataType: 'html',
+            dataType: 'json',
             data: {PlaylistName: data},
-            success: function (result) {
-                console.log(window.location.href);
-                console.log(result);
-                // window.history.pushState(null, null,
-                //     '/playlist/create');
+            success: function (data) {
                 $('#mkplaylist').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 $('#playlistName').val('');
-
-                playlist_detail_get('GET');
-            },
-            error: function (e) {
-                console.log('error: ', e);
-            }
-        });
-    }
-
-
-    function playlist_detail_get(type) {
-        $.ajax({
-            type: 'GET',
-            url: '/playlist',
-            dataType: 'html',
-            data: {info: 'ajax, playlist page', type: type},
-            success: function (result) {
-                console.log(window.location.href);
-                // const pretty = html_beautify(result);
-                // console.log(pretty);
-                window.history.pushState(null, null, '/playlist');
-                $('#tool-bar').html(
-                    $(result).filter('#playlist_page_tool_bar'));
-                $('#content-area').html(
-                    $(result).filter('#playlist_page_detail'));
-
+                playlist_page_get();
             },
             error: function (e) {
                 console.log('error: ', e);

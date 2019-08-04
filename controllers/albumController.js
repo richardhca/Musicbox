@@ -7,22 +7,11 @@ const connection = require('typeorm').getConnection();
 exports.album_page_get = async function (req, res, next) {
     const info = req.query.info;
     const type = req.query.type;
-    const albums = await connection.getRepository('Albums').find({owner_id: req.session.userId});
-    console.log(albums);
+    const albums = await connection.getRepository('Albums')
+        .find({owner_id: req.session.userId});
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_album_page_tool_bar = path.join(__dirname,
-            '../views/album_page_tool_bar.pug');
-        const fn_album_page_tool_bar = pug.compileFile(
-            p_album_page_tool_bar, null);
-
-        const p_album_page = path.join(__dirname,
-            '../views/album_page.pug');
-        const fn_album_page = pug.compileFile(p_album_page, null);
-
-        const html = fn_album_page_tool_bar() + fn_album_page({albums : albums});
-        // console.log(html);
-        res.send(html);
+        res.send({albums: albums});
     }
     else {
         console.log('server receive a empty req: /album');
@@ -49,30 +38,18 @@ exports.album_detail_get = async function (req, res, next) {
     // Sort tracks ASC by rank in album
     album.tracks.sort((a, b) => a.rank_in_album - b.rank_in_album);
 
-
     var track;
     for (track of album.tracks) {
         track.duration = trackDurationParser.durationParser(track.duration);
     }
-    console.log(album);
 
     const info = req.query.info;
     const type = req.query.type;
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_album_detail_tool_bar = path.join(__dirname,
-            '../views/album_detail_tool_bar.pug');
-        const fn_album_detail_tool_bar = pug.compileFile(
-            p_album_detail_tool_bar, null);
-
-        const p_album_detail = path.join(__dirname,
-            '../views/album_detail.pug');
-        const fn_album_detail = pug.compileFile(p_album_detail, null);
-
-        const html = fn_album_detail_tool_bar() + fn_album_detail({album: album});
         // console.log(html);
-        res.send(html);
+        res.send({album: album});
     }
     else {
         console.log('server receive a empty req: /album/detail');

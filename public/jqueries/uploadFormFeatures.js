@@ -122,37 +122,15 @@ $(document).ready(function () {
                 $('#spinner').hide();
                 $('#complete').show();
                 $('#upload_icon').removeClass('isDisabled');
-                tracks_page_get('GET');
+                track_page_get();
                 $('.toast').removeClass('fadeInRight fast')
                     .addClass('fadeOutRight delay-2s');
+
             },
             error: function (e) {
                 console.log('error: ', e);
             }
         });
 
-    }
-
-    function tracks_page_get(type) {
-        $.ajax({
-            type: 'GET',
-            url: '/track',
-            dataType: 'html',
-            data: {info: 'ajax, tracks page', type: type},
-            success: function (result) {
-                $('#tool-bar')
-                    .html($(result).filter('#track_page_tool_bar'));
-                $('#content-area')
-                    .html($(result).filter('#track_page_detail'));
-
-                // $.getScript('/jqueries/uploadFormFeatures.js');
-                // $.getScript('/jqueries/trackListEventHandler.js');
-                // $.getScript('/jqueries/toggleIcon.js');
-                // $.getScript('/bundles/searchBundle.js');
-            },
-            error: function (e) {
-                console.log('error: ', e);
-            }
-        });
     }
 });
