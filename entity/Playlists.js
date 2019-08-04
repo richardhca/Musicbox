@@ -13,10 +13,12 @@ module.exports = new EntitySchema({
       length: 70,
       nullable: false
     },
+    /*
     is_public: {
       type: "boolean",
       default: false
     },
+    */
     created_on: {
       type: "timestamp",
       nullable: false
