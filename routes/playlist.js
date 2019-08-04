@@ -33,4 +33,6 @@ router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.play
 
 router.post('/:playlistId/rename',sessionMiddleware.requiredLogin, playlist_controller.playlist_rename_post);
 
+router.get('/:playlistId/export',sessionMiddleware.requiredLogin, playlist_controller.playlist_export_get);
+
 module.exports = router;

@@ -6,6 +6,7 @@ const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 const playlistUtilities = require('../utilities/playlistUtilities');
+const url = require('url');
 
 exports.playlist_valid = async (req, res, next) => {
     const playlist_name = req.body.playlist_name;
@@ -505,3 +506,60 @@ exports.playlist_rename_post = async function (req, res, next) {
         .execute();
     return res.send("Success");
 };
+
+exports.playlist_export_get = async function (req, res, next) {
+    const userId = req.session.userId;
+    const playlistId = req.params.playlistId;
+
+    // 404 if playlistId is not provided or is not UUID
+    if (!playlistId || !validator.isUUID(playlistId)) {
+        return res.status(404).send("Playlist can't be found");
+    }
+    const user = await connection.getRepository("Users").findOne({id: req.session.userId});
+    // Get playlist and load its tracks
+    const playlist = await connection.getRepository("Playlists").findOne(
+        {
+            playlist_id: playlistId
+        },
+        {
+            relations: ['owner_id', 'playlist_tracks', 'shared', 'shared.shared_with'],
+        }
+    );
+
+    if (!playlist) {
+        return res.status(404).send();
+    }
+
+    if (!playlistUtilities.userHasAccess(playlist, userId)) {
+        return res.status(403).send();
+    }
+
+    playlistUtilities.addCoverArtFromTracks(playlist);
+    playlistUtilities.setShareStatuses(playlist, userId);
+    playlistUtilities.transformPlaylistTracks(playlist);
+    delete playlist['owner_id'];
+    var exportdata = "#EXTM3U\n";
+    for(let i = 0; i < playlist.tracks.length; i++){
+        if(playlist.tracks[i].artist_name != null){
+            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + " - " + playlist.tracks[i].artist_name + "\n" + "http://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
+        }else{
+            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + "\n" + "http://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
+        }
+    }
+    var playlist_filename = playlist.title+"_"+user.username+".m3u";
+    playlist_filename = playlist_filename.replace(" ", "_");
+    fs.writeFile("./public/playlist_m3u/"+playlist_filename, exportdata, (err) => {
+        if (err) console.log(err);
+        console.log("Successfully Written to File.");
+    });
+    setTimeout(function(){
+        try {
+            fs.unlinkSync("./public/playlist_m3u/"+playlist_filename);
+            //file removed
+        } catch (err) {
+            console.error(err);
+            return res.status(500).send();
+        }
+    }, 300 * 1000);
+    return res.redirect("/playlist_m3u/"+playlist_filename);
+}
