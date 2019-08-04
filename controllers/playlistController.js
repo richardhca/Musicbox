@@ -539,6 +539,9 @@ exports.playlist_export_get = async function (req, res, next) {
     playlistUtilities.transformPlaylistTracks(playlist);
     delete playlist['owner_id'];
     var exportdata = "#EXTM3U\n";
+    if(playlist.tracks.length == 0){
+        return res.status(404).send();
+    }
     for(let i = 0; i < playlist.tracks.length; i++){
         if(playlist.tracks[i].artist_name != null){
             exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + " - " + playlist.tracks[i].artist_name + "\n" + "http://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
