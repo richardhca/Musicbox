@@ -19,7 +19,7 @@ exports.track_page_get = async function (req, res, next) {
     for (track of tracks) {
         track.duration = trackDurationParser.durationParser(track.duration);
     }
-    // console.log(tracks);
+    console.log(tracks);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
         const p_track_page_tool_bar = path.join(__dirname,

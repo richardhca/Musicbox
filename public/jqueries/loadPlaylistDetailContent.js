@@ -1,7 +1,21 @@
 $(document).ready(function () {
-    $('.card-body').on('click', function (event) {
+    $('.playlist_play_icon').on('click', function (event) {
         event.preventDefault();
-        playlist_detail_get('GET');
+        console.log('icon click');
+        console.log($(this).attr('href'));
+        // playlist_detail_get('GET');
+    });
+
+    $('.playlist_cover_image').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        playlist_detail_get('GET', url);
+    });
+
+    $('.playlist_text').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        playlist_detail_get('GET', url);
     });
 
 
@@ -22,7 +36,7 @@ $(document).ready(function () {
                     $(result).filter('#playlist_detail'));
 
                 $.getScript('/jqueries/toggleIcon.js');
-				$.getScript('/jqueries/playPlaylistFeatures.js');
+                $.getScript('/jqueries/playPlaylistFeatures.js');
                 $.getScript('/jqueries/trackListEventHandler.js');
             },
             error: function (e) {

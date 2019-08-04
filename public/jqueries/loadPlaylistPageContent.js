@@ -24,6 +24,7 @@ $(document).ready(function () {
                 $.getScript('/jqueries/playPlaylistFeatures.js');
                 $.getScript('/jqueries/albumPlaylistEventHandler.js');
                 $.getScript('/jqueries/playlistPageActionHandler.js');
+                $.getScript('/jqueries/loadPlaylistDetailContent.js');
             },
             error: function (e) {
                 console.log('error: ', e);

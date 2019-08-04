@@ -24,7 +24,7 @@ $(document).ready(function () {
                 $('#content-area')
                     .html($(result).filter('#track_page_detail'));
 
-                $.getScript('/jqueries/uploadFormFeatures.js');
+                // $.getScript('/jqueries/uploadFormFeatures.js');
                 $.getScript('/jqueries/trackListEventHandler.js');
                 $.getScript('/jqueries/toggleIcon.js');
                 $.getScript('/bundles/searchBundle.js');

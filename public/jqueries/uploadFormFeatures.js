@@ -16,16 +16,16 @@ $(document).ready(function () {
     $('#uploadpane').on('shown.bs.modal', function () {
         console.log('upload pane shown');
         $('.progress-bar').css('width', '0%').text('0 %');
-        // console.log($('#sf').get(0).files.length);
+        console.log($('#sf').get(0).files.length);
     });
 
     $('#uploadpane').on('hidden.bs.modal', function () {
         $('.addedFile').remove();
         console.log('upload pane hidden');
-        // console.log($('#sf').get(0).files.length);
+        console.log($('#sf').get(0).files.length);
         console.log('upload pane files clearing');
         $('#sf').wrap('<form>').closest('form').get(0).reset();
-        // console.log($('#sf').get(0).files.length);
+        console.log($('#sf').get(0).files.length);
         window.history.pushState(null, null, '/track');
     });
 
@@ -145,6 +145,7 @@ $(document).ready(function () {
                 $.getScript('/jqueries/uploadFormFeatures.js');
                 $.getScript('/jqueries/trackListEventHandler.js');
                 $.getScript('/jqueries/toggleIcon.js');
+                $.getScript('/bundles/searchBundle.js');
             },
             error: function (e) {
                 console.log('error: ', e);
