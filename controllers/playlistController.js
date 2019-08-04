@@ -256,7 +256,6 @@ exports.playlist_tracks_delete = async function (req, res, next) {
             relations: ['playlist_tracks']
         }
     );
-
     // 404 if playlist does not exist
     if (!playlist) {
         return res.status(404).send("Playlist can't be found");
@@ -510,6 +509,7 @@ exports.playlist_rename_post = async function (req, res, next) {
 exports.playlist_export_get = async function (req, res, next) {
     const userId = req.session.userId;
     const playlistId = req.params.playlistId;
+    console.log(req.protocol + '://' + req.get('Host') + req.url);
 
     // 404 if playlistId is not provided or is not UUID
     if (!playlistId || !validator.isUUID(playlistId)) {
