@@ -1,7 +1,7 @@
 div#playlist_detail.d-flex.h-100.w-100
     - const default_cover = '/images/music_cover_default_black.png'
     - const playlist_name = (null === playlist.title ? "None" : playlist.title);
-    - const album_cover = (null === playlist.cover_art_file_name ? default_cover : '/covers/' + playlist.cover_art_file_name);
+    - const playlist_cover = (null === playlist.cover_art_file_name ? default_cover : '/covers/' + playlist.cover_art_file_name);
     - const tracks = (null === playlist.tracks ? [] : playlist.tracks);
     - const tracks_len = playlist.num_tracks;
     .row.flex-row.w-100
@@ -9,10 +9,10 @@ div#playlist_detail.d-flex.h-100.w-100
             .d-flex.flex-column
                 .d-flex.justify-content-end
                     .album_card.card.mr-5
-                        div.album_cover_in_detail_page
-                            .album_cover_image
-                                img.card-img-top(src=album_cover)
-                            img.card-img-top.album_play_icon(src='/images/circled_play.png')
+                        div.playlist_cover_in_detail_page
+                            .plsylist_cover_image
+                                img.card-img-top(src=playlist_cover)
+                            img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
                 .d-flex.justify-content-end
                     ul.list-group.text-center.w-100.mr-5.mt-2
                         li.list-group-item.pb-0

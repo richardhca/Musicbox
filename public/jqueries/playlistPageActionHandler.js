@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#createPL').on('click', function (event) {
+    $('#tool-bar').on('click', '#createPL', function (event) {
         event.preventDefault();
         const playlist_name = $('#playlistName').val();
         playlist_create_post(playlist_name);
@@ -46,11 +46,6 @@ $(document).ready(function () {
                     $(result).filter('#playlist_page_tool_bar'));
                 $('#content-area').html(
                     $(result).filter('#playlist_page_detail'));
-
-                $.getScript('/jqueries/toggleIcon.js');
-                $.getScript('/jqueries/playPlaylistFeatures.js');
-                $.getScript('/jqueries/albumPlaylistEventHandler.js');
-                $.getScript('/jqueries/playlistPageActionHandler.js');
 
             },
             error: function (e) {

@@ -62,9 +62,6 @@ $(document).ready(function () {
             const html = fn_track_page({tracks: result});
             $('#content-area').html(html);
         });
-        $.getScript('/jqueries/uploadFormFeatures.js');
-        $.getScript('/jqueries/trackListEventHandler.js');
-        $.getScript('/jqueries/toggleIcon.js');
 
     }, 250));
 

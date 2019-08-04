@@ -475,7 +475,8 @@ a {
 }
 
 
-.album_cover_in_detail_page {
+.album_cover_in_detail_page,
+.playlist_cover_in_detail_page {
     position: absolute;
     border-radius: 10px;
     /*height: 150px;*/

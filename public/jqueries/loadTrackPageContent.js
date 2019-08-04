@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#track_button').click(function (event) {
+    $('#track_button').on('click', function (event) {
         event.preventDefault();
         tracks_page_get('GET');
     });
@@ -24,10 +24,6 @@ $(document).ready(function () {
                 $('#content-area')
                     .html($(result).filter('#track_page_detail'));
 
-                // $.getScript('/jqueries/uploadFormFeatures.js');
-                $.getScript('/jqueries/trackListEventHandler.js');
-                $.getScript('/jqueries/toggleIcon.js');
-                $.getScript('/bundles/searchBundle.js');
             },
             error: function (e) {
                 console.log('error: ', e);

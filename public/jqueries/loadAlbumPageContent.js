@@ -1,7 +1,13 @@
 $(document).ready(function () {
-    $('#album_button').click(function (event) {
+    $('#album_button').on('click', function (event) {
         event.preventDefault();
         album_page_get('GET');
+    });
+
+    $('#content-area').on('click', '.album_play_icon', function (event) {
+        event.preventDefault();
+        console.log('album play icon click');
+        console.log($(this).attr('href'));
     });
 
 
@@ -21,9 +27,6 @@ $(document).ready(function () {
                 $('#content-area').html(
                     $(result).filter('#album_page_detail'));
 
-                $.getScript('/jqueries/toggleIcon.js');
-                $.getScript('/jqueries/loadAlbumDetailContent.js');
-                $.getScript('/jqueries/albumPlaylistEventHandler.js');
             },
             error: function (e) {
                 console.log('error: ', e);

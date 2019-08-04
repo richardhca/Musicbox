@@ -5,10 +5,10 @@
         - const playlist_id = (null === playlist.playlist_id ? '' : playlist.playlist_id)
         - const url = '/playlist/' + playlist_id + "/detail";
         .album_card.card.m-3
-            div.album_cover
-                a.album_cover_image(href=url)
+            div.playlist_cover
+                a.playlist_cover_image(href=url)
                     img.card-img-top(src='/images/music_cover_default_black.png')
-                img.card-img-top.album_play_icon(src='/images/circled_play.png')
+                img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
             .card-body.p-0
                 a.card-text.mt-1.text-white.noselect(href=url) #{playlist_name}
 

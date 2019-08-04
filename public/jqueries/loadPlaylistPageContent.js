@@ -1,10 +1,17 @@
 $(document).ready(function () {
-    $('#playlist_button').click(function (event) {
+    $('#playlist_button').on('click', function (event) {
         event.preventDefault();
-        playlist_detail_get('GET');
+        playlist_page_get('GET');
     });
 
-    function playlist_detail_get(type) {
+    $('#content-area').on('click', '.playlist_play_icon', function (event) {
+        event.preventDefault();
+        console.log('icon click');
+        console.log($(this).attr('href'));
+
+    });
+
+    function playlist_page_get(type) {
         $.ajax({
             type: 'GET',
             url: '/playlist',
@@ -20,11 +27,6 @@ $(document).ready(function () {
                 $('#content-area').html(
                     $(result).filter('#playlist_page_detail'));
 
-                $.getScript('/jqueries/toggleIcon.js');
-                $.getScript('/jqueries/playPlaylistFeatures.js');
-                $.getScript('/jqueries/albumPlaylistEventHandler.js');
-                $.getScript('/jqueries/playlistPageActionHandler.js');
-                $.getScript('/jqueries/loadPlaylistDetailContent.js');
             },
             error: function (e) {
                 console.log('error: ', e);

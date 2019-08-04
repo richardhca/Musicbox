@@ -1,20 +1,14 @@
 $(document).ready(function () {
-
-    $('.album_play_icon').on('click', function (event) {
+    $('#content-area').on('click', '.album_cover_image', function (event) {
         event.preventDefault();
-        console.log('icon click');
-        console.log($(this).attr('href'));
-        // album_detail_get('GET');
-    });
-
-    $('.album_cover_image').on('click', function (event) {
-        event.preventDefault();
+        console.log('album cover image click');
         const url = $(this).attr('href');
         album_detail_get('GET', url);
     });
 
-    $('.album_text').on('click', function (event) {
+    $('#content-area').on('click', '.album_text', function (event) {
         event.preventDefault();
+        console.log('album text click');
         const url = $(this).attr('href');
         album_detail_get('GET', url);
     });
@@ -36,9 +30,6 @@ $(document).ready(function () {
                 $('#content-area').html(
                     $(result).filter('#album_detail'));
 
-                $.getScript('/jqueries/toggleIcon.js');
-                $.getScript('/jqueries/trackListEventHandler.js');
-                $.getScript('/jqueries/albumPlaylistEventHandler.js');
             },
             error: function (e) {
                 console.log('error: ', e);

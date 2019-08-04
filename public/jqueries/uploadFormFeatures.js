@@ -1,7 +1,7 @@
 $(document).ready(function () {
     let uploadFiles = null;
 
-    $('#upload_icon').on('click', function (event) {
+    $('#tool-bar').on('click', '#upload_icon', function (event) {
         event.preventDefault();
         if ($('#upload_icon').hasClass('isDisabled')) {
             console.log('upload icon clicked, uploading...');
@@ -13,13 +13,13 @@ $(document).ready(function () {
         }
     });
 
-    $('#uploadpane').on('shown.bs.modal', function () {
+    $('#tool-bar').on('shown.bs.modal', '#uploadpane', function () {
         console.log('upload pane shown');
         $('.progress-bar').css('width', '0%').text('0 %');
         console.log($('#sf').get(0).files.length);
     });
 
-    $('#uploadpane').on('hidden.bs.modal', function () {
+    $('#tool-bar').on('hidden.bs.modal', '#uploadpane', function () {
         $('.addedFile').remove();
         console.log('upload pane hidden');
         console.log($('#sf').get(0).files.length);
@@ -29,7 +29,7 @@ $(document).ready(function () {
         window.history.pushState(null, null, '/track');
     });
 
-    $('#sf').on('change', function (e) {
+    $('#tool-bar').on('change', '#sf', function (e) {
         var i = 0;
         while (e.target.files[i] !== undefined) {
             if (i === 10) {
@@ -42,10 +42,11 @@ $(document).ready(function () {
         $('.addedFile').slice(i).remove();
     });
 
-    $('#uploadfiles').on('click', function () {
-        console.log('upload button in pane click');
+    $('#tool-bar').on('click', '#uploadfiles', function () {
+        console.log('upload button in pane click!!!!!!');
         const files = $('#sf').get(0).files;
         const files_len = files.length;
+        console.log('files length is : ', files_len);
 
         if (files_len > 10) {
             alert('You can only upload a maximum of 10 files');
@@ -80,14 +81,16 @@ $(document).ready(function () {
             $('#complete').hide();
             $('.toast').removeClass('delay-2s fadeOutRight')
                 .addClass('fadeInRight fast');
+
         }
     });
 
-    $('.toast').on('animationend', function () {
+    $('.music-player-area').on('animationend', '.toast', function () {
         if ($(this).hasClass('fadeInRight')) {
             tracks_upload(uploadFiles);
         }
         else {
+            uploadFiles = null;
         }
 
     });
@@ -142,10 +145,10 @@ $(document).ready(function () {
                 $('#content-area')
                     .html($(result).filter('#track_page_detail'));
 
-                $.getScript('/jqueries/uploadFormFeatures.js');
-                $.getScript('/jqueries/trackListEventHandler.js');
-                $.getScript('/jqueries/toggleIcon.js');
-                $.getScript('/bundles/searchBundle.js');
+                // $.getScript('/jqueries/uploadFormFeatures.js');
+                // $.getScript('/jqueries/trackListEventHandler.js');
+                // $.getScript('/jqueries/toggleIcon.js');
+                // $.getScript('/bundles/searchBundle.js');
             },
             error: function (e) {
                 console.log('error: ', e);
