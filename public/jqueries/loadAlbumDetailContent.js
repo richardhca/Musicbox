@@ -30,7 +30,7 @@ $(document).ready(function () {
                 console.log(window.location.href);
                 // const pretty = html_beautify(result);
                 // console.log(pretty);
-                window.history.pushState(null, null, url);
+                // window.history.pushState(null, null, url);
                 $('#tool-bar').html(
                     $(result).filter('#album_detail_tool_bar'));
                 $('#content-area').html(

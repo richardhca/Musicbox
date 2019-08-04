@@ -121,8 +121,33 @@ exports.playlist_details_get = async function (req, res, next) {
     playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
     delete playlist['owner_id'];
+    console.log(playlist);
 
-    res.send(playlist);
+    const info = req.query.info;
+    const type = req.query.type;
+
+    if (info && type) {
+        console.log('server receive a req, type: ', type, ' , info: ', info);
+        const p_playlist_detail_tool_bar = path.join(__dirname,
+            '../views/playlist_detail_tool_bar.pug');
+        console.log(p_playlist_detail_tool_bar);
+        const fn_playlist_detail_tool_bar = pug.compileFile(
+            p_playlist_detail_tool_bar, null);
+
+        const p_playlist_detail = path.join(__dirname,
+            '../views/playlist_detail.pug');
+        const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
+
+        const html = fn_playlist_detail_tool_bar() + fn_playlist_detail({playlist: playlist});
+        // console.log(html);
+        res.send(html);
+    }
+    else {
+        console.log('server receive a empty req: /playlist/detail');
+
+        res.render('index',
+            {page: 'playlist_detail_get', playlist: playlist});
+    }
 };
 
 exports.playlist_create_post = [
