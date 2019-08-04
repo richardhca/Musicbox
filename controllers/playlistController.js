@@ -547,7 +547,7 @@ exports.playlist_export_get = async function (req, res, next) {
             exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + "\n" + req.protocol + "://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
         }
     }
-    var playlist_filename = playlist.title + "_" + user.username + "_" + (Math.floor(Math.random() * (10000 - 1000) + 1000)).toString() + ".m3u";
+    var playlist_filename = playlist.title + "_" + user.username + "_" + (Math.floor(Math.random() * (99999 - 10000) + 10000)).toString() + ".m3u";
     playlist_filename = playlist_filename.replace(" ", "_");
     fs.writeFile("./public/playlist_m3u/" + playlist_filename, exportdata, (err) => {
         if (err) console.log(err);
