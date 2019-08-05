@@ -5,5 +5,6 @@ const indexController = require('../controllers/indexController');
 
 router.get('/', sessionMiddleware.requiredLogin, indexController.index_get);
 
+router.get('/', sessionMiddleware.requiredLogin, indexController.change_profile_post);
 
 module.exports = router;
