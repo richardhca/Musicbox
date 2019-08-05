@@ -34,6 +34,7 @@ window.format_aplayer_tracks_data = function (data) {
             id: track.id,
             name: track.title,
             artist: track.artists,
+            lrc: '',
             url: track.file_name,
             cover: track.cover_art_file_name
         });
