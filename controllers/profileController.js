@@ -3,6 +3,7 @@ const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();
 const bcrypt = require('bcrypt');
 
+//compare old passward with new one, implement it if possible.
 exports.change_profile_post = [
     // Validate fields.
     body('username')
