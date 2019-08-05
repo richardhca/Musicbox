@@ -15,6 +15,8 @@ const ap = new APlayer({
 
 function loadTrackPageTracklist(idx) {
     var track_list = get_tracks();
+    track_list = format_aplayer_tracks_data({tracks: track_list});
+    console.log(track_list);
     const new_track_list = rearrangeTracklist(track_list, idx);
     ap.list.clear();
     ap.list.add(new_track_list);

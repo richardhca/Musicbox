@@ -491,3 +491,9 @@ a {
     /*width: 150px;*/
     box-shadow: 5px 6px 12px #000;
 }
+
+.track_seclet_icon {
+    max-width: 40px;
+    text-align: center;
+    display: none;
+}

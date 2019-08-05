@@ -9,10 +9,30 @@ window.format_tracks_data = function (data) {
     data.tracks.forEach(track => {
         jsonData.push({
             id: track.id,
+            title: track.title,
+            album_id: {
+                title: track.album_id.title
+            },
+            artists: track.artists,
+            genres: track.genres,
+            duration: track.duration,
+            file_name: '/tracks/' + track.file_name,
+            cover_art_file_name: '/covers/' + track.cover_art_file_name
+
+        });
+    });
+    return jsonData;
+};
+
+window.format_aplayer_tracks_data = function (data) {
+    var jsonData = [];
+    data.tracks.forEach(track => {
+        jsonData.push({
+            id: track.id,
             name: track.title,
             artist: track.artists,
-            url: '/tracks/' + track.file_name,
-            cover: '/covers/' + track.cover_art_file_name
+            url: track.file_name,
+            cover: track.cover_art_file_name
         });
     });
     return jsonData;

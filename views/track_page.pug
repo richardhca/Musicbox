@@ -2,6 +2,7 @@
     #track_page_track_list.list-group
         .list-group-item.track_list_header
             .row.flex-nowrap
+                .col.track_seclet_icon
                 .col.track_list_icon
                 .col
                     .text-white.noselect Track
@@ -30,6 +31,8 @@
                     span.track_list_filename(style='display: none;') #{track_filename}
                     span.track_list_cover(style='display: none;') #{track_cover}
                     span.track_lyric(style='display: none;') #{track_lyric}
+                    .col.track_seclet_icon
+                        i.far.fa-circle.text-white.noselect.track_seclet
                     .col.track_list_icon
                         i.material-icons.text-white.noselect(style='cursor: pointer;') music_note
                     .col.track_list_title
