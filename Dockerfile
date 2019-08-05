@@ -8,6 +8,6 @@ WORKDIR /usr/app
 COPY package*.json ./
 
 # Bundle app source
-COPY . .
+COPY ./ ./
 RUN npm install
 CMD [ "node", "./bin/www" ]

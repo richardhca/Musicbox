@@ -30,7 +30,18 @@ const updateAlbumCover = async function (album, deletedCoverArt) {
     }
 };
 
+const autoDeleteAlbum = async function (album) {
+    if (album && album.id){
+        const tracks = await connection.getRepository('Tracks').find({album_id: album.id});
+        console.log(tracks);
+        if(tracks.length == 0){
+            await connection.getRepository('Albums').remove(album);
+        }
+    }
+}
+
 module.exports = {
     getHighestTrackRank: getHighestTrackRank,
     updateAlbumCover: updateAlbumCover,
+    autoDeleteAlbum: autoDeleteAlbum,
 };
