@@ -8,7 +8,6 @@ $(document).ready(function () {
         event.preventDefault();
         console.log('icon click');
         console.log($(this).attr('href'));
-
     });
 
     function playlist_page_get(type) {

@@ -80,6 +80,7 @@ exports.playlist_page_get = async (req, res, next) => {
 
         //const html = fn_playlist_page_tool_bar() + fn_playlist_page(
         //    {path: image_path});
+		console.log((userOwnedPlaylists || []).concat(userSharedPlaylists || []));
         const html = fn_playlist_page_tool_bar() + fn_playlist_page({playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
         // console.log(html);
 
@@ -89,7 +90,7 @@ exports.playlist_page_get = async (req, res, next) => {
         console.log('server receive a empty req');
         //const image_path = path.join('../public/images/test.png');
         res.render('index',
-            {page: 'playlist_page_get', playlists: playlists});
+            {page: 'playlist_page_get', playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
     }
 };
 

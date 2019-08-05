@@ -4,22 +4,14 @@
         - const playlist_path = '/playlists/' + playlist.title
         - const playlist_id = (null === playlist.playlist_id ? '' : playlist.playlist_id)
         - const url = '/playlist/' + playlist_id + "/detail";
+        - const isShare = (null === playlist.share_id ? 'False' : 'True')
         .album_card.card.m-3
             div.playlist_cover
                 .playlist_cover_image
-                    img.card-img-top(src='/images/music_cover_default_black.png')
+                    if (isShare === 'False')
+                        img.card-img-top(src='/images/music_cover_default_white.png')
+                    else
+                        img.card-img-top(src='/images/music_cover_default_black.png')
                 img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
             .card-body.p-0
                 a.playlist_text.mt-1.text-white.noselect(href=url) #{playlist_name}
-
-//    - for (var x = 0; x <5; x++)
-//        .playlist_card.card.m-3
-//            div.playlist_cover
-//                if x % 2 === 0
-//                    img.card-img-top.playlist_cover_image(src='/images/music_cover_default_black.png')
-//                else
-//                    img.card-img-top.playlist_cover_image(src='/images/music_cover_default_white.png')
-//
-//                img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
-//            .card-body.p-0
-//                .card-text.mt-1.text-white.noselect Album &#183; Artists
