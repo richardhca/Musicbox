@@ -497,3 +497,11 @@ a {
     text-align: center;
     display: none;
 }
+
+.album_select {
+    display: none;
+}
+
+.album_card .card-text {
+    width: 148px;
+}

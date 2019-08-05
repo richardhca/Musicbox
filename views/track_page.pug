@@ -21,7 +21,7 @@
             - const track_filename = (null === track.file_name ? '' : track.file_name)
             - const track_cover = (null === track.cover_art_file_name ? '' : track.cover_art_file_name)
             - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
-            - const album_name = (undefined === track.album_id.title ? 'None' : track.album_id.title)
+            - const album_name = (null === track.album_id.title ? 'None' : track.album_id.title)
             - const genres_name = (null === track.genres ? 'None' : track.genres)
             - const duration = (undefined === track.duration ? 'None' : track.duration)
             - const delete_url = (undefined === track.id ? 'None' : '/track/delete/' + track.id)

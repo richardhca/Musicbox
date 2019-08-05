@@ -7,8 +7,11 @@
         - const url = '/album/detail/' + album_id;
         .album_card.card.m-3
             div.album_cover
+                span.album_page_album_id(style='display: none;') #{album_id}
                 a.album_cover_image(href=url)
                     img.card-img-top(src=album_cover)
                 img.card-img-top.album_play_icon(src='/images/circled_play.png' href=url)
-            .card-body.p-0.mt-2
+            .card-body.p-0.mt-2.d-inline-flex.align-items-center.text-center
                 a.card-text.mt-1.text-white.noselect.album_text(href=url) #{album.title}
+                div
+                    i.far.fa-circle.text-white.noselect.album_select

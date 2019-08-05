@@ -29,14 +29,14 @@ $(document).ready(function () {
         }
     });
 
-    $('#tool-bar').on('click', '#track_search_close', function () {
+    $('#search-bar').on('click', '#track_search_close', function () {
         $('.track_page_search_area').slideUp('slow', function () {
             $(this).addClass('hidden');
             track_page_clean_serach();
         });
     });
 
-    $('#tool-bar').on('keyup', '#track_search_input', debounce(function () {
+    $('#search-bar').on('keyup', '#track_search_input', debounce(function () {
         // console.log($(this).val());
         const result = get_searched_tracks($(this).val());
         const html = trackPageTemplate({tracks: result});
@@ -63,14 +63,14 @@ $(document).ready(function () {
         }
     });
 
-    $('#tool-bar').on('click', '#album_search_close', function () {
+    $('#search-bar').on('click', '#album_search_close', function () {
         $('.album_page_search_area').slideUp('slow', function () {
             $(this).addClass('hidden');
             album_page_clean_serach();
         });
     });
 
-    $('#tool-bar').on('keyup', '#album_search_input', debounce(function () {
+    $('#search-bar').on('keyup', '#album_search_input', debounce(function () {
         // console.log($(this).val());
         const result = get_searched_albums($(this).val());
         const html = albumPageTemplate({albums: result});
@@ -97,14 +97,14 @@ $(document).ready(function () {
         }
     });
 
-    $('#tool-bar').on('click', '#playlist_search_close', function () {
+    $('#search-bar').on('click', '#playlist_search_close', function () {
         $('.playlist_page_search_area').slideUp('slow', function () {
             $(this).addClass('hidden');
             playlist_page_clean_serach();
         });
     });
 
-    $('#tool-bar').on('keyup', '#playlist_search_input', debounce(function () {
+    $('#search-bar').on('keyup', '#playlist_search_input', debounce(function () {
         // console.log($(this).val());
         const result = get_searched_playlists($(this).val());
         const html = playlistPageTemplate({playlists: result});

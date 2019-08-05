@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    enableLoadAlnumDeatil();
+
+});
+
+function enableLoadAlnumDeatil() {
     $('#content-area').on('click', '.album_cover_image', function (event) {
         event.preventDefault();
         const html = albumDetailToolBarTemplate({});
@@ -17,22 +22,26 @@ $(document).ready(function () {
         const url = $(this).attr('href');
         album_detail_get(url);
     });
+}
 
-    function album_detail_get(url) {
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: 'json',
-            data: {info: 'ajax, album detail', type: 'GET'},
-            success: function (data) {
-                const html = albumDetailTemplate({album: data.album});
-                $('#content-area').html(html);
-                window.history.pushState(null, null, '/album/detail');
-            },
-            error: function (e) {
-                console.log('error: ', e);
-            }
-        });
-    }
+function disenableLoadAlnumDeatil() {
+    $('#content-area').off('click', '.album_cover_image');
+    $('#content-area').off('click', '.album_text');
+}
 
-});
+function album_detail_get(url) {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        data: {info: 'ajax, album detail', type: 'GET'},
+        success: function (data) {
+            const html = albumDetailTemplate({album: data.album});
+            $('#content-area').html(html);
+            window.history.pushState(null, null, '/album/detail');
+        },
+        error: function (e) {
+            console.log('error: ', e);
+        }
+    });
+}

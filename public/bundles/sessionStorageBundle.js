@@ -14,7 +14,7 @@ window.format_tracks_data = function (data) {
             id: track.id,
             title: track.title,
             album_id: {
-                title: track.album_id.title
+                title: (null === track.album_id.title ? 'None' : track.album_id.title)
             },
             artists: track.artists,
             genres: track.genres,
@@ -48,7 +48,7 @@ window.format_albums_data = function (data) {
             id: album.id,
             title: album.title,
             artists: album.artists,
-            cover: album.cover_art_file_name
+            cover_art_file_name: album.cover_art_file_name
         });
     });
     return jsonData;

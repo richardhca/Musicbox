@@ -56,9 +56,8 @@ $(document).ready(function () {
 
     var prevIndex = -1;
     var sameTrack = false;
-    $('#content-area').on('dblclick', '.track_list', function (event) {
+    $('#content-area').on('click', '.track_list', function (event) {
         event.preventDefault();
-        console.log('double click');
         // var trackIndex = $('.track_list').index(this);
         // sameTrack = (trackIndex === prevIndex);
         // prevIndex = trackIndex;

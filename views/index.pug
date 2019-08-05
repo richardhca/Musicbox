@@ -36,7 +36,14 @@ block content
 
             #app-screen.d-flex.flex-column.flex-grow-1
 
-                include tracks_delete_comfirm_layout
+                #delete_comfirm
+                    if page === "track_page_get" || page === "track_create"
+                        include tracks_delete_comfirm_layout
+                    else if page === "playlist_page_get" || page === "playlist_create"
+                        include albums_delete_comfirm_layout
+                    else if page === "album_page_get"
+                        include playlists_delete_comfirm_layout
+
                 // tool area
                 //include upload_form
                 #tool-bar.d-flex.pb-0.pt-4
@@ -50,6 +57,14 @@ block content
                         include album_detail_tool_bar
                     else if page === "playlist_detail_get"
                         include playlist_detail_tool_bar
+
+                #search-bar
+                    if page === "track_page_get" || page === "track_create"
+                        include track_page_search_bar
+                    else if page === "playlist_page_get" || page === "playlist_create"
+                        include playlist_page_search_bar
+                    else if page === "album_page_get"
+                        include album_page_search_bar.html
 
                 // content area
                 #item-info

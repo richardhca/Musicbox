@@ -3,8 +3,12 @@ var url = [];
 $(document).ready(function () {
     $('#track_button').on('click', function (event) {
         event.preventDefault();
-        const html = trackPageToolBarTemplate({});
+        var html = trackPageToolBarTemplate({});
         $('#tool-bar').html(html);
+        html = trackPageSearchBarTemplate({});
+        $('#search-bar').html(html);
+        html = tracksDeleteComfirmLayoutTemplate({});
+        $('#delete_comfirm').html(html);
         track_page_get();
     });
 
@@ -17,13 +21,17 @@ $(document).ready(function () {
         // track_delete(url);
     });
 
-    $('.delete_track_comfirm').on('click', function (event) {
+    $('#delete_comfirm').on('click', '.delete_track_comfirm', function (event) {
         event.preventDefault();
         if (url.length != 0) {
             for (var i of url) {
                 track_delete(i);
             }
             url = [];
+        }
+        if ($('#tool-bar').html().includes('track_page_delete_status_tool_bar')) {
+            const html = trackPageToolBarTemplate({});
+            $('#tool-bar').html(html);
         }
     });
 
@@ -58,8 +66,21 @@ $(document).ready(function () {
     });
 
     $('#tool-bar').on('click', '.track_page_delete_comfirm_icon', function () {
-        $('#tracksDeleteComfirmPane .modal-title').text('Deleting one track');
-        $('#tracksDeleteComfirmPane').modal('show');
+        const delete_number = $('#track_page_track_list .track_seclet_icon .fas').length;
+        if (delete_number === 0) {
+            alert('Please select some tracks.');
+        }
+        else {
+            url = [];
+            $('#track_page_track_list .track_list').each(function () {
+                if ($(this).find('.track_seclet').hasClass('fas')) {
+                    url.push('/track/delete/' + $(this).find('.track_page_track_id').text());
+                }
+            });
+            $('#tracksDeleteComfirmPane .modal-title').text('Deleting ' + delete_number + ' track');
+            $('#tracksDeleteComfirmPane').modal('show');
+            console.log(url);
+        }
     });
 
 });
@@ -69,7 +90,6 @@ function track_page_get() {
         type: 'GET',
         url: '/track',
         dataType: 'json',
-        cache: true,
         data: {info: 'ajax, tracks page', type: 'GET'},
         success: function (data) {
             insert_tracks(data);
@@ -88,8 +108,7 @@ function track_delete(url) {
         type: 'DELETE',
         url: url,
         dataType: 'text',
-        cache: true,
-        data: {info: 'ajax, tracks page', type: 'GET'},
+        data: {info: 'ajax, tracks page', type: 'DELETE'},
         success: function (data) {
             console.log(data);
             track_page_get();

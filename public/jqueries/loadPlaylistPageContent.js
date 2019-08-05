@@ -1,8 +1,12 @@
 $(document).ready(function () {
     $('#playlist_button').on('click', function (event) {
         event.preventDefault();
-        const html = playlistPageToolBarTemplate({});
+        var html = playlistPageToolBarTemplate({});
         $('#tool-bar').html(html);
+        html = playlistPageSearchBarTemplate({});
+        $('#search-bar').html(html);
+        html = playlistsDeleteComfirmLayoutTemplate({});
+        $('#delete_comfirm').html(html);
         playlist_page_get();
     });
 
