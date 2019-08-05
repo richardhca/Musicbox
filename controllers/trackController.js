@@ -5,6 +5,7 @@ const albumUtilities = require('../utilities/albumUtilities');
 const trackDurationParser = require('../utilities/trackDurationParser.js');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
+const fs = require('fs');
 
 exports.track_page_get = async function (req, res, next) {
     const info = req.query.info;
@@ -110,7 +111,7 @@ exports.track_delete = async (req, res, next) => {
 
     // Update album cover art
     albumUtilities.updateAlbumCover(album, cover_art_file_name);
-
+    albumUtilities.autoDeleteAlbum(album);
     return res.send("Success");
 
 };
