@@ -1,3 +1,4 @@
+- const shareID = playlist.playlist_id;
 .modal.fade(id="shareplaylist" tabindex="-1" role="dialog"
     aria-labelledby="shareplaylistTitle" aria-hidden="true")
     .modal-dialog(role="document")
@@ -5,9 +6,8 @@
             .modal-header
                 h1.modal-title(id="shareplaylistTitle") Share Playlist
             .modal-body
-                - const submit_url = '/playlist/' + playlist.playlist_id + '/share';
                 .d-flex.justify-content-center
-                    form#newShare(action=submit_url method='post')
+                    form#newShare(action='/playlist/' + shareID + '/share' method='post')
                         label Enter Username: 
                             input#ShareUser(type='text' name='destUser')
                         .d-flex.justify-content-around

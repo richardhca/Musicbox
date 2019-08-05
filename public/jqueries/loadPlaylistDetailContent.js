@@ -1,9 +1,7 @@
 $(document).ready(function () {
-	var playlist_id_url = '';
     $('#content-area').on('click', '.playlist_text', function (event) {
         event.preventDefault();
         const url = $(this).attr('href');
-		playlist_id_url = url.substring(0, url.length-6);
         playlist_detail_get('GET', url);
     });
 	

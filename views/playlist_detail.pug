@@ -4,6 +4,7 @@ div#playlist_detail.d-flex.w-100
     - const playlist_cover = (null === playlist.cover_art_file_name ? default_cover : '/covers/' + playlist.cover_art_file_name);
     - const tracks = (null === playlist.tracks ? [] : playlist.tracks);
     - const isShare = (null === playlist.share_id ? 'False' : 'True')
+    - const playlistID = playlist.playlist_id
     - const tracks_len = playlist.num_tracks;
     .row.flex-row
         #playlist_info.col
@@ -27,25 +28,34 @@ div#playlist_detail.d-flex.w-100
                                     .dropdown-item Add to Player
                                     if (isShare === 'False')
                                         .dropdown-item(data-toggle="modal" data-target="#shareplaylist") Share
-                                        .dropdown-item View Share Users
-                                        .dropdown-item Cancel Share
-                                        .dropdown-item Delete Playlist
+                                        .dropdown-item(id='CancelShare') Cancel Share
+                                        .dropdown-item(id='DelPlaylist') Delete Playlist
                                     else
-                                        .dropdown-item Reject Share
+                                        .dropdown-item(id='RejectShare') Reject Share
 
         #playlist_tracks.col
             .d-flex
                 #playlist_detail_track_list.list-group
                     for track in tracks
-                        - const track_name = (null === track.title ? 'None' : track.title);
-                        - const duration = (null === track.duration ? 'None' : track.duration);
+                        - const track_name = (null === track.title ? 'None' : track.title)
+                        - const artist_name = (null === track.artists ? 'Anonymous' : track.artists)
+                        - const track_filename = (null === track.file_name ? '' : '/tracks/'+track.file_name)
+                        - const track_cover = (null === track.cover_art_file_name ? '' : '/covers/'+track.cover_art_file_name)
+                        - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
+                        - const album_name = (undefined === track.album_id ? 'None' : track.album_id.title)
+                        - const genres_name = (null === track.genres ? 'None' : track.genres)
+                        - const duration = (undefined === track.duration ? 'None' : track.duration)
                         .list-group-item.track_list
                             .row.flex-nowrap
+                                span.track_list_artist(style='display: none;') #{artist_name}
+                                span.track_list_filename(style='display: none;') #{track_filename}
+                                span.track_list_cover(style='display: none;') #{track_cover}
+                                span.track_lyric(style='display: none;') #{track_lyric}
                                 .col.track_list_icon
                                     i.material-icons.text-white.noselect music_note
-                                .col
+                                .col.track_list_title
                                     .text-white.noselect #{track_name}
-                                .col.d-flex
+                                .col.d-flex.track_list_duration
                                     .text-white.noselect #{duration}
                                     .dropdown
                                         i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"

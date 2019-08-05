@@ -159,6 +159,7 @@ exports.playlist_details_get = async function (req, res, next) {
         .where('track.owner_id = :userId', {userId})
         .leftJoinAndSelect('track.album_id', 'album_id')
         .getMany();
+	console.log(tracks)
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
@@ -172,7 +173,7 @@ exports.playlist_details_get = async function (req, res, next) {
             '../views/playlist_detail.pug');
         const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
 
-        const html = fn_playlist_detail_tool_bar({tracks: tracks, playlist: playlist}) + fn_playlist_detail({playlist: playlist});
+        const html = fn_playlist_detail_tool_bar({tracks: tracks, playlist: playlist}) + fn_playlist_detail({playlist: playlist, tracks: tracks});
         // console.log(html);
         res.send(html);
     }

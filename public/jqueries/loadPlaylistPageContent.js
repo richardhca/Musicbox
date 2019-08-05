@@ -4,12 +4,6 @@ $(document).ready(function () {
         playlist_page_get('GET');
     });
 
-    $('#content-area').on('click', '.playlist_play_icon', function (event) {
-        event.preventDefault();
-        console.log('icon click');
-        console.log($(this).attr('href'));
-    });
-
     function playlist_page_get(type) {
         $.ajax({
             type: 'GET',

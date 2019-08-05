@@ -73,8 +73,8 @@ $(document).ready(function () {
         // Create track object
         var trackObject = '{"name": "' + trackTitle + '", '
          				+ '"artist": "' + trackArtist + '", '
-         				+ '"url": "../tracks/' + trackFilename + '", ';
-        if (trackCover !== 'None'){ trackObject += '"cover": "../covers/' + trackCover + '", '; }
+         				+ '"url": "' + trackFilename + '", ';
+        if (trackCover !== 'None'){ trackObject += '"cover": "' + trackCover + '", '; }
         trackObject += '"lrc": "' + trackLyric + '", "theme": "#ffffff"}';
         
         if (!sameTrack){
