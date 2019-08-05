@@ -1,0 +1,19 @@
+.modal.fade(id="addtracks" tabindex="-1" role="dialog"
+    aria-labelledby="addtracksTitle" aria-hidden="true")
+    .modal-dialog(role="document")
+        .modal-content.addtracks-form
+            .modal-header
+                h1.modal-title(id="addtracksTitle") Add Tracks
+            .modal-body
+                - const submit_url = '/playlist/' + playlist.playlist_id + '/add';
+                .d-flex.justify-content-center
+                    form#addTrackForm(action=submit_url method='post')
+                        for track in tracks
+                            - const track_id = track.id
+                            - const track_name = (null === track.title ? 'None' : track.title)
+                            .position-relative
+                                input.add_track_info(type='radio' name='ids' value=track_id)
+                                span#trackName #{track_name}
+                        .d-flex.justify-content-around
+                            button#confirmAdd(type='submit' class='btn btn-default btn-sm') Add
+                            button#abortAdd(type='button' class='btn btn-default btn-sm' data-dismiss="modal" aria-label="Abort") Cancel

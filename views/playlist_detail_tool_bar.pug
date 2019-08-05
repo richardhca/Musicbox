@@ -2,3 +2,8 @@ div#playlist_detail_tool_bar
     .d-flex.ml-3
         .cta.mr-3
             .toggle-btn.change_icon
+        a(id="add_playlist_icon")
+            i.fas.fa-plus.tool-bar-icon.mr-3(data-toggle="modal"
+        data-target="#addtracks" style='cursor: pointer;')
+
+    include playlist_add

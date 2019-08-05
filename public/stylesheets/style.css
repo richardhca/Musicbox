@@ -283,11 +283,22 @@ div#aplayer {
 
 }
 
+#playlist_info {
+	max-width: 350px;
+}
+#playlist_tracks {
+	min-width: 50%;
+}
+
+#playlist_detail_cover, #playlist_detail_intro {
+	max-width: 320px;
+	padding-bottom: 10px;
+}
+
 #album_detail ul.list-group,
 #playlist_detail ul.list-group {
     max-height: 300px;
     max-width: 300px;
-
 }
 
 #album_detail ul.list-group .list-group-item,
