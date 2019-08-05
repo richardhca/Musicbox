@@ -32,20 +32,66 @@ exports.playlist_page_get = async (req, res, next) => {
     const info = req.query.info;
     const type = req.query.type;
     const userId = req.session.userId;
-    const playlists = await connection.getRepository('Playlists')
+    const playlistRepo = connection.getRepository('Playlists');
+
+    // Get playlists owned by the user
+    const userOwnedPlaylists = await playlistRepo
         .createQueryBuilder('playlist')
         .where('playlist.owner_id = :userId', {userId})
+        .leftJoinAndSelect('playlist.playlist_tracks', 'playlist_tracks')
+        .leftJoinAndSelect('playlist_tracks.track_id', 'track')
         .getMany();
+
+    // Get playlists shared with the user
+    const userSharedPlaylists = await playlistRepo
+        .createQueryBuilder('playlist')
+        .innerJoinAndSelect('playlist.shared', 'shared')
+        .leftJoinAndSelect('shared.shared_with', 'shared_with')
+        .leftJoinAndSelect('playlist.playlist_tracks', 'playlist_tracks')
+        .leftJoinAndSelect('playlist_tracks.track_id', 'track')
+        .where('shared.shared_with = :userId', {userId: userId})
+        .getMany();
+
+    // Add field indicating that these playlists are not shared
+    userOwnedPlaylists.forEach(playlist => {
+        playlistUtilities.addCoverArtFromTracks(playlist);
+        playlistUtilities.setShareStatuses(playlist, userId);
+        delete playlist['playlist_tracks'];
+    });
+
+    // Add field indicating that these playlists are shared
+    userSharedPlaylists.forEach(playlist => {
+        playlistUtilities.addCoverArtFromTracks(playlist);
+        playlistUtilities.setShareStatuses(playlist, userId);
+        delete playlist['playlist_tracks'];
+    });
+
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
+        // const p_playlist_page_tool_bar = path.join(__dirname,
+        //     '../views/playlist_page_tool_bar.pug');
+        // const fn_playlist_page_tool_bar = pug.compileFile(
+        //     p_playlist_page_tool_bar, null);
+        // const p_playlist_page = path.join(__dirname,
+        //     '../views/playlist_page.pug');
+        // const fn_playlist_page = pug.compileFile(p_playlist_page, null);
+        //
+        // //const image_path = path.join(__dirname,
+        // //    '../public/images/test.png');
+        //
+        // //const html = fn_playlist_page_tool_bar() + fn_playlist_page(
+        // //    {path: image_path});
+        // console.log((userOwnedPlaylists || []).concat(userSharedPlaylists || []));
+        // const html = fn_playlist_page_tool_bar() + fn_playlist_page({playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
+        // // console.log(html);
 
-        res.send({playlists: playlists});
+        res.send({playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
     }
     else {
         console.log('server receive a empty req');
         //const image_path = path.join('../public/images/test.png');
         res.render('index',
-            {page: 'playlist_page_get', playlists: playlists});
+            {page: 'playlist_page_get', playlists: (userOwnedPlaylists || []).concat(userSharedPlaylists || [])});
     }
 };
 
@@ -105,19 +151,41 @@ exports.playlist_details_get = async function (req, res, next) {
     playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
     delete playlist['owner_id'];
+    console.log(playlist);
 
     const info = req.query.info;
     const type = req.query.type;
+    const tracks = await connection.getRepository('Tracks')
+        .createQueryBuilder('track')
+        .where('track.owner_id = :userId', {userId})
+        .leftJoinAndSelect('track.album_id', 'album_id')
+        .getMany();
+    // console.log(tracks);
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        res.send({playlist: playlist});
+        // const p_playlist_detail_tool_bar = path.join(__dirname,
+        //     '../views/playlist_detail_tool_bar.pug');
+        // console.log(p_playlist_detail_tool_bar);
+        // const fn_playlist_detail_tool_bar = pug.compileFile(
+        //     p_playlist_detail_tool_bar, null);
+        //
+        // const p_playlist_detail = path.join(__dirname,
+        //     '../views/playlist_detail.pug');
+        // const fn_playlist_detail = pug.compileFile(p_playlist_detail, null);
+        //
+        // const html = fn_playlist_detail_tool_bar({
+        //     tracks: tracks,
+        //     playlist: playlist
+        // }) + fn_playlist_detail({playlist: playlist, tracks: tracks});
+        // console.log(html);
+        res.send({playlist: playlist, tracks: tracks});
     }
     else {
         console.log('server receive a empty req: /playlist/detail');
-
+        console.log(tracks);
         res.render('index',
-            {page: 'playlist_detail_get', playlist: playlist});
+            {page: 'playlist_detail_get', playlist: playlist, tracks: tracks});
     }
 };
 
@@ -150,10 +218,10 @@ exports.playlist_create_post = [
             return res.status(400).send({errors: errors.array()});
         }
 
-        fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function (err) {
-            if (err) throw err;
-            console.log('Playlist Created.');
-        });
+        //fs.writeFile('./public/playlists/' + req.body.PlaylistName, '', function (err) {
+        //    if (err) throw err;
+        //    console.log('Playlist Created.');
+        //});
 
         const playlistRepository = connection.getRepository('Playlists');
 
@@ -168,11 +236,11 @@ exports.playlist_create_post = [
 exports.playlist_add_post = async function (req, res, next) {
 
     const playlistId = req.params.playlistId;
-    var trackIds = req.query.ids;
+    var trackIds = req.body.ids;
 
     // 404 if either was not provided or playlistId is not UUID
     if (!playlistId || !trackIds || !validator.isUUID(playlistId)) {
-        return res.status(404).send('Playlist or track can\'t be found');
+        return res.status(404).send('Playlist ' + playlistId + ' or track ' + trackIds + ' can\'t be found');
     }
 
     // Load playlist and track
@@ -238,6 +306,7 @@ exports.playlist_tracks_delete = async function (req, res, next) {
             relations: ['playlist_tracks']
         }
     );
+
     // 404 if playlist does not exist
     if (!playlist) {
         return res.status(404).send('Playlist can\'t be found');
@@ -280,7 +349,7 @@ exports.playlist_share_post = async function (req, res, next) {
     else {
         destUserObj = await connection.getRepository('Users').findOne({username: destUser});
     }
-    if (destUserObj === null) {
+    if (!destUserObj) {
         return res.status(404).send('Cannot find the user to share playlist with');
     }
     const destUserId = destUserObj.id;
@@ -498,11 +567,11 @@ exports.playlist_export_get = async function (req, res, next) {
     const playlistId = req.params.playlistId;
     // 404 if playlistId is not provided or is not UUID
     if (!playlistId || !validator.isUUID(playlistId)) {
-        return res.status(404).send("Playlist can't be found");
+        return res.status(404).send('Playlist can\'t be found');
     }
-    const user = await connection.getRepository("Users").findOne({id: req.session.userId});
+    const user = await connection.getRepository('Users').findOne({id: req.session.userId});
     // Get playlist and load its tracks
-    const playlist = await connection.getRepository("Playlists").findOne(
+    const playlist = await connection.getRepository('Playlists').findOne(
         {
             playlist_id: playlistId
         },
@@ -523,30 +592,31 @@ exports.playlist_export_get = async function (req, res, next) {
     playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
     delete playlist['owner_id'];
-    var exportdata = "#EXTM3U\n";
+    var exportdata = '#EXTM3U\n';
     if (!playlist.tracks || playlist.tracks.length === 0) {
         return res.status(404).send();
     }
     for (let i = 0; i < playlist.tracks.length; i++) {
         if (playlist.tracks[i].artist_name != null) {
-            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].artist_name + " - " + playlist.tracks[i].title + "\n" + req.protocol + "://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
-        } else {
-            exportdata += "#EXTINF:" + playlist.tracks[i].duration + "," + playlist.tracks[i].title + "\n" + req.protocol + "://" + req.get('host') + "/tracks/" + playlist.tracks[i].file_name + "\n";
+            exportdata += '#EXTINF:' + playlist.tracks[i].duration + ',' + playlist.tracks[i].artist_name + ' - ' + playlist.tracks[i].title + '\n' + req.protocol + '://' + req.get('host') + '/tracks/' + playlist.tracks[i].file_name + '\n';
+        }
+        else {
+            exportdata += '#EXTINF:' + playlist.tracks[i].duration + ',' + playlist.tracks[i].title + '\n' + req.protocol + '://' + req.get('host') + '/tracks/' + playlist.tracks[i].file_name + '\n';
         }
     }
-    var playlist_filename = playlist.title + "_" + user.username + "_" + (Math.floor(Math.random() * (99999 - 10000) + 10000)).toString() + ".m3u";
-    playlist_filename = playlist_filename.replace(" ", "_");
-    fs.writeFile("./public/playlist_m3u/" + playlist_filename, exportdata, (err) => {
+    var playlist_filename = playlist.title + '_' + user.username + '_' + (Math.floor(Math.random() * (99999 - 10000) + 10000)).toString() + '.m3u';
+    playlist_filename = playlist_filename.replace(' ', '_');
+    fs.writeFile('./public/playlist_m3u/' + playlist_filename, exportdata, (err) => {
         if (err) console.log(err);
-        console.log("Successfully Written to File.");
+        console.log('Successfully Written to File.');
     });
     setTimeout(function () {
         try {
-            fs.unlinkSync("./public/playlist_m3u/" + playlist_filename);
+            fs.unlinkSync('./public/playlist_m3u/' + playlist_filename);
             //file removed
         } catch (err) {
             console.error(err);
         }
     }, 300 * 1000);
-    return res.redirect("/playlist_m3u/" + playlist_filename);
+    return res.redirect('/playlist_m3u/' + playlist_filename);
 };

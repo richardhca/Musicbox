@@ -283,11 +283,24 @@ div#aplayer {
 
 }
 
+#playlist_info, #album_info {
+    max-width: 350px;
+}
+
+#playlist_tracks, #album_tracks {
+    min-width: 50%;
+}
+
+#playlist_detail_cover, #playlist_detail_intro,
+#album_detail_cover, #album_detail_intro {
+    max-width: 320px;
+    padding-bottom: 10px;
+}
+
 #album_detail ul.list-group,
 #playlist_detail ul.list-group {
     max-height: 300px;
     max-width: 300px;
-
 }
 
 #album_detail ul.list-group .list-group-item,
@@ -310,13 +323,6 @@ div#aplayer {
 }
 
 #album_detail_track_list.list-group .list-group-item,
-#playlist_detail_track_list.list-group .list-group-item {
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-
-
 #playlist_detail_track_list.list-group .list-group-item {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
@@ -382,7 +388,7 @@ div#aplayer {
 }
 
 .dropdown-menu {
-    background-color: #282828;
+    background-color: #282828 !important;
 }
 
 a.dropdown-item {
@@ -498,10 +504,7 @@ a {
     display: none;
 }
 
-.album_select {
-    display: none;
-}
-
-.album_card .card-text {
-    width: 148px;
+.album_card .card-text,
+.playlist_card .card-text {
+    width: 148px !important;
 }

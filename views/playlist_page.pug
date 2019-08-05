@@ -3,23 +3,18 @@
         - const playlist_name = (null === playlist.title ? 'Untitled' : playlist.title)
         - const playlist_path = '/playlists/' + playlist.title
         - const playlist_id = (null === playlist.playlist_id ? '' : playlist.playlist_id)
-        - const url = '/playlist/' + playlist_id + "/detail";
-        .album_card.card.m-3
+        - const url = '/playlist/' + "detail/" + playlist_id ;
+        - const isShare = (null === playlist.share_id ? 'False' : 'True')
+        .playlist_card.card.m-3
             div.playlist_cover
+                span.playlist_page_playlist_id(style='display: none;') #{playlist_id}
                 a.playlist_cover_image(href=url)
-                    img.card-img-top(src='/images/music_cover_default_black.png')
+                    if (isShare === 'False')
+                        img.card-img-top(src='/images/music_cover_default_white.png')
+                    else
+                        img.card-img-top(src='/images/music_cover_default_black.png')
                 img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
-            .card-body.p-0
-                a.card-text.mt-1.text-white.noselect(href=url) #{playlist_name}
-
-//    - for (var x = 0; x <5; x++)
-//        .playlist_card.card.m-3
-//            div.playlist_cover
-//                if x % 2 === 0
-//                    img.card-img-top.playlist_cover_image(src='/images/music_cover_default_black.png')
-//                else
-//                    img.card-img-top.playlist_cover_image(src='/images/music_cover_default_white.png')
-//
-//                img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
-//            .card-body.p-0
-//                .card-text.mt-1.text-white.noselect Album &#183; Artists
+            .card-body.p-0.mt-2.d-inline-flex.align-items-center.text-center
+                a.card-text.mt-1.text-white.noselect.playlist_text(href=url) #{playlist_name}
+                div
+                    i.far.fa-circle.text-white.noselect.playlist_select(style='display: none;')

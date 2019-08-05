@@ -1,6 +1,8 @@
 var url = [];
 
 $(document).ready(function () {
+    album_page_play_mode();
+
     $('#album_button').on('click', function (event) {
         event.preventDefault();
         var html = albumPageToolBarTemplate({});
@@ -70,7 +72,7 @@ $(document).ready(function () {
 
     $('#delete_comfirm').on('click', '.delete_album_comfirm', function (event) {
         event.preventDefault();
-        console.log(url);
+        console.log('album delete comfirm in album page');
         if (url.length != 0) {
             for (var i of url) {
                 album_delete(i);
@@ -105,7 +107,6 @@ function album_page_get() {
 }
 
 function album_delete(url) {
-    console.log('here');
     $.ajax({
         type: 'DELETE',
         url: url,
@@ -120,3 +121,5 @@ function album_delete(url) {
         }
     });
 }
+
+

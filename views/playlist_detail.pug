@@ -1,107 +1,69 @@
-div#playlist_detail.d-flex.h-100.w-100
+div#playlist_detail.d-flex.w-100
     - const default_cover = '/images/music_cover_default_black.png'
     - const playlist_name = (null === playlist.title ? "None" : playlist.title);
     - const playlist_cover = (null === playlist.cover_art_file_name ? default_cover : '/covers/' + playlist.cover_art_file_name);
     - const tracks = (null === playlist.tracks ? [] : playlist.tracks);
+    - const isShare = (null === playlist.share_id ? 'False' : 'True')
+    - const playlistID = playlist.playlist_id
     - const tracks_len = playlist.num_tracks;
-    .row.flex-row.w-100
-        .col-lg-4
+    .row.flex-row
+        #playlist_info.col
             .d-flex.flex-column
-                .d-flex.justify-content-end
+                #playlist_detail_cover.position-relative.text-center
                     .album_card.card.mr-5
                         div.playlist_cover_in_detail_page
-                            .plsylist_cover_image
+                            .playlist_cover_image
                                 img.card-img-top(src=playlist_cover)
                             img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
-                .d-flex.justify-content-end
-                    ul.list-group.text-center.w-100.mr-5.mt-2
-                        li.list-group-item.pb-0
-                            h4.text-white.noselect #{playlist_name}
-                        li.list-group-item
-                            button.btn.btn-secondary(id="playlist_detail_play_btn") PLAY1
-                        li.list-group-item.pt-3
-                            p.text-white.noselect #{tracks_len} TRACKS
-                        li.list-group-item.d-inline-block(id="playlist_detail_icon_list")
-                            i.far.fa-heart.text-white.d-inline.mr-4(id="like_icon")
-                            //i.fas.fa-heart.text-white
-                            .dropdown.d-inline
-                                i.fas.fa-ellipsis-h.text-white(id="playlistDropdownMenu"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-                                .dropdown-menu(aria-labelledby="playlistDropdownMenu")
-                                    .dropdown-item Copy Playlist Link
-                                    .dropdown-item Share to Other
-                                    .dropdown-item Delete Playlist
-                            //i.fas.fa-ellipsis-h.text-white
+                #playlist_detail_intro.position-relative.text-center
+                    h4.text-white.noselect #{playlist_name}
+                    button.btn.btn-secondary(id="playlist_detail_play_btn") PLAY
+                    p.text-white.noselect #{tracks_len} TRACKS
+                    .d-inline-block(id="playlist_detail_icon_list")
+                        i.far.fa-heart.text-white.d-inline.mr-4(id="like_icon")
+                        .dropdown.d-inline
+                            i.fas.fa-ellipsis-h.text-white(id="playlistDropdownMenu" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='cursor: pointer;')
+                            .dropdown-menu(aria-labelledby="playlistDropdownMenu")
+                                //a.dropdown-item Add to Player
+                                if (isShare === 'False')
+                                    a.dropdown-item(data-toggle="modal" data-target="#shareplaylist") Share
+                                    a.dropdown-item(id='CancelShare') Cancel Share
+                                    a.dropdown-item(id='DelPlaylist') Delete Playlist
+                                else
+                                    a.dropdown-item(id='RejectShare') Reject Share
 
-        .col-lg-8
+        #playlist_tracks.col
             .d-flex
-                #playlist_detail_track_list.list-group.w-100
+                #playlist_detail_track_list.list-group
                     for track in tracks
-                        - const track_name = (null === track.title ? 'None' : track.title);
-                        - const duration = (null === track.duration ? 'None' : track.duration);
+                        - const track_name = (null === track.title ? 'None' : track.title)
+                        - const artist_name = (null === track.artists ? 'Anonymous' : track.artists)
+                        - const track_filename = (null === track.file_name ? '' : '/tracks/'+track.file_name)
+                        - const track_cover = (null === track.cover_art_file_name ? '' : '/covers/'+track.cover_art_file_name)
+                        - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
+                        - const album_name = (undefined === track.album_id ? 'None' : track.album_id.title)
+                        - const genres_name = (null === track.genres ? 'None' : track.genres)
+                        - const duration = (undefined === track.duration ? 'None' : track.duration)
                         .list-group-item.track_list
                             .row.flex-nowrap
+                                span.track_list_artist(style='display: none;') #{artist_name}
+                                span.track_list_filename(style='display: none;') #{track_filename}
+                                span.track_list_cover(style='display: none;') #{track_cover}
+                                span.track_lyric(style='display: none;') #{track_lyric}
                                 .col.track_list_icon
                                     i.material-icons.text-white.noselect music_note
-                                .col
+                                .col.track_list_title
                                     .text-white.noselect #{track_name}
-                                .col.d-flex
+                                .col.d-flex.track_list_duration
                                     .text-white.noselect #{duration}
                                     .dropdown
                                         i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
                                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
                                         .dropdown-menu(aria-labelledby="trackDropdownMenu")
-                                            .dropdown-item Add to Playlist
-                                            .dropdown-item Copy Track Link
-                                            .dropdown-item Share to Other
-                                            .dropdown-item Delete Track
-    //.row
-    //    .col-lg-4
-    //        .d-flex.flex-column
-    //            #playlist_detail_cover.position-relative.text-center
-    //                .card
-    //                    img.card-img-top(src='/images/music_cover_default_black.png')
-    //                h4.text-white.noselect Playlist
-    //                button.btn.btn-secondary(id="playlist_detail_play_btn") PLAY
-    //
-    //            #playlist_detail_intro.position-relative.text-center
-    //                p.text-white.noselect #{tracks_len} TRACKS
-    //                .d-inline-block(id="playlist_detail_icon_list")
-    //                    i.far.fa-heart.text-white.mr-4
-    //                    //i.fas.fa-heart.text-white
-    //                    i.fas.fa-share-alt.text-white.mr-4(data-toggle="modal" data-target="#shareplaylist" style='cursor: pointer;')
-    //                    i.fas.fa-ellipsis-h.text-white(id="playlistDropdownMenu" role="button" data-toggle="dropdown"
-    //                        aria-haspopup="true" aria-expanded="false" style='cursor: pointer;')
-    //                        .dropdown-menu(aria-labelledby="playlistDropdownMenu")
-    //                            .dropdown-item View share users
-    //                            .dropdown-item Cancel Share
-    //                            .dropdown-item Delete Playlist/Reject Share
-    //
-    //    .col-lg-8
-    //        #playlist_detail_track_list.list-group
-    //            - for (var x = 0; x <10; x++)
-    //            .list-group-item.track_list
-    //                .row.flex-nowrap
-    //                    .col.track_list_icon
-    //                        i.material-icons.text-white.noselect music_note
-    //                    .col
-    //                        .text-white.noselect Track
-    //                    .col
-    //                        .text-white.noselect Artist
-    //                    .col
-    //                        .text-white.noselect Album
-    //                    .col
-    //                        .text-white.noselect Genres
-    //                    .col.d-flex
-    //                        .text-white.noselect 3:50
-    //                        .dropdown
-    //                            i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
-    //                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
-    //                            .dropdown-menu(aria-labelledby="trackDropdownMenu")
-    //                                .dropdown-item Add to Playlist
-    //                                .dropdown-item Copy Track Link
-    //                                .dropdown-item Share to Other
-    //                                .dropdown-item Delete Track
-    //                        //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
+                                            a.dropdown-item Add to Player
+                                            a.dropdown-item Copy Track Link
+                                            a.dropdown-item Share to Other
+                                            a.dropdown-item Delete Track
 
     include playlist_share

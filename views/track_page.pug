@@ -18,10 +18,10 @@
             - const track_id = track.id
             - const track_name = (null === track.title ? 'None' : track.title)
             - const artist_name = (null === track.artists ? 'Anonymous' : track.artists)
-            - const track_filename = (null === track.file_name ? '' : track.file_name)
-            - const track_cover = (null === track.cover_art_file_name ? '' : track.cover_art_file_name)
+            - const track_filename = (null === track.file_name ? '' : '/tracks/'+track.file_name)
+            - const track_cover = (null === track.cover_art_file_name ? '' : '/covers/'+track.cover_art_file_name)
             - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
-            - const album_name = (null === track.album_id.title ? 'None' : track.album_id.title)
+            - const album_name = (null === track.album_id ? 'None' : track.album_id.title)
             - const genres_name = (null === track.genres ? 'None' : track.genres)
             - const duration = (undefined === track.duration ? 'None' : track.duration)
             - const delete_url = (undefined === track.id ? 'None' : '/track/delete/' + track.id)
@@ -51,7 +51,7 @@
                             .dropdown-menu(aria-labelledby="trackDropdownMenu")
                                 a.dropdown-item Add to Playlist
                                 a.dropdown-item Copy Track Link
-                                a.dropdown-item Share to Other
+                                //a.dropdown-item Share to Other
                                 a.dropdown-item(id='tack_page_delete_track' href=delete_url) Delete Track
 
                     //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz

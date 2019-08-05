@@ -1,9 +1,17 @@
 $(document).ready(function () {
 
-    $('#tool-bar').on('click', '#createPL', function (event) {
+    $('#playlist_create').on('click', '#createPL', function (event) {
         event.preventDefault();
         const playlist_name = $('#playlistName').val();
-        playlist_create_post(playlist_name);
+        if (playlist_name === '') {
+            alert('Please enter the playlist name.');
+        }
+        else if (playlist_name.length < 3) {
+            alert('the length of name must be more than 2 chars.');
+        }
+        else {
+            playlist_create_post(playlist_name);
+        }
     });
 
     function playlist_create_post(data) {

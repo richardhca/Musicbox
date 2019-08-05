@@ -7,9 +7,9 @@ const ap = new APlayer({
     preload: 'none',
     volume: 0.5,
     mutex: true,
-    // listFolded: true,
-    // listMaxHeight: 90,
-    // lrcType: 3,
+    listFolded: true,
+    listMaxHeight: 90,
+    lrcType: 3,
     audio: []
 });
 
@@ -21,18 +21,8 @@ function loadTrackPageTracklist(idx) {
     ap.list.clear();
     ap.list.add(new_track_list);
     playToggle();
-    // var playlist = JSON.parse(data);
-    // if (playlist.length === 0) {
-    // 	alert("You have loaded an empty playlist");
-    // }
-    // else {
-    // 	ap.list.clear();
-    // 	ap.list.add(playlist);
-    // 	if (playlist.length > 1) {
-    // 		ap.play();
-    // 	}
-    // }
 }
+
 
 function rearrangeTracklist(track_list, idx) {
     var index;
@@ -46,6 +36,20 @@ function rearrangeTracklist(track_list, idx) {
     var new_track_list = track_list.slice(index);
     new_track_list = new_track_list.concat(track_list.slice(0, index));
     return new_track_list;
+}
+
+function loadPlaylist(data) {
+    var playlist = JSON.parse(data);
+    if (playlist.length === 0) {
+        alert('You have loaded an empty playlist');
+    }
+    else {
+        ap.list.clear();
+        ap.list.add(playlist);
+        if (playlist.length > 1) {
+            ap.play();
+        }
+    }
 }
 
 function playToggle() {

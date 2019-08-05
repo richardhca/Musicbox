@@ -11,7 +11,7 @@ router.post('/create', sessionMiddleware.requiredLogin, playlist_controller.play
 
 router.delete('/delete/:playlistId', sessionMiddleware.requiredLogin, playlist_controller.playlist_delete);
 
-router.get('/:id/detail', sessionMiddleware.requiredLogin, playlist_controller.playlist_details_get);
+router.get('/detail/:id', sessionMiddleware.requiredLogin, playlist_controller.playlist_details_get);
 
 router.post('/:playlistId/add', sessionMiddleware.requiredLogin, playlist_controller.playlist_add_post);
 
@@ -29,6 +29,6 @@ router.post('/modify', sessionMiddleware.requiredLogin, playlist_controller.play
 
 router.post('/:playlistId/rename', sessionMiddleware.requiredLogin, playlist_controller.playlist_rename_post);
 
-router.get('/:playlistId/export',sessionMiddleware.requiredLogin, playlist_controller.playlist_export_get);
+router.get('/:playlistId/export', sessionMiddleware.requiredLogin, playlist_controller.playlist_export_get);
 
 module.exports = router;

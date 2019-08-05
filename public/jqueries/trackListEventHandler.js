@@ -87,8 +87,8 @@ $(document).ready(function () {
         if (forced_music_icon.html().includes('play_arrow')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">pause</i>');
             const idx = $(this).find('.track_page_track_id').text();
-            loadTrackPageTracklist(idx);
-            // playToggle();
+            // loadTrackPageTracklist(idx);
+            playToggle();
         }
         // pause to playing
         else if (forced_music_icon.html().includes('pause')) {
