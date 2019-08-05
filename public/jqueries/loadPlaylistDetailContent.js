@@ -23,18 +23,17 @@ $(document).ready(function () {
 
     });
 
-    $('#add_to_playlist').on('click', '#confirmShare', function (event) {
+    $('#share_playlist').on('click', '#confirmShare', function (event) {
         event.preventDefault();
         const user = $('#ShareUser').val();
         console.log(user);
-        // if (id == undefined) {
-        //     alert('Please select one song.');
-        // }
-        // else {
-        //     const add_url = $('#addTrackForm').attr('action');
-        //     console.log(id);
-        //     playlist_add_track(id, add_url);
-        // }
+        if (user.length === 0) {
+            alert('Please enter an user name.');
+        }
+        else {
+            const share_url = $('#newShare').attr('action');
+            share_playlist(user, share_url);
+        }
 
     });
 });
@@ -73,6 +72,8 @@ function playlist_detail_get(url) {
             $('#tool-bar').html(html);
             html = playlistAddTemplate({playlist: data.playlist, tracks: data.tracks});
             $('#add_to_playlist').html(html);
+            html = playlistShareTemplate({playlist: data.playlist});
+            $('#share_playlist').html(html);
             window.history.pushState(null, null, url);
         },
         error: function (e) {
@@ -99,3 +100,19 @@ function playlist_add_track(ids, add_url) {
     });
 }
 
+function share_playlist(user_name, share_url) {
+    $.ajax({
+        type: 'POST',
+        url: share_url,
+        dataType: 'json',
+        data: {destUser: user_name},
+        success: function (data) {
+            console.log(data);
+
+        },
+        error: function (e) {
+            console.log('error: ', e);
+            alert('User not found.');
+        }
+    });
+}
