@@ -1,6 +1,7 @@
 var url = [];
 
 $(document).ready(function () {
+
     $('#track_button').on('click', function (event) {
         event.preventDefault();
         var html = trackPageToolBarTemplate({});
@@ -39,6 +40,23 @@ $(document).ready(function () {
         const html = trackPageDeleteStatusToolBarTemplate({});
         $('#tool-bar').html(html);
         $('.track_seclet_icon').show();
+        disenabletracklistPlay();
+
+        $('#content-area').on('click', '.track_list', function (event) {
+            event.preventDefault();
+            const forced_select_icon = $(this).find('.track_seclet_icon');
+            if (forced_select_icon.css('display') != 'none') {
+                const select_circle = $(this).find('.track_seclet_icon .track_seclet');
+                if (select_circle.hasClass('far')) {
+                    select_circle.removeClass('far');
+                    select_circle.addClass('fas');
+                }
+                else {
+                    select_circle.removeClass('fas');
+                    select_circle.addClass('far');
+                }
+            }
+        });
     });
 
     $('#tool-bar').on('click', '.track_page_delete_cancel_icon', function () {
@@ -47,23 +65,10 @@ $(document).ready(function () {
         $('.track_seclet_icon').hide();
         $('#track_page_track_list .track_seclet_icon .track_seclet')
             .removeClass('fas').addClass('far');
+        enabletracklistPlay();
+
     });
 
-    $('#content-area').on('click', '.track_list', function (event) {
-        event.preventDefault();
-        const forced_select_icon = $(this).find('.track_seclet_icon');
-        if (forced_select_icon.css('display') != 'none') {
-            const select_circle = $(this).find('.track_seclet_icon .track_seclet');
-            if (select_circle.hasClass('far')) {
-                select_circle.removeClass('far');
-                select_circle.addClass('fas');
-            }
-            else {
-                select_circle.removeClass('fas');
-                select_circle.addClass('far');
-            }
-        }
-    });
 
     $('#tool-bar').on('click', '.track_page_delete_comfirm_icon', function () {
         const delete_number = $('#track_page_track_list .track_seclet_icon .fas').length;
@@ -80,6 +85,7 @@ $(document).ready(function () {
             $('#tracksDeleteComfirmPane .modal-title').text('Deleting ' + delete_number + ' track');
             $('#tracksDeleteComfirmPane').modal('show');
             console.log(url);
+            enabletracklistPlay();
         }
     });
 

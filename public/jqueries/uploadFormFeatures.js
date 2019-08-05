@@ -59,7 +59,7 @@ $(document).ready(function () {
 
             $.each(files, (index, file) => {
                 // If file size > 50mb
-               if (file.size > 50000000) fileSizesWithinLimits = false;
+                if (file.size > 50000000) fileSizesWithinLimits = false;
             });
 
             // If one of files > 50mb, alert user and don't upload.
@@ -90,7 +90,8 @@ $(document).ready(function () {
                 $('#complete').hide();
                 $('.toast').removeClass('delay-2s fadeOutRight')
                     .addClass('fadeInRight fast');
-            } else {
+            }
+            else {
                 alert('Max file size is 50mb per file.');
             }
         }
@@ -133,10 +134,9 @@ $(document).ready(function () {
                 $('#spinner').hide();
                 $('#complete').show();
                 $('#upload_icon').removeClass('isDisabled');
-                track_page_get();
+                append_track_list();
                 $('.toast').removeClass('fadeInRight fast')
                     .addClass('fadeOutRight delay-2s');
-
             },
             error: function (e) {
                 console.log('error: ', e);
@@ -145,3 +145,41 @@ $(document).ready(function () {
 
     }
 });
+
+function append_track_list() {
+    $.ajax({
+        type: 'GET',
+        url: '/track',
+        dataType: 'json',
+        data: {info: 'ajax, tracks page', type: 'GET'},
+        success: function (data) {
+            var new_tracks = [];
+            const original_tracks = get_tracks();
+            for (var track of data.tracks) {
+                var flag = true;
+                for (var ot of original_tracks) {
+                    if (parseInt(track.id, 10) === parseInt(ot.id, 10)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    new_tracks.push(track);
+                }
+            }
+            console.log(new_tracks);
+            var formatted_tracks = format_tracks_data({tracks: new_tracks});
+            formatted_tracks = format_aplayer_tracks_data({tracks: formatted_tracks});
+            addTracksToList(formatted_tracks);
+            var html = trackPageTemplate({tracks: new_tracks});
+            html = $(html).find('.track_list');
+            console.log(html);
+            $('#track_page_track_list').append(html);
+            insert_tracks(data);
+            window.history.pushState(null, null, '/track');
+        },
+        error: function (e) {
+            console.log('error: ', e);
+        }
+    });
+}

@@ -1,6 +1,8 @@
 $(document).ready(function () {
-    // $('.track_list_more_icon').hide();
+    enabletracklistPlay();
+});
 
+function enabletracklistPlay() {
     $('#content-area').on('mouseenter', '.track_list', function () {
         // console.log('mouse enter');
         const forced_music_icon = $(this).find('.track_list_icon');
@@ -54,8 +56,8 @@ $(document).ready(function () {
         // $(this).find('.track_list_more_icon').css('display', 'none');
     });
 
-    var prevIndex = -1;
-    var sameTrack = false;
+    // var prevIndex = -1;
+    // var sameTrack = false;
     $('#content-area').on('click', '.track_list', function (event) {
         event.preventDefault();
         // var trackIndex = $('.track_list').index(this);
@@ -86,14 +88,14 @@ $(document).ready(function () {
         // playing
         if (forced_music_icon.html().includes('play_arrow')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">pause</i>');
-            const idx = $(this).find('.track_page_track_id').text();
-            // loadTrackPageTracklist(idx);
-            playToggle();
+            const idx = $('.track_list').index(this);
+            playTrackPageTracklist(idx);
+            // playToggle();
         }
         // pause to playing
         else if (forced_music_icon.html().includes('pause')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">play_arrowe</i>');
-            playToggle();
+            // playToggle();
         }
         // else {
         //     forced_music_icon.html('<i class="material-icons text-white noselect">music_note</i>');
@@ -111,9 +113,12 @@ $(document).ready(function () {
             }
         });
     });
+}
 
-    // $('.track_list_more_icon').on('click', function () {
-    //     console.log('more click');
-    //     $('.dropdown-menu').toggle();
-    // });
-});
+function disenabletracklistPlay() {
+    $('#content-area').off('mouseenter', '.track_list');
+
+    $('#content-area').off('mouseleave', '.track_list');
+
+    $('#content-area').off('click', '.track_list');
+}
