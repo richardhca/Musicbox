@@ -56,6 +56,10 @@ function loadPlaylist(data) {
     }
 }
 
+function playToggle() {
+    ap.toggle();
+}
+
 ap.on('canplay', function () {
     const idx = ap.list.index;
     changePlayingTrackUI(idx);

@@ -14,7 +14,7 @@ window.format_tracks_data = function (data) {
             id: track.id,
             title: track.title,
             album_id: {
-                title: (null === track.album_id.title ? 'None' : track.album_id.title)
+                title: (null === track.album_id ? 'None' : track.album_id.title)
             },
             artists: track.artists,
             genres: track.genres,

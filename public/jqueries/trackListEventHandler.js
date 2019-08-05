@@ -95,7 +95,7 @@ function enabletracklistPlay() {
         // pause to playing
         else if (forced_music_icon.html().includes('pause')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">play_arrowe</i>');
-            // playToggle();
+            playToggle();
         }
         // else {
         //     forced_music_icon.html('<i class="material-icons text-white noselect">music_note</i>');
