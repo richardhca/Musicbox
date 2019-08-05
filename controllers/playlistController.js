@@ -179,13 +179,13 @@ exports.playlist_details_get = async function (req, res, next) {
         //     playlist: playlist
         // }) + fn_playlist_detail({playlist: playlist, tracks: tracks});
         // console.log(html);
-        res.send({playlist: playlist});
+        res.send({playlist: playlist, tracks: tracks});
     }
     else {
         console.log('server receive a empty req: /playlist/detail');
         console.log(tracks);
         res.render('index',
-            {page: 'playlist_detail_get', playlist: playlist});
+            {page: 'playlist_detail_get', playlist: playlist, tracks: tracks});
     }
 };
 

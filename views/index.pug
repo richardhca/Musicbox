@@ -40,6 +40,11 @@ block content
                     if page === "playlist_page_get" || page === "playlist_create"
                         include playlist_create
 
+                #add_to_playlist
+                    if page === "playlist_detail_get"
+                        include playlist_add
+                        include playlist_share
+
                 #delete_comfirm
                     if page === "track_page_get" || page === "track_create"
                         include tracks_delete_comfirm_layout

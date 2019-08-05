@@ -6,7 +6,6 @@ $(document).ready(function () {
     $('#content-area').on('click', '.delete_album_in_detail_page', function (event) {
         event.preventDefault();
         delete_url = $(this).attr('href');
-        url.push(delete_url);
         $('#albumsDeleteComfirmInDetailPane .modal-title').text('Deleting one album');
         $('#albumsDeleteComfirmInDetailPane').modal('show');
     });

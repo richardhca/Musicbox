@@ -7,6 +7,7 @@
             .modal-body
                 - const submit_url = '/playlist/' + playlist.playlist_id + '/add';
                 .d-flex.justify-content-center
+
                     form#addTrackForm(action=submit_url method='post')
                         for track in tracks
                             - const track_id = track.id
@@ -15,5 +16,5 @@
                                 input.add_track_info(type='radio' name='ids' value=track_id)
                                 span#trackName #{track_name}
                         .d-flex.justify-content-around
-                            button#confirmAdd(type='submit' class='btn btn-default btn-sm') Add
+                            button#confirmAdd(type='button' class='btn btn-default btn-sm' data-dismiss="modal" aria-label="Abort") Add
                             button#abortAdd(type='button' class='btn btn-default btn-sm' data-dismiss="modal" aria-label="Abort") Cancel
