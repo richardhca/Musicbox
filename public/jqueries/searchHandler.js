@@ -107,6 +107,7 @@ $(document).ready(function () {
     $('#search-bar').on('keyup', '#playlist_search_input', debounce(function () {
         // console.log($(this).val());
         const result = get_searched_playlists($(this).val());
+        console.log(result);
         const html = playlistPageTemplate({playlists: result});
         $('#content-area').html(html);
     }, 250));

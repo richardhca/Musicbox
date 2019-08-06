@@ -4,7 +4,7 @@
         - const playlist_path = '/playlists/' + playlist.title
         - const playlist_id = (null === playlist.playlist_id ? '' : playlist.playlist_id)
         - const url = '/playlist/' + "detail/" + playlist_id ;
-        - const isShare = (null === playlist.share_id ? 'False' : 'True')
+        - const isShare = (null === playlist.share_id ? 'False' : playlist.share_id)
         .playlist_card.card.m-3
             div.playlist_cover
                 span.playlist_page_playlist_id(style='display: none;') #{playlist_id}

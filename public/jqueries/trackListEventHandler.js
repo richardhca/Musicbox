@@ -82,14 +82,23 @@ function enabletracklistPlay() {
         //     loadPlaylist(trackObject);
         // }
 
+
         // replace icon
         const forced_music_icon = $(this).find('.track_list_icon');
 
         // playing
         if (forced_music_icon.html().includes('play_arrow')) {
             forced_music_icon.html('<i class="material-icons text-white noselect">pause</i>');
-            const idx = $('.track_list').index(this);
-            playTrackPageTracklist(idx);
+            var location = window.location.href;
+            console.log(location);
+            if (location.includes('track')) {
+                idx = $('.track_list').index(this);
+                playTrackPageTracklist(idx);
+            }
+            else if (location.includes('album/detail')) {
+                const id = $(this).find('.album_track_id').text();
+                playAlbumDetailPageTracklist(id);
+            }
             // playToggle();
         }
         // pause to playing

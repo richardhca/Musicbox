@@ -16,14 +16,21 @@ const ap = new APlayer({
 function loadTrackPagelist() {
     var track_list = get_tracks();
     track_list = format_aplayer_tracks_data({tracks: track_list});
+    ap.list.clear();
     ap.list.add(track_list);
 }
 
 function playTrackPageTracklist(idx) {
-    if (ap.list.audios.length === 0) {
-        loadTrackPagelist();
-    }
+    loadTrackPagelist();
     ap.list.switch(idx);
+    ap.play();
+}
+
+function playAlbumDetailPageTracklist(id) {
+    var track = get_aplayer_track(id);
+    console.log(track);
+    ap.list.clear();
+    ap.list.add(track);
     ap.play();
 }
 

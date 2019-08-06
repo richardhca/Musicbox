@@ -151,7 +151,7 @@ exports.playlist_details_get = async function (req, res, next) {
     playlistUtilities.setShareStatuses(playlist, userId);
     playlistUtilities.transformPlaylistTracks(playlist);
     delete playlist['owner_id'];
-    console.log(playlist);
+    // console.log(playlist);
 
     const info = req.query.info;
     const type = req.query.type;
@@ -183,7 +183,7 @@ exports.playlist_details_get = async function (req, res, next) {
     }
     else {
         console.log('server receive a empty req: /playlist/detail');
-        console.log(tracks);
+        // console.log(tracks);
         res.render('index',
             {page: 'playlist_detail_get', playlist: playlist, tracks: tracks});
     }
@@ -383,7 +383,7 @@ exports.playlist_share_post = async function (req, res, next) {
             }
         ])
         .execute();
-    return res.send('Success');
+    res.status(200).send('Success');
 };
 
 exports.playlist_share_delete = async function (req, res, next) {
@@ -487,7 +487,7 @@ exports.playlist_modify_post = async function (req, res, next) {
         playlist_id: req.body.playlistId,
         track_id: req.body.updateId
     });
-    console.log(track_record);
+    // console.log(track_record);
     var newRank = null;
     if (playlist == null || track_record == null) {
         return res.status(404).send('404 Not Found');

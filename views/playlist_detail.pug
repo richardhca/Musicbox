@@ -3,17 +3,21 @@ div#playlist_detail.d-flex.w-100
     - const playlist_name = (null === playlist.title ? "None" : playlist.title);
     - const playlist_cover = (null === playlist.cover_art_file_name ? default_cover : '/covers/' + playlist.cover_art_file_name);
     - const tracks = (null === playlist.tracks ? [] : playlist.tracks);
-    - const isShare = (null === playlist.share_id ? 'False' : 'True')
+    - const isShare = (null === playlist.share_id ? 'False' : playlist.share_id)
     - const playlistID = playlist.playlist_id
     - const tracks_len = playlist.num_tracks;
-    .row.flex-row
+    - const delete_playlist_id = '/playlist/delete/' + playlistID
+    .row.flex-row.w-100
         #playlist_info.col
             .d-flex.flex-column
                 #playlist_detail_cover.position-relative.text-center
                     .album_card.card.mr-5
                         div.playlist_cover_in_detail_page
                             .playlist_cover_image
-                                img.card-img-top(src=playlist_cover)
+                                if (isShare === 'False')
+                                    img.card-img-top(src='/images/music_cover_default_white.png')
+                                else
+                                    img.card-img-top(src='/images/music_cover_default_black.png')
                             img.card-img-top.playlist_play_icon(src='/images/circled_play.png')
                 #playlist_detail_intro.position-relative.text-center
                     h4.text-white.noselect #{playlist_name}
@@ -29,7 +33,7 @@ div#playlist_detail.d-flex.w-100
                                 if (isShare === 'False')
                                     a.dropdown-item(data-toggle="modal" data-target="#shareplaylist") Share
                                     a.dropdown-item(id='CancelShare') Cancel Share
-                                    a.dropdown-item(id='DelPlaylist') Delete Playlist
+                                    a.dropdown-item.delete_playlist_in_detail_page(href=delete_playlist_id id='DelPlaylist') Delete Playlist
                                 else
                                     a.dropdown-item(id='RejectShare') Reject Share
 
@@ -42,7 +46,7 @@ div#playlist_detail.d-flex.w-100
                         - const track_filename = (null === track.file_name ? '' : '/tracks/'+track.file_name)
                         - const track_cover = (null === track.cover_art_file_name ? '' : '/covers/'+track.cover_art_file_name)
                         - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
-                        - const album_name = (undefined === track.album_id ? 'None' : track.album_id.title)
+                        - const album_name = (null === track.album_id ? 'None' : track.album_id)
                         - const genres_name = (null === track.genres ? 'None' : track.genres)
                         - const duration = (undefined === track.duration ? 'None' : track.duration)
                         .list-group-item.track_list
@@ -65,5 +69,3 @@ div#playlist_detail.d-flex.w-100
                                             a.dropdown-item Copy Track Link
                                             //a.dropdown-item Share to Other
                                             a.dropdown-item Delete Track
-
-    include playlist_share

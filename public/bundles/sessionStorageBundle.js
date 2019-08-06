@@ -4,6 +4,7 @@
 const FuzzySearch = require('fuzzy-search');
 
 var tracks;
+var aplayer_tracks;
 var albums;
 var playlists;
 
@@ -61,6 +62,7 @@ window.format_playlists_data = function (data) {
         jsonData.push({
             playlist_id: playlist.playlist_id,
             title: playlist.title,
+            share_id: (null === playlist.share_id ? 'False' : 'True')
         });
     });
     return jsonData;
@@ -70,10 +72,19 @@ window.insert_tracks = function (data) {
     const formatted_tracks = format_tracks_data(data);
     sessionStorage.setItem('tracks', JSON.stringify(formatted_tracks));
     tracks = formatted_tracks;
+    aplayer_tracks = format_aplayer_tracks_data({tracks: tracks});
 };
 
 window.get_tracks = function () {
     return JSON.parse(sessionStorage.getItem('tracks'));
+};
+
+window.get_aplayer_track = function (id) {
+    for (var track of aplayer_tracks) {
+        if (parseInt(track.id, 10) === parseInt(id, 10)) {
+            return track;
+        }
+    }
 };
 
 window.get_searched_tracks = function (char) {

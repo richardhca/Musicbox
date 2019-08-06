@@ -1,4 +1,5 @@
 var url = null;
+var delete_url = null;
 
 $(document).ready(function () {
     enableLoadPlaylistDeatil();
@@ -20,7 +21,6 @@ $(document).ready(function () {
             console.log(id);
             playlist_add_track(id, add_url);
         }
-
     });
 
     $('#share_playlist').on('click', '#confirmShare', function (event) {
@@ -32,9 +32,27 @@ $(document).ready(function () {
         }
         else {
             const share_url = $('#newShare').attr('action');
+            console.log(share_url);
             share_playlist(user, share_url);
         }
 
+    });
+
+    $('#content-area').on('click', '.delete_playlist_in_detail_page', function (event) {
+        event.preventDefault();
+        delete_url = $(this).attr('href');
+        console.log(delete_url);
+        $('#playlistsDeleteComfirmInDetailPane .modal-title').text('Deleting one playlist');
+        $('#playlistsDeleteComfirmInDetailPane').modal('show');
+    });
+
+    $('#delete_comfirm').on('click', '.delete_playlist_comfirm_in_detail', function (event) {
+        event.preventDefault();
+        console.log('playlist delete comfirm in playlist deatil page');
+        if (delete_url != null) {
+            playlist_delete_in_detail_page(delete_url);
+            delete_url = null;
+        }
     });
 });
 
@@ -74,6 +92,8 @@ function playlist_detail_get(url) {
             $('#add_to_playlist').html(html);
             html = playlistShareTemplate({playlist: data.playlist});
             $('#share_playlist').html(html);
+            html = playlistsDeleteComfirmInDetailLayoutTemplate({});
+            $('#delete_comfirm').html(html);
             window.history.pushState(null, null, url);
         },
         error: function (e) {
@@ -104,15 +124,42 @@ function share_playlist(user_name, share_url) {
     $.ajax({
         type: 'POST',
         url: share_url,
-        dataType: 'json',
+        dataType: 'text',
         data: {destUser: user_name},
         success: function (data) {
             console.log(data);
-
+            $('#shareplaylist').modal('hide');
+            alert('Shared!');
         },
         error: function (e) {
             console.log('error: ', e);
             alert('User not found.');
         }
+    });
+}
+
+function playlist_delete_in_detail_page(url) {
+    $.ajax({
+        type: 'DELETE',
+        url: url,
+        dataType: 'text',
+        data: {info: 'ajax, playlist page', type: 'DELETE'},
+        success: function (data) {
+            console.log(data);
+            playlist_page_get();
+        },
+        error: function (e) {
+            console.log('error: ', e);
+        }
+    }).done(function () {
+        console.log('done');
+        var html = playlistPageToolBarTemplate({});
+        $('#tool-bar').html(html);
+        html = playlistPageSearchBarTemplate({});
+        $('#search-bar').html(html);
+        html = playlistsDeleteComfirmLayoutTemplate({});
+        $('#delete_comfirm').html(html);
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
     });
 }

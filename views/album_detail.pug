@@ -38,6 +38,7 @@ div#album_detail.d-flex.w-100
             .d-flex
                 #album_detail_track_list.list-group
                     for track in album_tracks
+                        - const track_id = (null === track.id ? 'None' : track.id)
                         - const track_name = (null === track.title ? 'None' : track.title)
                         - const artist_name = (null === track.artists ? 'Anonymous' : track.artists)
                         - const track_filename = (null === track.file_name ? '' : '/tracks/'+track.file_name)
@@ -48,6 +49,7 @@ div#album_detail.d-flex.w-100
                         - const duration = (undefined === track.duration ? 'None' : track.duration)
                         .list-group-item.track_list
                             .row.flex-nowrap
+                                span.album_track_id(style='display: none;') #{track_id}
                                 span.track_list_artist(style='display: none;') #{artist_name}
                                 span.track_list_filename(style='display: none;') #{track_filename}
                                 span.track_list_cover(style='display: none;') #{track_cover}
