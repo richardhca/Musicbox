@@ -210,7 +210,7 @@ div#aplayer {
 
 #content-area {
     height: 90%; /* To shows the bottom content properly if needs to scroll */
-	margin-top: 5px;
+    margin-top: 5px;
 }
 
 #content-area::-webkit-scrollbar {
@@ -259,56 +259,7 @@ div#aplayer {
 }
 
 
-#album_page_detail .card {
-    width: 150px;
-    height: 190px;
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-
-#album_detail {
-    width: 100%;
-}
-
-#album_detail .card {
-    height: 320px;
-    width: 320px;
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
-
-}
-
-#album_detail ul.list-group {
-    max-height: 300px;
-    max-width: 300px;
-
-}
-
-#album_detail ul.list-group .list-group-item {
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-
-#album_detail_play_btn {
-    width: 140px;
-    height: 45px;
-    border-radius: 50px;
-
-}
-
-#album_detail_icon_list {
-    font-size: 24px;
-}
-
-#album_detail_track_list.list-group .list-group-item {
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-
+#album_page_detail .card,
 #playlist_page_detail .card {
     width: 150px;
     height: 190px;
@@ -317,65 +268,74 @@ div#aplayer {
     border-color: rgba(0, 0, 0, 0);
 }
 
+#album_detail,
 #playlist_detail {
     width: 100%;
 }
 
-#playlist_detail_cover, #playlist_detail_intro {
-	display: block;
-	max-width: 320px;
-	padding-bottom: 20px;
-}
-
+#album_detail .card,
 #playlist_detail .card {
-    max-height: 320px;
-    max-width: 320px;
+    height: 320px;
+    width: 320px;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
+
 }
 
-/*
+#playlist_info, #album_info {
+    max-width: 350px;
+}
+
+#playlist_tracks, #album_tracks {
+    min-width: 50%;
+}
+
+#playlist_detail_cover, #playlist_detail_intro,
+#album_detail_cover, #album_detail_intro {
+    max-width: 320px;
+    padding-bottom: 10px;
+}
+
+#album_detail ul.list-group,
 #playlist_detail ul.list-group {
     max-height: 300px;
     max-width: 300px;
-
 }
 
+#album_detail ul.list-group .list-group-item,
 #playlist_detail ul.list-group .list-group-item {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
 }
-*/
 
-#playlist_detail_play_btn {
+#album_detail_play_btn, #playlist_detail_play_btn {
     width: 140px;
     height: 45px;
     border-radius: 50px;
 
 }
 
+#album_detail_icon_list,
 #playlist_detail_icon_list {
     font-size: 24px;
 }
 
+#album_detail_track_list.list-group .list-group-item,
 #playlist_detail_track_list.list-group .list-group-item {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
 }
 
-/*#track_page_track_list.list-group .list-group-item:hover,*/
-/*#album_detail_track_list.list-group .list-group-item:hover,*/
-/*#playlist_detail_track_list.list-group .list-group-item:hover,*/
 .row.flex-nowrap .col {
-	max-height: 30px;
-	overflow: hidden;
+    max-height: 30px;
+    overflow: hidden;
 }
 
 .row.flex-nowrap .col.d-flex {
-	overflow: visible;
+    overflow: visible;
 }
 
 .track_hover, .playing {
@@ -384,8 +344,8 @@ div#aplayer {
 }
 
 .track_list_header {
-	text-decoration: underline;
-	text-decoration-color: #fff;
+    text-decoration: underline;
+    text-decoration-color: #fff;
 }
 
 .track_list_icon {
@@ -428,24 +388,24 @@ div#aplayer {
 }
 
 .dropdown-menu {
-    background-color: #282828;
+    background-color: #282828 !important;
 }
 
-.dropdown-item {
-    color: #aeaeae;
+a.dropdown-item {
+    color: #aeaeae !important;
     cursor: pointer;
 }
 
-.dropdown-item:hover {
+a.dropdown-item:hover {
     background-color: #333333;
-    color: white;
+    color: white !important;
 }
 
 .cover_forced {
     filter: brightness(50%);
 }
 
-.album_play_icon {
+.album_play_icon, .playlist_play_icon {
     position: absolute;
     width: 64px;
     height: 64px;
@@ -459,11 +419,11 @@ div#aplayer {
     transition: transform .2s;
 }
 
-.album_play_icon:hover {
+.album_play_icon:hover, .playlist_play_icon:hover {
     transform: scale(1.1);
 }
 
-.album_cover {
+.album_cover, .playlist_cover {
     position: absolute;
     border-radius: 10px;
     height: 150px;
@@ -485,7 +445,9 @@ div#aplayer {
     text-decoration-color: #fff;
 }
 
-.search_area {
+.track_page_search_area,
+.album_page_search_area,
+.playlist_page_search_area {
     /*display: none;*/
     height: 64px;
     margin-top: 10px;
@@ -496,7 +458,9 @@ div#aplayer {
     display: none !important;
 }
 
-#track_search_input {
+#track_search_input,
+#album_search_input,
+#playlist_search_input {
     color: white;
     font-size: 30px;
     margin-left: 30px;
@@ -505,11 +469,15 @@ div#aplayer {
     border: 0;
 }
 
-#track_search_input:focus {
+#track_search_input:focus,
+#album_search_input:focus,
+#playlist_search_input:focus {
     outline: none !important;
 }
 
-#track_search_close {
+#track_search_close,
+#album_search_close,
+#playlist_search_close {
     color: white;
     font-size: 24px;
     margin-left: 5px;
@@ -521,10 +489,22 @@ a {
 }
 
 
-.album_cover_in_detail_page {
+.album_cover_in_detail_page,
+.playlist_cover_in_detail_page {
     position: absolute;
     border-radius: 10px;
     /*height: 150px;*/
     /*width: 150px;*/
     box-shadow: 5px 6px 12px #000;
+}
+
+.track_seclet_icon {
+    max-width: 40px;
+    text-align: center;
+    display: none;
+}
+
+.album_card .card-text,
+.playlist_card .card-text {
+    width: 148px !important;
 }

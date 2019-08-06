@@ -1,0 +1,13 @@
+.modal.fade(id="tracksDeleteComfirmPane" tabindex="-1" role="dialog"
+    aria-labelledby="tracksDeleteComfirmTitle" aria-hidden="true")
+    .modal-dialog(role="document")
+        .modal-content
+            .modal-header
+                h5.modal-title(id="tracksDeleteComfirmTitle")
+                button.close(type="button" data-dismiss="modal" aria-label="Close")
+                    span(aria-hidden="true") &times;
+            .modal-body
+                p Are you sure?
+            .modal-footer
+                button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+                button.btn.btn-primary.delete_track_comfirm(type="button" data-dismiss="modal") Comfirm

@@ -1,11 +1,9 @@
-div#playlist_page_tool_bar
-    .d-flex.ml-3
+div#playlist_page_tool_bar.w-100
+    .d-flex.pl-4.pr-4
         .cta.mr-3
             .toggle-btn.change_icon
-            //i.fas.fa-bars.tool-bar-icon.mr-3
         a(id="add_playlist_icon")
             i.fas.fa-plus.tool-bar-icon.mr-3(data-toggle="modal"
-        data-target="#mkplaylist" style='cursor: pointer;')
-        i.fas.fa-trash-alt.tool-bar-icon
-
-    include playlist_create
+                data-target="#mkplaylist" style='cursor: pointer;')
+        i.fas.fa-search.tool-bar-icon.mr-3(id="playlist_search")
+        i.fas.fa-trash-alt.tool-bar-icon.playlist_delete_icon

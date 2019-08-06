@@ -2,6 +2,7 @@
     #track_page_track_list.list-group
         .list-group-item.track_list_header
             .row.flex-nowrap
+                .col.track_seclet_icon
                 .col.track_list_icon
                 .col
                     .text-white.noselect Track
@@ -14,19 +15,24 @@
                 .col
                     .text-white.noselect Duration
         for track in tracks
+            - const track_id = track.id
             - const track_name = (null === track.title ? 'None' : track.title)
-            - const artist_name = (null === track.artist_name ? 'Anonymous' : track.artist_name)
-            - const track_filename = (null === track.file_name ? '' : track.file_name)
-            - const track_cover = (null === track.cover_art_file_name ? '' : track.cover_art_file_name)
+            - const artist_name = (null === track.artists ? 'Anonymous' : track.artists)
+            - const track_filename = (null === track.file_name ? '' : '/tracks/'+track.file_name)
+            - const track_cover = (null === track.cover_art_file_name ? '' : '/covers/'+track.cover_art_file_name)
             - const track_lyric = (null === track.lyrics ? '' : '../lyrics/'+track.lyrics)
-            - const album_name = (undefined === track.album_title ? 'None' : track.album_title)
+            - const album_name = (null === track.album_id ? 'None' : track.album_id.title)
             - const genres_name = (null === track.genres ? 'None' : track.genres)
             - const duration = (undefined === track.duration ? 'None' : track.duration)
+            - const delete_url = (undefined === track.id ? 'None' : '/track/delete/' + track.id)
             .list-group-item.track_list
                 .row.flex-nowrap
+                    span.track_page_track_id(style='display: none;') #{track_id}
                     span.track_list_filename(style='display: none;') #{track_filename}
                     span.track_list_cover(style='display: none;') #{track_cover}
                     span.track_lyric(style='display: none;') #{track_lyric}
+                    .col.track_seclet_icon
+                        i.far.fa-circle.text-white.noselect.track_seclet
                     .col.track_list_icon
                         i.material-icons.text-white.noselect(style='cursor: pointer;') music_note
                     .col.track_list_title
@@ -43,10 +49,10 @@
                             i.material-icons.text-white.noselect.ml-5.track_list_more_icon.hidden_icon(id="trackDropdownMenu"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") more_horiz
                             .dropdown-menu(aria-labelledby="trackDropdownMenu")
-                                .dropdown-item Add to Playlist
-                                .dropdown-item Copy Track Link
-                                .dropdown-item Share to Other
-                                .dropdown-item Delete Track
+                                //a.dropdown-item Add to Playlist
+                                a.dropdown-item Copy Track Link
+                                //a.dropdown-item Share to Other
+                                a.dropdown-item(id='tack_page_delete_track' href=delete_url) Delete Track
 
                     //i.material-icons.text-white.noselect.ml-5.track_list_more_icon more_horiz
 

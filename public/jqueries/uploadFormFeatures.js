@@ -1,7 +1,7 @@
 $(document).ready(function () {
     let uploadFiles = null;
 
-    $('#upload_icon').on('click', function (event) {
+    $('#tool-bar').on('click', '#upload_icon', function (event) {
         event.preventDefault();
         if ($('#upload_icon').hasClass('isDisabled')) {
             console.log('upload icon clicked, uploading...');
@@ -13,23 +13,23 @@ $(document).ready(function () {
         }
     });
 
-    $('#uploadpane').on('shown.bs.modal', function () {
+    $('#tool-bar').on('shown.bs.modal', '#uploadpane', function () {
         console.log('upload pane shown');
         $('.progress-bar').css('width', '0%').text('0 %');
-        // console.log($('#sf').get(0).files.length);
+        console.log($('#sf').get(0).files.length);
     });
 
-    $('#uploadpane').on('hidden.bs.modal', function () {
+    $('#tool-bar').on('hidden.bs.modal', '#uploadpane', function () {
         $('.addedFile').remove();
         console.log('upload pane hidden');
-        // console.log($('#sf').get(0).files.length);
+        console.log($('#sf').get(0).files.length);
         console.log('upload pane files clearing');
         $('#sf').wrap('<form>').closest('form').get(0).reset();
-        // console.log($('#sf').get(0).files.length);
+        console.log($('#sf').get(0).files.length);
         window.history.pushState(null, null, '/track');
     });
 
-    $('#sf').on('change', function (e) {
+    $('#tool-bar').on('change', '#sf', function (e) {
         var i = 0;
         while (e.target.files[i] !== undefined) {
             if (i === 10) {
@@ -42,10 +42,11 @@ $(document).ready(function () {
         $('.addedFile').slice(i).remove();
     });
 
-    $('#uploadfiles').on('click', function () {
-        console.log('upload button in pane click');
+    $('#tool-bar').on('click', '#uploadfiles', function () {
+        console.log('upload button in pane click!!!!!!');
         const files = $('#sf').get(0).files;
         const files_len = files.length;
+        console.log('files length is : ', files_len);
 
         if (files_len > 10) {
             alert('You can only upload a maximum of 10 files');
@@ -58,7 +59,7 @@ $(document).ready(function () {
 
             $.each(files, (index, file) => {
                 // If file size > 50mb
-               if (file.size > 50000000) fileSizesWithinLimits = false;
+                if (file.size > 50000000) fileSizesWithinLimits = false;
             });
 
             // If one of files > 50mb, alert user and don't upload.
@@ -89,17 +90,19 @@ $(document).ready(function () {
                 $('#complete').hide();
                 $('.toast').removeClass('delay-2s fadeOutRight')
                     .addClass('fadeInRight fast');
-            } else {
+            }
+            else {
                 alert('Max file size is 50mb per file.');
             }
         }
     });
 
-    $('.toast').on('animationend', function () {
+    $('.music-player-area').on('animationend', '.toast', function () {
         if ($(this).hasClass('fadeInRight')) {
             tracks_upload(uploadFiles);
         }
         else {
+            uploadFiles = null;
         }
 
     });
@@ -131,7 +134,7 @@ $(document).ready(function () {
                 $('#spinner').hide();
                 $('#complete').show();
                 $('#upload_icon').removeClass('isDisabled');
-                tracks_page_get('GET');
+                append_track_list();
                 $('.toast').removeClass('fadeInRight fast')
                     .addClass('fadeOutRight delay-2s');
             },
@@ -141,26 +144,42 @@ $(document).ready(function () {
         });
 
     }
-
-    function tracks_page_get(type) {
-        $.ajax({
-            type: 'GET',
-            url: '/track',
-            dataType: 'html',
-            data: {info: 'ajax, tracks page', type: type},
-            success: function (result) {
-                $('#tool-bar')
-                    .html($(result).filter('#track_page_tool_bar'));
-                $('#content-area')
-                    .html($(result).filter('#track_page_detail'));
-
-                $.getScript('/jqueries/uploadFormFeatures.js');
-                $.getScript('/jqueries/trackListEventHandler.js');
-                $.getScript('/jqueries/toggleIcon.js');
-            },
-            error: function (e) {
-                console.log('error: ', e);
-            }
-        });
-    }
 });
+
+function append_track_list() {
+    $.ajax({
+        type: 'GET',
+        url: '/track',
+        dataType: 'json',
+        data: {info: 'ajax, tracks page', type: 'GET'},
+        success: function (data) {
+            var new_tracks = [];
+            const original_tracks = get_tracks();
+            for (var track of data.tracks) {
+                var flag = true;
+                for (var ot of original_tracks) {
+                    if (parseInt(track.id, 10) === parseInt(ot.id, 10)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    new_tracks.push(track);
+                }
+            }
+            console.log(new_tracks);
+            var formatted_tracks = format_tracks_data({tracks: new_tracks});
+            formatted_tracks = format_aplayer_tracks_data({tracks: formatted_tracks});
+            addTracksToList(formatted_tracks);
+            var html = trackPageTemplate({tracks: new_tracks});
+            html = $(html).find('.track_list');
+            console.log(html);
+            $('#track_page_track_list').append(html);
+            insert_tracks(data);
+            window.history.pushState(null, null, '/track');
+        },
+        error: function (e) {
+            console.log('error: ', e);
+        }
+    });
+}

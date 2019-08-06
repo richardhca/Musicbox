@@ -25,10 +25,6 @@ block content
                         i.fas.fa-stream.d-inline
                         span.d-none.d-lg-inline.text-white Playlist
 
-                    a.list-group-item.d-inline-block
-                        i.fas.fa-search.d-inline
-                        span.d-none.d-lg-inline.text-white Search
-
                     a.list-group-item.d-inline-block.mt-auto
                         hr
                         i.fas.fa-user-circle.d-inline
@@ -39,6 +35,31 @@ block content
                         span.d-none.d-lg-inline.text-white Logout
 
             #app-screen.d-flex.flex-column.flex-grow-1
+
+                #playlist_create
+                    if page === "playlist_page_get" || page === "playlist_create"
+                        include playlist_create
+
+                #add_to_playlist
+                    if page === "playlist_detail_get"
+                        include playlist_add
+
+                #share_playlist
+                    if page === "playlist_detail_get"
+                        include playlist_share
+
+                #delete_comfirm
+                    if page === "track_page_get" || page === "track_create"
+                        include tracks_delete_comfirm_layout
+                    else if page === "playlist_page_get" || page === "playlist_create"
+                        include playlists_delete_comfirm_layout
+                    else if page === "album_page_get"
+                        include albums_delete_comfirm_layout
+                    else if page === "album_detail_get"
+                        include albums_delete_comfirm_in_detail_layout
+                    else if page === "playlist_detail_get"
+                        include playlists_delete_comfirm_in_detail_layout
+
                 // tool area
                 //include upload_form
                 #tool-bar.d-flex.pb-0.pt-4
@@ -53,12 +74,20 @@ block content
                     else if page === "playlist_detail_get"
                         include playlist_detail_tool_bar
 
+                #search-bar
+                    if page === "track_page_get" || page === "track_create"
+                        include track_page_search_bar
+                    else if page === "playlist_page_get" || page === "playlist_create"
+                        include playlist_page_search_bar
+                    else if page === "album_page_get"
+                        include album_page_search_bar.html
+
                 // content area
                 #item-info
                     #content-area.d-flex.flex-wrap.p-4.align-content-start
                         if page === "track_page_get"
                             include track_page
-                        else if page === "playlist_page_get" || "playlist_create"
+                        else if page === "playlist_page_get"
                             include playlist_page
                         else if page === "album_page_get"
                             include album_page
@@ -71,6 +100,7 @@ block content
 
             .position-absolute.music-player-area
                 include upload_toast_layout
-                div#aplayer
-                    
+                //div#aplayer
+                include aplayer
+
     script(type='text/javascript' src='/javascripts/aplayer.js')

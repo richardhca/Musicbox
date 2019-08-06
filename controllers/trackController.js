@@ -26,18 +26,9 @@ exports.track_page_get = async function (req, res, next) {
     console.log(tracks);
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
-        const p_track_page_tool_bar = path.join(__dirname,
-            '../views/track_page_tool_bar.pug');
-        const fn_track_page_tool_bar = pug.compileFile(
-            p_track_page_tool_bar, null);
-
-        const p_track_page = path.join(__dirname,
-            '../views/track_page.pug');
-        const fn_track_page = pug.compileFile(p_track_page, null);
-
-        const html = fn_track_page_tool_bar() + fn_track_page({tracks: tracks});
-        res.send(html);
-    } else {
+        res.send({tracks: tracks});
+    }
+    else {
         console.log('server receive a empty req: /track');
 
         res.render('index',
@@ -47,7 +38,6 @@ exports.track_page_get = async function (req, res, next) {
 
 exports.track_detail_get = async (req, res, next) => {
     const id = parseInt(req.params.id);
-
     // If an id character can't be converted to an int, parseInt returns NaN.
     // Ex: 'abc'
     if (isNaN(id)) {

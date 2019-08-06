@@ -4,5 +4,6 @@ node_modules
 public/covers/*
 public/tracks/*
 public/useruploads/*
+public/playlists/*
 public/playlist_m3u/*
 
