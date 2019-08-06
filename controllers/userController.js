@@ -4,10 +4,21 @@ const {sanitizeBody} = require('express-validator');
 const bcrypt = require('bcrypt');
 
 exports.profile_get = async function (req, res, next) {
+    const info = req.query.info;
+    const type = req.query.type;
     const profile = await connection.getRepository('Users').findOne({id: req.session.userId});
     delete profile['password'];
 	console.log(profile);
-    res.send(profile);
+	if (info && type) {
+        console.log('server receive a req, type: ', type, ' , info: ', info);
+        res.send({profile: profile});
+    }
+    else {
+        console.log('server receive a empty req: /user/profile');
+
+        res.render('index',
+            {page: 'profile_get', profile: profile});
+    }
 };
 
 exports.profile_put = [

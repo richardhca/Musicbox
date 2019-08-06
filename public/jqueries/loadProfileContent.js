@@ -1,25 +1,23 @@
 $(document).ready(function () {
-	console.log('load profile');
 	$('#profile_button').on('click', function (event) {
 		event.preventDefault();
-		alert('ajax load profile');
-		profile_page_get();
-	}
+		profile_get();
+	});
 	
-	function profile_page_get() {
+	function profile_get() {
         $.ajax({
             type: 'GET',
-            url: '/profile',
+            url: '/user/profile',
             dataType: 'json',
             data: {info: 'ajax, profile page', type: 'GET'},
             success: function (data) {
                 const html = profileTemplate({profile: data.profile});
                 $('#content-area').html(html);
-                window.history.pushState(null, null, '/profile');
+                window.history.pushState(null, null, '/user/profile');
             },
             error: function (e) {
                 console.log('error: ', e);
             }
         });
 	}
-}
+});
