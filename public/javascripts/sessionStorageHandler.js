@@ -11,10 +11,10 @@ window.format_tracks_data = function (data) {
         jsonData.push({
             id: track.id,
             title: track.title,
-            album_id: {
-                title: (null === track.album_id ? 'None' : track.album_id.title)
-            },
-            artists: track.artists,
+            // album_id: {
+            //     title: (null === track.album_id ? 'None' : track.album_id.title)
+            // },
+            artists: (null === track.artists ? "" : track.artists),
             genres: track.genres,
             duration: track.duration,
             file_name: '/tracks/' + track.file_name,
@@ -31,7 +31,7 @@ window.format_aplayer_tracks_data = function (data) {
         jsonData.push({
             id: track.id,
             name: track.title,
-            artist: track.artists,
+            artist: (null === track.artists ? '' : track.artists),
             lrc: '',
             url: track.file_name,
             cover: track.cover_art_file_name

@@ -1,6 +1,7 @@
-var delete_url = null;
+
 
 $(document).ready(function () {
+    var delete_url = null;
     enableLoadAlnumDeatil();
 
     $('#content-area').on('click', '.delete_album_in_detail_page', function (event) {

@@ -1,7 +1,5 @@
-var url = [];
-
 $(document).ready(function () {
-
+    var url = [];
     $('#track_button').on('click', function (event) {
         event.preventDefault();
         var html = trackPageToolBarTemplate({});
@@ -15,7 +13,9 @@ $(document).ready(function () {
 
     $('#content-area').on('click', '#tack_page_delete_track', function (event) {
         event.preventDefault();
-        url.push($(this).attr('href'));
+        const delete_url = $(this).attr('href');
+        console.log(delete_url);
+        url.push(delete_url);
         $('#tracksDeleteComfirmPane .modal-title').text('Deleting one track');
         $('#tracksDeleteComfirmPane').modal('show');
         console.log(url);

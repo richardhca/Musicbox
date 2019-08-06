@@ -160,7 +160,11 @@ exports.playlist_details_get = async function (req, res, next) {
         .where('track.owner_id = :userId', {userId})
         .leftJoinAndSelect('track.album_id', 'album_id')
         .getMany();
-    // console.log(tracks);
+
+    // const tracks = playlist.tracks;
+
+    console.log("playlist deatil get");
+    console.log(tracks);
 
     if (info && type) {
         console.log('server receive a req, type: ', type, ' , info: ', info);
@@ -179,6 +183,7 @@ exports.playlist_details_get = async function (req, res, next) {
         //     playlist: playlist
         // }) + fn_playlist_detail({playlist: playlist, tracks: tracks});
         // console.log(html);
+        console.log(playlist);
         res.send({playlist: playlist, tracks: tracks});
     }
     else {
