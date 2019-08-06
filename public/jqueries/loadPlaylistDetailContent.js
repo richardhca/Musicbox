@@ -60,18 +60,26 @@ $(document).ready(function () {
         console.log(reject_url);
 
     });
+
+    $('#content-area').on('click', '#AcceptShare', function (event) {
+        event.preventDefault();
+        const accept_url = $(this).attr('href');
+        console.log(accept_url);
+        accept_share_playlist(accept_url);
+    });
+
 });
 
 function enableLoadPlaylistDeatil() {
     $('#content-area').on('click', '.playlist_cover_image', function (event) {
         event.preventDefault();
-        var url = $(this).attr('href');
+        url = $(this).attr('href');
         playlist_detail_get(url);
     });
 
     $('#content-area').on('click', '.playlist_text', function (event) {
         event.preventDefault();
-        var url = $(this).attr('href');
+        url = $(this).attr('href');
         playlist_detail_get(url);
     });
 
@@ -90,7 +98,9 @@ function playlist_detail_get(url) {
         data: {info: 'ajax, playlist detail', type: 'GET'},
         success: function (data) {
             console.log('detail get');
-            console.log(data);
+            console.log(data.playlist.tracks);
+            insert_tracks({tracks: data.playlist.tracks});
+            console.log(url);
             var html = playlistDetailTemplate({playlist: data.playlist});
             $('#content-area').html(html);
             html = playlistDetailToolBarTemplate({});
@@ -102,6 +112,9 @@ function playlist_detail_get(url) {
             html = playlistsDeleteComfirmInDetailLayoutTemplate({});
             $('#delete_comfirm').html(html);
             window.history.pushState(null, null, url);
+            if(data.tracks.length === 0) {
+
+            }
         },
         error: function (e) {
             console.log('error: ', e);
@@ -145,6 +158,25 @@ function share_playlist(user_name, share_url) {
     });
 }
 
+function accept_share_playlist(accept_url) {
+    $.ajax({
+        type: 'PUT',
+        url: accept_url,
+        dataType: 'text',
+        success: function (data) {
+            console.log(data);
+            playlist_detail_get(url);
+            alert('Accept!');
+        },
+        error: function (e) {
+            console.log('error: ', e);
+            // alert('User not found.');
+        }
+    });
+}
+
+
+
 function playlist_delete_in_detail_page(url) {
     $.ajax({
         type: 'DELETE',
@@ -170,3 +202,4 @@ function playlist_delete_in_detail_page(url) {
         $('.modal-backdrop').remove();
     });
 }
+

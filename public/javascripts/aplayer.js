@@ -15,7 +15,9 @@ const ap = new APlayer({
 
 function loadTrackPagelist() {
     var track_list = get_tracks();
+    // console.log(track_list);
     track_list = format_aplayer_tracks_data({tracks: track_list});
+    console.log(track_list);
     ap.list.clear();
     ap.list.add(track_list);
 }

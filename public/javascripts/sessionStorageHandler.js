@@ -11,10 +11,10 @@ window.format_tracks_data = function (data) {
         jsonData.push({
             id: track.id,
             title: track.title,
-            album_id: {
-                title: (null === track.album_id ? 'None' : track.album_id.title)
-            },
-            artists: track.artists,
+            // album_id: {
+            //     title: (null === track.album_id ? 'None' : track.album_id.title)
+            // },
+            artists: (null === track.artists ? "" : track.artists),
             genres: track.genres,
             duration: track.duration,
             file_name: '/tracks/' + track.file_name,
