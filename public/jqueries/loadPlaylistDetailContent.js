@@ -54,6 +54,14 @@ $(document).ready(function () {
             delete_url = null;
         }
     });
+
+    $('#content-area').on('click', '#RejectShare', function (event) {
+        event.preventDefault();
+        delete_url = $(this).attr('href');
+        console.log(delete_url);
+        $('#playlistsDeleteComfirmInDetailPane .modal-title').text('Deleting one playlist');
+        $('#playlistsDeleteComfirmInDetailPane').modal('show');
+    });
 });
 
 function enableLoadPlaylistDeatil() {

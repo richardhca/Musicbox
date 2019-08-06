@@ -8,6 +8,7 @@ div#playlist_detail.d-flex.w-100
     - const tracks_len = playlist.num_tracks;
     - const delete_playlist_id = '/playlist/delete/' + playlistID
     .row.flex-row.w-100
+        span.shared_id(style='display: none;') #{isShare}
         #playlist_info.col
             .d-flex.flex-column
                 #playlist_detail_cover.position-relative.text-center
@@ -32,10 +33,10 @@ div#playlist_detail.d-flex.w-100
                                 //a.dropdown-item Add to Player
                                 if (isShare === 'False')
                                     a.dropdown-item(data-toggle="modal" data-target="#shareplaylist") Share
-                                    a.dropdown-item(id='CancelShare') Cancel Share
+                                    //a.dropdown-item(id='CancelShare') Cancel Share
                                     a.dropdown-item.delete_playlist_in_detail_page(href=delete_playlist_id id='DelPlaylist') Delete Playlist
                                 else
-                                    a.dropdown-item(id='RejectShare') Reject Share
+                                    a.dropdown-item(id='RejectShare', href="") Reject Share
 
         #playlist_tracks.col
             .d-flex
