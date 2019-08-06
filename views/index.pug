@@ -60,7 +60,9 @@ block content
                 // tool area
                 //include upload_form
                 #tool-bar.d-flex.pb-0.pt-4
-                    if page === "track_page_get" || page === "track_create"
+                    if page === "profile_get"
+                        include profile_tool_bar
+                    else if page === "track_page_get" || page === "track_create"
                         include track_page_tool_bar
                     else if page === "playlist_page_get" || page === "playlist_create"
                         include playlist_page_tool_bar

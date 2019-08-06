@@ -245,7 +245,21 @@ div#aplayer {
 }
 
 #profile_page {
-	width: 100%;
+	width: 40%;
+	color: #fff;
+	margin: auto;
+}
+
+.profile_logo, .profile_info, .profile_btn {
+	display: block;
+	margin: auto;
+	text-align: center;
+}
+
+.profile_info input, .profile_changePw input {
+	display: inline-block;
+	width: 50%;
+	height: 25px;
 }
 
 #track_page_detail {

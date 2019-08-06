@@ -1,23 +1,43 @@
-#profile_page.d-flex.flex-wrap.align-content-center
-    - const username = profile.id
+#profile_page.position-relative.justify-content-center
+    - const username = profile.username
     - const first_name = (null === profile.first_name ? '' : profile.first_name)
     - const last_name = (null === profile.last_name ? '' : profile.last_name)
     - const email = profile.email
-    - const birthday = (undefined === profile.date_of_birth ? '' : date_of_birth)
+    - const birthday = (null === profile.date_of_birth ? '' : profile.date_of_birth)
     - date_of_register = profile.creation_date
     .profile_logo
-        i.far.fa-id-card
+        img(src='/images/user_icon.png' width='150' height='150')
         p #{username}
         hr
-    .profile_info
-        label Name:
-            p #{first_name} #{last_name}
-        label E-mail:
-            p #{email}
-        label Birthday:
-            p #{birthday}
-        label Date of Register
-            p #{date_of_register}
-    .profile_btn
-        button(type='button' class='btn btn-default btn-sm') Edit Profile
-        button(type='button' class='btn btn-default btn-sm') Change Password
+    form.profile_info.position-relative(action='' method='post')
+        .d-flex.justify-content-between
+            p Lastname:
+            input.userinfo(type='text' name='last_name' value=last_name disabled)
+        .d-flex.justify-content-between
+            p Firstname:
+            input.userinfo(type='text' name='first_name' value=first_name disabled)
+        .d-flex.justify-content-between
+            p E-mail:
+            input.userinfo(type='text' name='email' value=email disabled)
+        .d-flex.justify-content-between
+            p Birthday:
+            input.userinfo(type='date' name='birthday' value=birthday disabled)
+        .d-flex.justify-content-between
+            p Date of Register:
+            input(type='text' name='dateOfRegister' value=date_of_register disabled)
+    form.profile_changePw.position-relative(action='' method='post' style='display: none;')
+        .d-flex.justify-content-between
+            p Old Password:
+            input.pwinput(type='password' name='oldPassword')
+        .d-flex.justify-content-between
+            p New Password:
+            input.pwinput(type='password' name='newPassword')
+        .d-flex.justify-content-between
+            p Confirm Password:
+            input.pwinput(type='password' name='confirmNewPassword')
+    .profile_btn.d-flex.justify-content-around
+        button#editProfile(type='button') Edit Profile
+        button#saveEdit(type='button' style='display: none;') Save Profile
+        button#changePw(type='button') Change Password
+        button#savePw(type='button' style='display: none;') Save Password
+        button#cancel(type='button' style='display: none;') Cancel
