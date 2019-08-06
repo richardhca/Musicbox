@@ -10,12 +10,10 @@ module.exports = new EntitySchema({
         },
         title: {
             type: 'character varying',
-            length: 255,
             nullable: false
         },
         artist_name: {
             type: 'character varying',
-            length: 255,
             nullable: true
         },
         // Includes featured artists
