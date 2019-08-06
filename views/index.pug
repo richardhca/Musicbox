@@ -25,7 +25,7 @@ block content
                         i.fas.fa-stream.d-inline
                         span.d-none.d-lg-inline.text-white Playlist
 
-                    a.list-group-item.d-inline-block.mt-auto
+                    a.list-group-item.d-inline-block.mt-auto(href="/user/profile" id="profile_button")
                         hr
                         i.fas.fa-user-circle.d-inline
                         span.d-none.d-lg-inline.text-white Profile
@@ -35,7 +35,6 @@ block content
                         span.d-none.d-lg-inline.text-white Logout
 
             #app-screen.d-flex.flex-column.flex-grow-1
-
                 #playlist_create
                     if page === "playlist_page_get" || page === "playlist_create"
                         include playlist_create
@@ -83,7 +82,9 @@ block content
                 // content area
                 #item-info
                     #content-area.d-flex.flex-wrap.p-4.align-content-start
-                        if page === "track_page_get"
+                        if page === "profile_page_get"
+                            include profile
+                        else if page === "track_page_get"
                             include track_page
                         else if page === "playlist_page_get"
                             include playlist_page

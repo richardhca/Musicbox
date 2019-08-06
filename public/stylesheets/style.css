@@ -244,6 +244,10 @@ div#aplayer {
     transition-timing-function: ease-out;
 }
 
+#profile_page {
+	width: 100%;
+}
+
 #track_page_detail {
     width: 100%;
 }

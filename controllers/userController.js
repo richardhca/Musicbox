@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 exports.profile_get = async function (req, res, next) {
     const profile = await connection.getRepository('Users').findOne({id: req.session.userId});
     delete profile['password'];
+	console.log(profile);
     res.send(profile);
 };
 

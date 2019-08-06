@@ -1,7 +1,7 @@
 const path = require('path');
 const pug = require('pug');
 const validator = require('validator');
-const fs = require('fs');
+//const fs = require('fs');
 const {body, validationResult} = require('express-validator');
 const {sanitizeBody} = require('express-validator');
 const connection = require('typeorm').getConnection();

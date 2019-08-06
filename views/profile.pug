@@ -1,0 +1,23 @@
+#profile_page.d-flex.flex-wrap.align-content-center
+    - const username = profile.id
+    - const first_name = (null === profile.first_name ? '' : profile.first_name)
+    - const last_name = (null === profile.last_name ? '' : profile.last_name)
+    - const email = profile.email
+    - const birthday = (undefined === profile.date_of_birth ? '' : date_of_birth)
+    - date_of_register = profile.creation_date
+    .profile_logo
+        i.far.fa-id-card
+        p #{username}
+        hr
+    .profile_info
+        label Name:
+            p #{first_name} #{last_name}
+        label E-mail:
+            p #{email}
+        label Birthday:
+            p #{birthday}
+        label Date of Register
+            p #{date_of_register}
+    .profile_btn
+        button(type='button' class='btn btn-default btn-sm') Edit Profile
+        button(type='button' class='btn btn-default btn-sm') Change Password
