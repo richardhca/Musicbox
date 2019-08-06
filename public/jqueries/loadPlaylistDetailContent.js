@@ -35,7 +35,6 @@ $(document).ready(function () {
             console.log(share_url);
             share_playlist(user, share_url);
         }
-
     });
 
     $('#content-area').on('click', '.delete_playlist_in_detail_page', function (event) {
@@ -57,10 +56,9 @@ $(document).ready(function () {
 
     $('#content-area').on('click', '#RejectShare', function (event) {
         event.preventDefault();
-        delete_url = $(this).attr('href');
-        console.log(delete_url);
-        $('#playlistsDeleteComfirmInDetailPane .modal-title').text('Deleting one playlist');
-        $('#playlistsDeleteComfirmInDetailPane').modal('show');
+        const reject_url = $(this).attr('href');
+        console.log(reject_url);
+
     });
 });
 
