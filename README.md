@@ -40,6 +40,7 @@ If you're running linux and your docker build does not work, you can run `npm in
 #### What’s Not Working:
 
 * A playlist share recipient cannot reject a shared playlist
+* Profile Page
 
 
 
