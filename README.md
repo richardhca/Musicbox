@@ -4,6 +4,8 @@ CMPT 470 D1 Project
 
 How to run:
 
+Optional- You can use password-gen.sh to randomly generate a set of password for the database (by default it's just `password`). However, it is not necessary for testing given docker will only allow local database connections.
+
 1- Go to project root
 
 2- Run `docker-compose build && docker-compose up`
