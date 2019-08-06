@@ -41,6 +41,7 @@ $(document).ready(function () {
 	});
 	
 	$('#cancel').on('click', function () {
+		$('.userinfo').prop('disabled', true);
 		$('.profile_changePw').css('display', 'none');
 		$('.profile_info').css('display', 'block');
 		$('#editProfile').css('display', 'inline-block');

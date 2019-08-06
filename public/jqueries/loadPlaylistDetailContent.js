@@ -112,7 +112,6 @@ function share_playlist(user_name, share_url) {
         },
         error: function (e) {
             console.log('error: ', e);
-            alert('User not found.');
         }
     });
 }
