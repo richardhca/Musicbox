@@ -46,8 +46,7 @@ $(document).ready(function () {
 		const newpassword = $('#newpassword').val();
 		const confirmpassword = $('#confirmpassword').val();
 		const formsubmit_url = $('#passwordForm').attr('action');
-		//password_change(formsubmit_url, oldpassword, newpassword, confirmpassword);
-		$('#passwordForm').submit();
+		password_change(formsubmit_url, oldpassword, newpassword, confirmpassword);
 	});
 	
 	$('#cancel').on('click', function () {
