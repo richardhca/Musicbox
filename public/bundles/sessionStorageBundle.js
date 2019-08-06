@@ -33,7 +33,7 @@ window.format_aplayer_tracks_data = function (data) {
     data.tracks.forEach(track => {
         jsonData.push({
             id: track.id,
-            name: track.title,
+            name: (null === track.title ? ' ' : track.title),
             artist: (null === track.artists ? '' : track.artists),
             lrc: '',
             url: track.file_name,
