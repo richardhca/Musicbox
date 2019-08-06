@@ -12,29 +12,29 @@
     form#profileForm.profile_info.position-relative(action='/user/profile' method='post')
         .d-flex.justify-content-between
             p Lastname:
-            input.userinfo(type='text' name='last_name' value=last_name disabled)
+            input#lastname.userinfo(type='text' name='last_name' value=last_name disabled)
         .d-flex.justify-content-between
             p Firstname:
-            input.userinfo(type='text' name='first_name' value=first_name disabled)
+            input#firstname.userinfo(type='text' name='first_name' value=first_name disabled)
         .d-flex.justify-content-between
             p E-mail:
-            input.userinfo(type='email' name='email' value=email disabled)
+            input#email.userinfo(type='email' name='email' value=email disabled)
         .d-flex.justify-content-between
             p Birthday:
-            input.userinfo(type='date' name='date_of_birth' value=birthday disabled)
+            input#birthday.userinfo(type='date' name='date_of_birth' value=birthday disabled)
         .d-flex.justify-content-between
             p Date of Register:
             input(type='text' name='dateOfRegister' value=date_of_register disabled)
     form#passwordForm.profile_changePw.position-relative(action='/user/password' method='post' style='display: none;')
         .d-flex.justify-content-between
             p Old Password:
-            input.pwinput(type='password' name='oldPassword')
+            input#oldpassword.pwinput(type='password' name='oldPassword')
         .d-flex.justify-content-between
             p New Password:
-            input.pwinput(type='password' name='newPassword')
+            input#newpassword.pwinput(type='password' name='newPassword')
         .d-flex.justify-content-between
             p Confirm Password:
-            input.pwinput(type='password' name='confirmNewPassword')
+            input#comfirmpassword.pwinput(type='password' name='confirmNewPassword')
     .profile_btn.d-flex.justify-content-around
         button#editProfile(type='button') Edit Profile
         button#saveEdit(type='button' style='display: none;') Save Profile

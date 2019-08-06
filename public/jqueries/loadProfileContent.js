@@ -18,7 +18,12 @@ $(document).ready(function () {
 		$('#saveEdit').css('display', 'none');
 		$('#changePw').css('display', 'inline-block');
 		$('#cancel').css('display', 'none');
-		$('#profileForm').submit();
+		const lastname = $('#lastname').val();
+		const firstname = $('#firstname').val();
+		const email = $('#email').val();
+		const birthday = $('#birthday').val();
+		const formsubmit_url = $('#profileForm').attr('action');
+		profile_edit_change(formsubmit_url, lastname, firstname, email, birthday);
 	});
 	
 	$('#changePw').on('click', function () {
@@ -37,6 +42,11 @@ $(document).ready(function () {
 		$('#changePw').css('display', 'inline-block');
 		$('#savePw').css('display', 'none');
 		$('#cancel').css('display', 'none');
+		const oldpassword = $('#oldpassword').val();
+		const newpassword = $('#newpassword').val();
+		const confirmpassword = $('#confirmpassword').val();
+		const formsubmit_url = $('#passwordForm').attr('action');
+		//password_change(formsubmit_url, oldpassword, newpassword, confirmpassword);
 		$('#passwordForm').submit();
 	});
 	
@@ -66,5 +76,37 @@ $(document).ready(function () {
                 console.log('error: ', e);
             }
         });
+	}
+	
+	function profile_edit_change(formsubmit_url, lastname, firstname, email, birthday){
+		$.ajax({
+			type: 'POST',
+			url: formsubmit_url,
+			dataType: 'json',
+			data: {"email": email, "first_name": firstname, "last_name": lastname, "date_of_birth": birthday},
+			success: function (data) {
+				//console.log(data);
+				profile_get(url);
+			},
+			error: function (e) {
+				console.log('error: ', e);
+			}
+		});
+	}
+	
+	function password_change(formsubmit_url, oldpassword, newpassword, confirmpassword){
+		$.ajax({
+			type: 'POST',
+			url: formsubmit_url,
+			dataType: 'json',
+			data: {"oldPassword": oldpassword, "newPassword": newpassword, "confirmNewPassword": confirmpassword},
+			success: function (data) {
+				//console.log(data);
+				profile_get(url);
+			},
+			error: function (e) {
+				console.log('error: ', e);
+			}
+		});
 	}
 });
