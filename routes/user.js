@@ -6,8 +6,8 @@ var userController = require('../controllers/userController');
 
 router.get('/profile', sessionMiddleware.requiredLogin, userController.profile_get);
 
-router.put('/profile', sessionMiddleware.requiredLogin, userController.profile_put);
+router.post('/profile', sessionMiddleware.requiredLogin, userController.profile_post);
 
-router.put('/password', sessionMiddleware.requiredLogin, userController.password_put);
+router.post('/password', sessionMiddleware.requiredLogin, userController.password_post);
 
 module.exports = router;

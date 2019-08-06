@@ -1,8 +1,8 @@
 $(document).ready(function () {
-	$('#profile_button').on('click', function (event) {
-		event.preventDefault();
-		profile_get();
-	});
+	//$('#profile_button').on('click', function (event) {
+	///	event.preventDefault();
+	//	profile_get();
+	//});
 	
 	$('#editProfile').on('click', function () {
 		$('.userinfo').prop('disabled', false);
@@ -18,6 +18,7 @@ $(document).ready(function () {
 		$('#saveEdit').css('display', 'none');
 		$('#changePw').css('display', 'inline-block');
 		$('#cancel').css('display', 'none');
+		$('#profileForm').submit();
 	});
 	
 	$('#changePw').on('click', function () {
@@ -36,6 +37,7 @@ $(document).ready(function () {
 		$('#changePw').css('display', 'inline-block');
 		$('#savePw').css('display', 'none');
 		$('#cancel').css('display', 'none');
+		$('#passwordForm').submit();
 	});
 	
 	$('#cancel').on('click', function () {

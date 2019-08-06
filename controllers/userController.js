@@ -21,7 +21,7 @@ exports.profile_get = async function (req, res, next) {
     }
 };
 
-exports.profile_put = [
+exports.profile_post = [
     // Validate fields.
     body('email')
         .trim()
@@ -78,7 +78,7 @@ exports.profile_put = [
     }
 ];
 
-exports.password_put = [
+exports.password_post = [
     // Validate fields.
     body('oldPassword')
         .exists().withMessage('You must provide the old password.'),

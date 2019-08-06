@@ -250,7 +250,7 @@ div#aplayer {
 	margin: auto;
 }
 
-.profile_logo, .profile_info, .profile_btn {
+.profile_logo, .profile_info, .profile_changePw, .profile_btn {
 	display: block;
 	margin: auto;
 	text-align: center;
