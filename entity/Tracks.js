@@ -10,6 +10,7 @@ module.exports = new EntitySchema({
         },
         title: {
             type: 'character varying',
+            length: 255,
             nullable: false
         },
         mime_type: {
@@ -41,7 +42,7 @@ module.exports = new EntitySchema({
         },
         artist_name: {
             type: 'character varying',
-            length: 70,
+            length: 255,
             nullable: true
         },
         artists: {
