@@ -1,7 +1,7 @@
 var url = [];
 
 $(document).ready(function () {
-    playlist_page_play_mode();
+    // playlist_page_play_mode();
 
     $('#playlist_button').on('click', function (event) {
         event.preventDefault();
@@ -97,6 +97,8 @@ function playlist_page_get() {
         dataType: 'json',
         data: {info: 'ajax, playlist page', type: 'GET'},
         success: function (data) {
+            console.log('page_get');
+            console.log(data);
             insert_playlists(data);
             const html = playlistPageTemplate({playlists: data.playlists});
             $('#content-area').html(html);

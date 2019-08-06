@@ -34,6 +34,15 @@ function playAlbumDetailPageTracklist(id) {
     ap.play();
 }
 
+function playPlaylistDetailPageTracklist(id) {
+    console.log(id);
+    var track = get_aplayer_track(id);
+    console.log(track);
+    ap.list.clear();
+    ap.list.add(track);
+    ap.play();
+}
+
 
 // function rearrangeTracklist(track_list, idx) {
 //     var index;

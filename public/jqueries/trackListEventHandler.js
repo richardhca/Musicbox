@@ -99,6 +99,10 @@ function enabletracklistPlay() {
                 const id = $(this).find('.album_track_id').text();
                 playAlbumDetailPageTracklist(id);
             }
+            else if (location.includes('playlist/detail')) {
+                const id = $(this).find('.playlist_track_id').text();
+                playPlaylistDetailPageTracklist(id);
+            }
             // playToggle();
         }
         // pause to playing

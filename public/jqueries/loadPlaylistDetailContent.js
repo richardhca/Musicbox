@@ -2,7 +2,7 @@ var url = null;
 var delete_url = null;
 
 $(document).ready(function () {
-    enableLoadPlaylistDeatil();
+    // enableLoadPlaylistDeatil();
 
     $('#tool-bar').on('click', '.add_tracks_to_playlist', function (event) {
         event.preventDefault();
@@ -83,6 +83,7 @@ function playlist_detail_get(url) {
         dataType: 'json',
         data: {info: 'ajax, playlist detail', type: 'GET'},
         success: function (data) {
+            console.log('detail get');
             console.log(data);
             var html = playlistDetailTemplate({playlist: data.playlist});
             $('#content-area').html(html);
