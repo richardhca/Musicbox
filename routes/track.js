@@ -24,4 +24,10 @@ router.put(
     track_controller.track_modify_put
 );
 
+router.get(
+	'/:trackId',
+	sessionMiddleware.requiredLogin,
+	track_controller.track_link_get
+);
+
 module.exports = router;

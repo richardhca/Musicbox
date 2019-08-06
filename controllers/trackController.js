@@ -172,3 +172,19 @@ exports.track_modify_put = [
         res.send("Track updated.");
     }
 ];
+
+exports.track_link_get = async (req, res, next) => {
+    const id = parseInt(req.params.trackId);
+
+    // If an id character can't be converted to an int, parseInt returns NaN.
+    // Ex: 'abc'
+    if (isNaN(id)) {
+        return res.send({});
+    }
+    const track = await connection.getRepository('Tracks').findOne({id: id, owner_id: req.session.userId});
+    if(track == null){
+        return res.status(404).send();
+    }
+    const url = req.protocol + "://" + req.get('host') + "/tracks/" + track.file_name;
+    return res.send(url);
+}
