@@ -1,8 +1,8 @@
-var url = [];
+
 
 $(document).ready(function () {
     // playlist_page_play_mode();
-
+    var url = [];
     $('#playlist_button').on('click', function (event) {
         event.preventDefault();
         var html = playlistPageToolBarTemplate({});

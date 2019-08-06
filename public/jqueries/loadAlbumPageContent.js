@@ -1,6 +1,7 @@
-var url = [];
+
 
 $(document).ready(function () {
+    var url = [];
     album_page_play_mode();
 
     $('#album_button').on('click', function (event) {

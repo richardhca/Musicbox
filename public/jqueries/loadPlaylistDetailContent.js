@@ -1,9 +1,9 @@
 var url = null;
-var delete_url = null;
 
 $(document).ready(function () {
     // enableLoadPlaylistDeatil();
 
+    var delete_url = null;
     $('#tool-bar').on('click', '.add_tracks_to_playlist', function (event) {
         event.preventDefault();
         $('#addtracks').modal('show');
