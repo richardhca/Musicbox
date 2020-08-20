@@ -10,7 +10,7 @@
     "@fortawesome/fontawesome-free": "^5.9.0",
     "animate.css": "^3.7.2",
     "aplayer": "^1.10.1",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.3.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
